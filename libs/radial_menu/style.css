@@ -1,0 +1,182 @@
+body {
+    font-size: 12px;
+    font-family: "Helvetica Neue", HelveticaNeue, Helvetica;
+    background: rgb(155,141,113) url(texture.jpg);
+    margin: 0;
+    overflow: auto;
+}
+
+a[href^="http://github.com/"] {
+    position: fixed;
+    top:0;
+    right:10px;
+    z-index: 4;
+    background: hsla(0,0%,100%,0.8);
+    background: -webkit-linear-gradient(hsla(0,0%,100%,1.0), hsla(0,0%,80%,1.0));
+    background: -moz-linear-gradient(hsla(0,0%,100%,1.0), hsla(0,0%,80%,1.0));
+    border-radius: 0 0 2px 2px;
+    padding: 8px;
+    box-shadow: 0 0 4px hsla(0,0%,0%,0.4);
+    color:#666;
+    font-weight:bold;
+    text-decoration:none;
+    text-shadow: 0 1px 0 hsla(0,0%,100%,1.0);
+}
+a[href^="http://github.com/"]:hover {
+    color: hsla(0,50%,50%,1.0);
+}
+a[href^="http://github.com/"]:focus {
+    color: hsla(0,50%,50%,1.0s);
+    background: -webkit-linear-gradient(hsla(0,0%,80%,1.0), hsla(0,0%,85%,1.0) 40%, hsla(0,0%,95%,1.0));
+    background: -moz-linear-gradient(hsla(0,0%,80%,1.0), hsla(0,0%,85%,1.0) 40%, hsla(0,0%,95%,1.0));
+    box-shadow: inset 0 -1px 2px hsla(0,0%,0%,0.5), 0 1px 2px hsla(0,0%,100%,0.4);
+}
+
+#app {
+    position:absolute;
+    top:0;
+    bottom:0;
+    right:0;
+    left:0;
+    overflow:auto;
+    -webkit-overflow-scrolling: touch;
+    background: url(circles.png) no-repeat bottom left;
+    padding: 30px;
+    color: #222;
+    line-height: 1.5;
+    font-size: 16px;
+    text-shadow: 0 1px 0 hsla(0,0%,100%,0.3);
+}
+
+#app p a {
+    background: hsla(0,0%,100%,0.5);
+    border: 1px solid hsla(0,0%,100%,0.6);
+    border-radius:2px;
+    padding: 0 3px;
+    color: #333;
+}
+
+h1 {
+    margin: 20px 0;
+    padding: 0;
+    font-weight: normal;
+    text-shadow: 0 1px 0 hsla(0,0%,100%,0.5);
+}
+
+h2 {
+    margin: 40px 0 10px;
+    padding:0;
+    font-weight: normal;
+    text-shadow: 0 1px 0 hsla(0,0%,100%,0.5);
+}
+
+pre {
+    background: hsla(0,0%,100%,0.3);
+    border-radius: 2px;
+    border: 1px solid hsla(0,0%,100%,0.35);
+    padding: 20px;
+    margin: 20px 0;
+    overflow: auto;
+}
+
+p {
+    margin: 20px 0;
+    padding: 0;
+}
+
+@media screen and (-webkit-device-pixel-ratio:2) {    
+    #app {
+        background: url(circles@2x.png) no-repeat bottom left;
+        background-size: 400px 400px;
+        padding-bottom: 40px;
+    }
+    
+    body {
+        background: rgb(155,141,113) url(wood@2x.jpg);
+        background-size: 320px 480px;
+    }
+}
+
+@media screen and (-webkit-device-pixel-ratio:1) and (max-device-width:480px) {
+    #app {
+        background: url(circles.png) no-repeat bottom left;
+        padding-bottom: 40px;
+    }
+    
+    body {
+        background:rgb(155,141,113) url(wood@2x.jpg);
+        background-size: 320px 480px;
+    }
+    
+}
+
+nav#arc {
+    position:fixed;
+    top: 21px;
+    left: 30px;
+    background:#F00;
+}
+
+nav#full {
+    position: relative;
+    margin-left: 50%;
+}
+
+a {
+    -webkit-tap-highlight-color:hsla(0,0%,0%,0.0);
+}
+
+nav > a {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: #56A7BF;
+    background: -webkit-linear-gradient(hsl(192, 100%, 65%), hsl(195, 80%, 47%) 50%, hsl(202, 75%, 42%) 50%, hsl(230, 73%, 34%));
+    background: -moz-linear-gradient(hsla(0,100%,50%,1.0), hsla(0,100%,43%,1.0) 50%, hsla(0,100%,37%,1.0) 50%, hsla(0,100%,30%,1.0));
+    bottom: -23px;
+    left: -23px;
+    z-index: 2;
+    border-radius:40px;
+    font-size: 38px;
+    font-weight:bold;
+    font-family: "Helvetica Neue", HelveticaNeue;
+    text-align:center;
+    line-height:30px;
+    color:#FFF;
+    text-decoration:none;
+    border:3px solid #FFF;
+    box-shadow: 0 0 2px hsla(0,0%,0%,0.6);
+}
+
+nav ul {
+    padding:0;
+    margin:0;
+    list-style-type:none;
+}
+
+nav li {
+    position:absolute;
+    left:-16px;
+    top:-16px;
+}
+
+nav li a {
+    font-size: 18px;
+    font-weight:normal;
+    border: 3px solid #FFF;
+    box-shadow: inset 0 0 4px hsla(0,0%,0%,1.0), 0 0 2px hsla(0,0%,0%,0.6);
+    text-shadow: 0 0 2px hsla(0,0%,0%,1.0);
+    width: 27px;
+    height: 27px;
+    background:#444;
+    position: absolute;
+    top:0;
+    left:0;
+    overflow:hidden;
+    color:#FFF;
+    border-radius:26px;
+    line-height: 24px;
+    text-align: center;
+    text-decoration:none;
+    font-weight:bold;
+}

@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Issue Tracker</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, target-densitydpi=medium-dpi, user-scalable=0"/>
+    <link href="css/normalize.css" rel="stylesheet"/>
+    <link href="libs/bootstrap-3.1.1-dist/css/bootstrap.css" rel="stylesheet"/>
+    <link href="libs/bootstrap-3.1.1-dist/css/bootstrap-theme.css" rel="stylesheet"/>
+    <!--<link href="libs/pikabu/pikabu.css" rel="stylesheet"/>-->
+    <!--<link href="libs/pikabu/pikabu-theme.css" rel="stylesheet"/>-->
+    <link href="libs/pickadate.js-3.4.0/themes/default.css" rel="stylesheet"/>
+    <link href="libs/pickadate.js-3.4.0/themes/default.date.css" rel="stylesheet"/>
+    <link href="libs/pickadate.js-3.4.0/themes/default.time.css" rel="stylesheet"/>
+    <!--<link href="libs/pickadate.js-3.4.0/themes/rtl.css" rel="stylesheet"/>-->
+    <link href="libs/radial_menu/style.css" rel="stylesheet"/>
+    <link href="css/index.css" rel="stylesheet"/>
+
+</head>
+<body onload="onLoad();">
+
+<header id="header"></header>
+<br/>
+
+<div id="container"></div>
+
+<!------------------login_page--------------------------------------------------------------------------->
+<script id="login_tmp" type="x-handlebars-template">
+    <div id='content'>
+        <br/>
+
+        <div id='login_form' class="">
+            <h4 class='text-left'>Tracker Login</h4>
+            <input type='text' id='uname' class='form-control ' placeholder='Enter Username' value="rajaram"/>
+            <br/>
+            <input type='password' id='pword' class='form-control' placeholder='Enter Password' value="raja@14"/>
+            <br/>
+            <button class='btn btn-lg btn-success' id='login_submit' onclick="login_form.login();">Login</button>
+        </div>
+    </div>
+    <footer id='footer' class="panel-footer">
+        <small>Copyright @ Vibrant</small>
+    </footer>
+</script>
+<!---------------------------Main_menu_page------------------------------------------------------------------------>
+<script id="mainmenu_tmp" type="x-handlebars-template">
+    <br/>
+    <br/>
+    <div id='content' class="container container-fluid" style="text-align: center">
+        <!--<a href="#menu" class="menu-link">&#9776;</a>-->
+        <img onclick="$('#mm_modal').modal('show');" class="header_icons" src="images/Row-128.png">
+
+
+        <div id="mm_modal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+             aria-labelledby="myLargeModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        -->
+                        <h4 class="modal-title">Welcome, <h6 class="" id="name_tag"></h6></h4>
+                    </div>
+                    <!--<div id="sub_list_modal" class="modal-body"></div>-->
+                    <div id="" class="modal-body">
+                        <ul class="list-group">
+                            <li class="list-group-item" style="list-style-type: none; margin-left: 0px;">
+                                <button id="mm_options_icon" style="width: 100%; " class="btn btn-primary">Logout <label
+                                        class="glyphicon glyphicon-log-out pull-right"></label></button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Close <label
+                                class="glyphicon glyphicon-remove-sign"></label></button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--<img id="mm_options_icon" class="header_icons"  src="images/Lock-128.png">-->
+
+        <!--<div id="app">-->
+        <!--<nav id="arc">-->
+        <!--<a href=""></a>-->
+        <!--<ul>-->
+        <!--<li><a href="#">&#x263D;</a></li>-->
+        <!--<li><a href="#">&#x2600;</a></li>-->
+        <!--<li><a href="#">&#x2708;</a></li>-->
+        <!--&lt;!&ndash;<li><a href="#">&#x2605;</a></li>&ndash;&gt;-->
+        <!--&lt;!&ndash;<li><a href="#">&hearts;</a></li>&ndash;&gt;-->
+        <!--&lt;!&ndash;<li><a href="#">&#x263A;</a></li>&ndash;&gt;-->
+        <!--</ul>-->
+        <!--</nav>-->
+        <!--</div>-->
+
+        <div class="row master_ul">
+            <div class="col-xs-12 ul">
+                <div class="drop-shadow">
+                    <div class="row li" id="mm_0">
+                        <div class="col-xs-10 ">
+                            <div class="li_font">Client Issue Entry</div>
+                        </div>
+                        <div class="col-xs-2"><span class="glyphicon glyphicon-chevron-right"></span></div>
+                    </div>
+                </div>
+                <div class="drop-shadow">
+                    <div class="row li" id="mm_1">
+                        <div class="col-xs-10">
+                            <div class="li_font">Complaint Approval</div>
+                        </div>
+                        <div class="col-xs-2"><span class="glyphicon glyphicon-chevron-right"></span></div>
+                    </div>
+                </div>
+                <div class="drop-shadow">
+                    <div class="row li" id="mm_2">
+                        <div class="col-xs-10">
+                            <div class="li_font">Complaint Assignment</div>
+                        </div>
+                        <div class="col-xs-2"><span class="glyphicon glyphicon-chevron-right"></span></div>
+                    </div>
+                </div>
+                <div class="drop-shadow">
+                    <div class="row li" id="mm_3">
+                        <div class="col-xs-10">
+                            <div class="li_font">Issue Clearance</div>
+                        </div>
+                        <div class="col-xs-2"><span class="glyphicon glyphicon-chevron-right"></span></div>
+                    </div>
+                </div>
+                <div class="drop-shadow">
+                    <div class="row li" id="mm_4">
+                        <div class="col-xs-10">
+                            <div class="li_font">Assignment Status</div>
+                        </div>
+                        <div class="col-xs-2"><span class="glyphicon glyphicon-chevron-right"></span></div>
+                    </div>
+                </div>
+                <div class="drop-shadow">
+                    <div class="row li" id="mm_5">
+                        <div class="col-xs-10">
+                            <div class="li_font">Client Admin View</div>
+                        </div>
+                        <div class="col-xs-2"><span class="glyphicon glyphicon-chevron-right"></span></div>
+                    </div>
+                </div>
+                <div class="drop-shadow">
+                    <div class="row li" id="mm_6" onclick="d_act_report.load();">
+                        <div class="col-xs-10">
+                            <div class="li_font">Daily Activity Report</div>
+                        </div>
+                        <div class="col-xs-2"><span class="glyphicon glyphicon-chevron-right"></span></div>
+                    </div>
+                </div>
+                <div class="drop-shadow">
+                    <div class="row li" id="mm_7">
+                        <div class="col-xs-10">
+                            <div class="li_font">Minutes of Meeting</div>
+                        </div>
+                        <div class="col-xs-2"><span class="glyphicon glyphicon-chevron-right"></span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</script>
+<!------------------client_issues_list-------------------------------------------------------------------------------->
+
+<script id="cil_tmp" type="x-handlebars-template">
+    <div id='content'>
+
+
+        <br/>
+        <br/>
+
+        <br/>
+
+        <div class="list-group" id="m_ul">
+            {{#each d}}
+            <div class="drop-shadow main_list_items" style="padding: 0px;">
+                <table class="table table-condensed main_list" style="margin-bottom: 10px;">
+                    <tr>
+                        <td class="title_bg" style="width:20%;"><span class="pull-left">Company</span></td>
+                        <td class="text_bg"><span class="pull-left">{{CompanyName}}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="title_bg"><span class="pull-left">Module</span></td>
+                        <td class="text_bg"><span class="pull-left">{{ModuleName}}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="title_bg"><label class="pull-left">Form</label></td>
+                        <td class="text_bg"><span class="pull-left">{{FormName}}</span></td>
+                    </tr>
+                    <tr>
+                        <button onclick="cil_li.get_sub_list({{IssueID}});"
+                                class="btn btn-xs btn-info pull-right"
+                                style="width: 100%; font-weight: bold;padding-top: 2px;padding-bottom: 0px;"><label
+                                class="badge pull-left" style="margin-top: 3px;">{{CreatedDate}}</label>{{CompltIssueNo}}
+                        </button>
+                    </tr>
+                </table>
+            </div>
+            {{/each}}
+        </div>
+        <div id="" class="row" style="margin-left: 0px;margin-right: 0px;">
+            <div class="col-xs-4">
+                <button id="li_pre" class="pull-left btn btn-sm btn-primary le"><span
+                        class="glyphicon glyphicon-circle-arrow-left"></span> Prev
+                </button>
+            </div>
+            <div class="col-xs-4">
+                <button id="li_search" class="pull-left btn btn-sm btn-primary" style="width: 100%"><span
+                        class="glyphicon glyphicon-search"></span> Search
+                </button>
+            </div>
+            <div class="col-xs-4">
+                <button id="li_nex" class="pull-right btn btn-sm btn-primary"> Next <span
+                        class="glyphicon glyphicon-circle-arrow-right"></span></button>
+            </div>
+        </div>
+        <br/>
+
+        <div id="sub_li_mod" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+             aria-labelledby="myLargeModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Issues</h4>
+                    </div>
+                    <div id="sub_list_modal" class="modal-body"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="sear_mod" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+             aria-labelledby="myLargeModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <!--<div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Search</h4>
+                    </div>-->
+                    <div id="sear_modal" class="modal-body">
+                        <div class="">
+                            <div class="input-group">
+                                <input id="search_box" type="text" class="form-control" placeholder="Search">
+                                <span class="input-group-btn"><button class="btn btn-default" onclick="cil_li.search()">
+                                    <span class="glyphicon glyphicon-search "></span></button></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</script>
+
+<!------------------client_issues_sub_list-------------------------------------------------------------------------------->
+<script id="sub_cil_tmp" type="x-handlebars-template">
+    <div id='content'>
+        <ul class="list-group">
+            {{#each d}}
+            <li class="list-group-item drop-shadow text_bg">
+                <!-- <div class="">
+                     <label class="label label-success">{{CompltIssueNo}}</label>
+                     <span class="label label-warning">{{CreatedDate}}</span>
+                     <br/>
+                 </div>
+                 <div class="">
+                     <span class="label label-primary">{{ModuleName}}</span>
+                     <span class="label label-primary">{{FormName}}</span>
+                     <br/>
+                 </div>-->
+                {{IssueDescription}}
+            </li>
+
+            {{/each}}
+
+        </ul>
+        <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Close<label
+                class="glyphicon glyphicon-remove-sign"></label></button>
+    </div>
+</script>
+
+<!------------------client_issues_list_add_list-------------------------------------------------------------------------------->
+<script id="cie_add_tmp" type="x-handlebars-template">
+    <div id='content'>
+        <!--<ul class="list-group" style="border-bottom: 1px solid #269ABC; border-top: 1px solid #269ABC">
+            {{#each d}}
+            <li class="list-group-item" onclick="">
+                <div class="">
+                    <span class="label label-warning pull-left">{{CreatedDate}}</span>
+                    <span class="label label-primary pull-left">{{ModuleName}}</span>
+                    <span class="label label-primary pull-left">{{FormName}}</span>
+
+                    <span class="pull-right glyphicon glyphicon-trash" style="color: #269ABC; font-size: 15px"></span>
+                    <br/>
+                </div>
+
+                {{IssueDescription}}
+            </li>
+            {{/each}}
+        </ul>-->
+
+
+        <div class="list-group">
+            {{#each d}}
+            <div class="drop-shadow" style="padding: 0px;" onclick="c_issue_entry.del_item($(this).index());">
+                <table class="table table-condensed main_list">
+                    <tr>
+                        <td class="bg-info title_bg">
+                            {{CreatedDate}}
+                        </td>
+                        <td class="bg-warning title_bg">
+                            {{ModuleName}}
+                        </td>
+                        <td class="bg-primary title_bg">
+                            {{FormName}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="text_bg">{{IssueDescription}}
+                            <!--<span  class="pull-right glyphicon glyphicon-trash" style="color: #269ABC; font-size: 15px"></span>--></td>
+
+                    </tr>
+                </table>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+    <div id="button_div" class="col-xs-12 ul form-group">
+        <div class="row">
+            <div class="">
+                <div class="">
+                    <div class="col-xs-6">
+                        <button id="can_cie" type="button" class="btn btn-primary btn-sm pull-left">
+                            Cancel <span class="glyphicon glyphicon-remove-sign"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="">
+                <div class="">
+                    <div class="col-xs-6">
+                        <button id="sub_cie" type="button" class="btn btn-primary btn-sm pull-right">
+                            Submit <span class="glyphicon glyphicon-ok-sign"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<!------------------client_issue_entry_page--------------------------------------------------------------------------->
+<script id="cie_tmp" type="x-handlebars-template">
+    <div id='content'>
+
+        <br/>
+        <br/>
+        <!----------------------------------------------------->
+        <div id='content' class="container container-fluid" style="text-align: center">
+
+            <div class="row master_ul">
+                <div class="col-xs-12 ul form-group">
+                    <div class="row">
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-6">
+                                    <label for="sel_clients">Client Name</label>
+                                    <!--<select onchange="c_issue_entry.getModules();" id="sel_clients" class="in_box form-control"></select>-->
+                                    <select id="sel_clients" class="in_box form-control"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-6">
+                                    <label for="issue_date">Issue Date</label>
+                                    <input type="text" id="issue_date" class="in_box form-control" disabled/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+
+                    <div class="row">
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-6">
+                                    <label for="sel_module">Module Name</label>
+                                    <!--<select onchange="c_issue_entry.getForms();" id="sel_module" class="in_box form-control"></select>-->
+                                    <select id="sel_module" class="in_box form-control"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-6">
+                                    <label for="sel_form">Form Name</label>
+                                    <select id="sel_form" class="in_box form-control"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+
+                    <div class="row">
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-12">
+                                    <textarea class="form-control" rows="3" id="desc"
+                                              placeholder="Your description here..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+
+                    <div class="row">
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-6">
+                                    <label class="btn btn-primary btn-sm pull-left">
+                                        <input id="self" type="checkbox"> Self
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-6">
+                                    <button id="add_cie" type="button" class="btn btn-primary btn-sm pull-right">
+                                        ADD <span class="glyphicon glyphicon-plus-sign"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="issues_ul" class="row master_ul">
+                <!--<ul id="issues_ul" class="list-group"></ul>-->
+            </div>
+
+
+        </div>
+        <!----------------------------------------------------->
+    </div>
+</script>
+
+
+<!------------------complaint_approval_list-------------------------------------------------------------------------------->
+
+<script id="ca_li_tmp" type="x-handlebars-template">
+    <div id='content'>
+
+
+        <br/>
+        <br/>
+        <br/>
+        <div class="list-group" id="m_ul">
+            {{#each d}}
+            <div class="drop-shadow main_list_items" style="padding: 0px;">
+                <table class="table table-condensed main_list" style="margin-bottom: 10px;">
+                   <!-- <tr>
+                        <td class="title_bg" style="width:20%;"><span class="pull-left">CompliantNo</span></td>
+                        <td class="text_bg"><span class="pull-left">{{CompliantNo}}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="title_bg"><span class="pull-left">ClientIssueNo</span></td>
+                        <td class="text_bg"><span class="pull-left">{{ClientIssueNo}}</span></td>
+                    </tr>-->
+                    <tr>
+                        <td class="title_bg" style="width:20%;"><label class="pull-left">Raised By</label></td>
+                        <td class="text_bg"><span class="pull-left">{{CompliantRaisedBy}}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="title_bg"><label class="pull-left">Company</label></td>
+                        <td class="text_bg"><span class="pull-left">{{CompanyName}}</span></td>
+                    </tr>
+                   <!-- <tr>
+                        <td class="title_bg"><label class="pull-left">Smcstatus</label></td>
+                        <td class="text_bg"><span class="pull-left">{{Smcstatus}}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="title_bg"><label class="pull-left">NoOfIssue</label></td>
+                        <td class="text_bg"><span class="pull-left">{{NoOfIssue}}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="title_bg"><label class="pull-left">CreatedDate</label></td>
+                        <td class="text_bg"><span class="pull-left">{{CreatedDate}}</span></td>
+                    </tr>-->
+                    <tr>
+                        <td class="title_bg"><label class="pull-left">Module</label></td>
+                        <td class="text_bg"><span class="pull-left">{{ModuleName}}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="title_bg"><label class="pull-left">Form</label></td>
+                        <td class="text_bg"><span class="pull-left">{{FormName}}</span></td>
+                    </tr>
+                    <tr><button onclick="c_approve_list.get_sub_list({{ClientIssueNo}});"
+                                class="btn btn-xs btn-info pull-right" style="width: 100%; font-weight: bold;padding-top: 2px;padding-bottom: 0px;"><label class="badge pull-left" style="margin-top: 3px;">{{CreatedDate}}</label>{{CompliantNo}}
+                    </button></tr>
+                </table>
+            </div>
+            {{/each}}
+        </div>
+        <div id="" class="row" style="margin-left: 0px;margin-right: 0px;">
+            <div class="col-xs-4">
+                <button id="li_pre" class="pull-left btn btn-sm btn-primary le"><span
+                        class="glyphicon glyphicon-circle-arrow-left"></span> Prev
+                </button>
+            </div>
+            <div class="col-xs-4">
+                <button id="li_search" class="pull-left btn btn-sm btn-primary" style="width: 100%"><span
+                        class="glyphicon glyphicon-search"></span> Search
+                </button>
+            </div>
+            <div class="col-xs-4">
+                <button id="li_nex" class="pull-right btn btn-sm btn-primary"> Next <span
+                        class="glyphicon glyphicon-circle-arrow-right"></span></button>
+            </div>
+        </div>
+        <br/>
+
+        <div id="sub_li_mod" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+             aria-labelledby="myLargeModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Issues</h4>
+                        <br/>
+                        <div style="width: 100%">
+                        <div class="" style="width: 50%;position: relative;float: left;"><label  class="btn btn-sm btn-primary ">
+                        </label> Un-Approved </div>
+                        <div class="" style="width: 50%;position: relative;float: left;"><label  class="btn btn-sm btn-success ">
+                        </label> Approved </div>
+                        </div>
+                    </div>
+                    <div id="sub_list_modal" class="modal-body"></div>
+                    <div class="modal-footer">
+                        <button id="ca_approve_but" type="button" class="btn btn-sm btn-primary pull-left" data-dismiss="modal">Approve <label class="glyphicon glyphicon-ok-sign"></label> </button>
+                        <button id="ca_cancel_but" type="button" class="btn btn-sm btn-primary pull-right" data-dismiss="modal">Cancel <label class="glyphicon glyphicon-remove-sign"></label> </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="sear_mod" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+             aria-labelledby="myLargeModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Search</h4>
+                    </div>
+                    <div id="sear_modal" class="modal-body"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</script>
+
+<!------------------client_approval_sub_list-------------------------------------------------------------------------------->
+
+<script id="sub_ca_list_tmp" type="x-handlebars-template">
+    <div id='content'>
+        <ul class="list-group">
+            {{#each d}}
+
+            <li class="list-group-item drop-shadow text_bg {{State}}">
+
+                <!--<label class="btn btn-default btn-xs pull-left">-->
+                <div class="row">
+                <div class="col-xs-1" style="padding-left: 0px;margin-right: 5px; margin-left: 5px;">
+                    <label  class="btn btn-sm btn-primary ">
+                        <input class="y" id="" type="checkbox" onclick="c_approve_list.check_box_click({{IssueDetailID}},{{IssueID}});">
+                        <small hidden="">{{IssueDetailID}}</small>
+                    </label>
+                </div>
+                <!--</label>-->
+
+                <!-- <div class="">
+                     <label class="label label-success">{{CompltIssueNo}}</label>
+                     <span class="label label-warning">{{CreatedDate}}</span>
+                     <br/>
+                 </div>
+                 <div class="">
+                     <span class="label label-primary">{{ModuleName}}</span>
+                     <span class="label label-primary">{{FormName}}</span>
+                     <br/>
+                 </div>-->
+                <div class="col-xs-9">
+                    {{IssueDescription}}
+                </div>
+
+                    </div>
+
+
+
+            </li>
+
+            {{/each}}
+
+        </ul>
+
+
+    </div>
+</script>
+
+
+<!--
+&lt;!&ndash;-----------------------Complaint_Approval_Page------------------------&ndash;&gt;
+
+<script id="ca_tmp" type="x-handlebars-template">
+
+    <div id='content'>
+
+        <br/>
+        <br/>
+        &lt;!&ndash;-------------------------------------------------&ndash;&gt;
+        <div id='content' class="container container-fluid" style="text-align: center">
+
+            <div class="row master_ul">
+                <div class="col-xs-12 ul form-group">
+                    <div class="row">
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-6 ">
+                                    <label class="pull-left" for="ca_uname">
+                                        <small>Username:</small>
+                                    </label>
+                                    <label class="pull-left label label-success" id="ca_uname">Anand</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-6 pull-right">
+                                    <label class="pull-right label label-primary" id="ca_date">3/20/2014</label>
+                                    <label class="pull-right" for="ca_date">
+                                        <small>Date:</small>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-6">
+                                    <label class="pull-left" for="ca_com_name">
+                                        <small>Company:</small>
+                                    </label>
+                                    <label class="pull-left label label-warning" id="ca_com_name">Vibrant</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-6">
+                                    <label class="pull-right label label-info" id="ca_smc_status">Active</label>
+                                    <label class="pull-right" for="ca_smc_status">
+                                        <small>Status:</small>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row master_ul" style="border-bottom: 1px solid #269ABC; border-top: 1px solid #269ABC">
+                <ul id="issues_ul" class="list-group"></ul>
+            </div>
+            <br/>
+
+            <div class="row">
+                <div class="">
+                    <div class="">
+                        <div class="col-xs-6">
+                            <button type="button" class="btn btn-primary btn-sm pull-left">
+                                CANCEL <span class="glyphicon glyphicon-remove-sign"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="">
+                        <div class="col-xs-6">
+                            <button type="button" class="btn btn-primary btn-sm pull-right">
+                                SAVE<span class="glyphicon glyphicon-ok-sign"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        &lt;!&ndash;-------------------------------------------------&ndash;&gt;
+    </div>
+
+
+</script>-->
+
+<!-------------------------Complaint_assignment_list-------------------------->
+
+<script id="cmp_ass_list_temp" type="x-handlebars-template">
+    <div id='content'>
+
+
+        <br/>
+        <br/>
+
+        <br/>
+
+        <div class="list-group" id="m_ul">
+            {{#each d}}
+            <div class="drop-shadow main_list_items" style="padding: 0px;">
+                <table class="table table-condensed main_list" style="margin-bottom: 10px;">
+                    <tr>
+                        <td class="title_bg" style="width:20%;"><span class="pull-left">Company</span></td>
+                        <td class="text_bg"><span class="pull-left">{{CompanyName}}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="title_bg"><span class="pull-left">Module</span></td>
+                        <td class="text_bg"><span class="pull-left">{{Modulename}}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="title_bg"><label class="pull-left">Form</label></td>
+                        <td class="text_bg"><span class="pull-left">{{Formname}}</span></td>
+                    </tr>
+                    <tr>
+                        <button onclick="cmp_assign_list.get_sub_list({{IssueID}}','{{IssueDescription}});"
+                                class="btn btn-xs btn-info pull-right"
+                                style="width: 100%; font-weight: bold;padding-top: 2px;padding-bottom: 0px;"><label
+                                class="badge pull-left" style="margin-top: 3px;">{{CreatedDate}}</label>{{CompltIssueNo}}
+                        </button>
+                    </tr>
+                </table>
+            </div>
+            {{/each}}
+        </div>
+        <div id="" class="row" style="margin-left: 0px;margin-right: 0px;">
+            <div class="col-xs-4">
+                <button id="li_pre" class="pull-left btn btn-sm btn-primary le"><span
+                        class="glyphicon glyphicon-circle-arrow-left"></span> Prev
+                </button>
+            </div>
+            <div class="col-xs-4">
+                <button id="li_search" class="pull-left btn btn-sm btn-primary" style="width: 100%"><span
+                        class="glyphicon glyphicon-search"></span> Search
+                </button>
+            </div>
+            <div class="col-xs-4">
+                <button id="li_nex" class="pull-right btn btn-sm btn-primary"> Next <span
+                        class="glyphicon glyphicon-circle-arrow-right"></span></button>
+            </div>
+        </div>
+        <br/>
+
+        <div id="sub_li_mod" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+             aria-labelledby="myLargeModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Issues</h4>
+                    </div>
+                    <div id="sub_list_modal" class="modal-body"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="sear_mod" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+             aria-labelledby="myLargeModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <!--<div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Search</h4>
+                    </div>-->
+                    <div id="sear_modal" class="modal-body">
+                        <div class="">
+                            <div class="input-group">
+                                <input id="search_box" type="text" class="form-control" placeholder="Search">
+                                <span class="input-group-btn"><button class="btn btn-default" onclick="cil_li.search()">
+                                    <span class="glyphicon glyphicon-search "></span></button></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</script>
+
+
+
+
+<!-------------------------Complaint_assignment_sublist-------------------------->
+
+<script id="sub_cmp_ass_tmp" type="x-handlebars-template">
+    <div id='content'>
+        <ul class="list-group">
+            {{#each d}}
+            <li class="list-group-item drop-shadow text_bg">
+                <!-- <div class="">
+                     <label class="label label-success">{{CompltIssueNo}}</label>
+                     <span class="label label-warning">{{CreatedDate}}</span>
+                     <br/>
+                 </div>
+                 <div class="">
+                     <span class="label label-primary">{{ModuleName}}</span>
+                     <span class="label label-primary">{{FormName}}</span>
+                     <br/>
+                 </div>-->
+                {{IssueDescription}}
+            </li>
+
+            {{/each}}
+
+        </ul>
+        <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Close<label
+                class="glyphicon glyphicon-remove-sign"></label></button>
+    </div>
+</script>
+
+
+<!-------------------------issue_clearance_Page-------------------------->
+
+<script id="iss_clr_tmp" type="x-handlebars-template">
+
+<div id='content'>
+
+<br/>
+<br/>
+<!----------------------------------------------------->
+<div id='content' class="container container-fluid" style="text-align: center">
+
+    <div class="row master_ul">
+        <div class="col-xs-12 ul form-group">
+            <div class="row">
+                <div class="">
+                    <div class="">
+                        <div class="col-xs-6 ">
+                            <label class="pull-left" for="iss_clr_no">
+                                <small>Issue No:</small>
+                            </label>
+                            <label class="pull-left label label-success" id="iss_clr_no">12345</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="">
+                        <div class="col-xs-6 pull-right">
+                            <label class="pull-right label label-primary" id="iss_clr_ass">Rajaram</label>
+                            <label class="pull-right" for="iss_clr_ass">
+                                <small>Assignee:</small>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="">
+                    <div class="">
+                        <div class="col-xs-6 ">
+                            <label class="pull-left" for="iss_clr_sdate">
+                                <small>Start Date:</small>
+                            </label>
+                            <label class="pull-left label label-success" id="iss_clr_sdate">3/20/2014</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="">
+                        <div class="col-xs-6 pull-right">
+                            <label class="pull-right label label-primary" id="iss_clr_edate">4/20/2014</label>
+                            <label class="pull-right" for="iss_clr_edate">
+                                <small>End Date:</small>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="">
+                    <div class="">
+                        <div class="col-xs-6 ">
+                            <label class="pull-left" for="iss_clr_mod">
+                                <small>Module:</small>
+                            </label>
+                            <label class="pull-left label label-success" id="iss_clr_mod">Tracker</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="">
+                        <div class="col-xs-6 pull-right">
+                            <label class="pull-right label label-primary" id="iss_clr_date">3/20/2014</label>
+                            <label class="pull-right" for="iss_clr_date">
+                                <small>Date:</small>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="">
+                    <div class="">
+                        <div class="col-xs-6 ">
+                            <label class="pull-left" for="iss_clr_fom">
+                                <small>Form:</small>
+                            </label>
+                            <label class="pull-left label label-success" id="iss_clr_fom">All</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="">
+                        <div class="col-xs-6 pull-right">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="">
+                    <div class="">
+                        <div class="col-xs-4 ">
+                            <label for="iss_clr_stat">Status</label>
+
+                            <select id="iss_clr_stat" class="in_box form-control">
+                                <option>Opened</option>
+                                <option>Closed</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="">
+                        <div class="col-xs-4 ">
+                            <label for="iss_clr_ftime">From Time</label>
+                            <input type="text" id="iss_clr_ftime" class="in_box form-control"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="">
+                        <div class="col-xs-4">
+                            <label for="iss_clr_ttime">To Time</label>
+                            <input type="text" id="iss_clr_ttime" class="in_box form-control"/>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            </br>
+
+            <div class="row">
+                <div class="">
+                    <div class="">
+                        <div class="col-xs-12">
+                            <textarea class="form-control" rows="3" id="iss_clr_cdesc"
+                                      placeholder="Complaint description here..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            </br>
+            <div class="row">
+                <div class="">
+                    <div class="">
+                        <div class="col-xs-12">
+                            <textarea class="form-control" rows="3" id="iss_clr_rdesc"
+                                      placeholder="Reason for delay here..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            </br>
+            <div class="row">
+                <div class="">
+                    <div class="">
+                        <div class="col-xs-6">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="">
+                        <div class="col-xs-6">
+                            <button type="button" class="btn btn-primary btn-sm pull-right">
+                                Add<span class="glyphicon glyphicon-plus-sign"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="row master_ul" style="border-bottom: 1px solid #269ABC; border-top: 1px solid #269ABC">
+        <ul id="clear_ul" class="list-group"></ul>
+    </div>
+    <br/>
+
+    <div class="row">
+        <div class="">
+            <div class="">
+                <div class="col-xs-6">
+                    <button type="button" class="btn btn-primary btn-sm pull-left">
+                        CANCEL <span class="glyphicon glyphicon-remove-sign"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="">
+            <div class="">
+                <div class="col-xs-6">
+                    <button type="button" class="btn btn-primary btn-sm pull-right">
+                        SAVE<span class="glyphicon glyphicon-ok-sign"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!----------------------------------------------------->
+</div>
+
+
+</script>
+<!-------------------------assignment_status_Page-------------------------->
+
+<script id="ass_stat_tmp" type="x-handlebars-template">
+
+    <div id='content'>
+
+        <br/>
+        <br/>
+        <!----------------------------------------------------->
+        <div id='content' class="container container-fluid" style="text-align: center">
+
+            <div class="row master_ul">
+                <div class="col-xs-12 ul form-group">
+                    <div class="row">
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-6 ">
+                                    <label class="pull-left" for="ass_stat_own">
+                                        <small>Owner:</small>
+                                    </label>
+                                    <label class="pull-left label label-success" id="ass_stat_own">Rajaram</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-6 pull-right">
+                                    <label class="pull-right label label-success" id="ass_stat_assn">Anand</label>
+                                    <label class="pull-right" for="ass_stat_assn">
+                                        <small>Assignee:</small>
+                                    </label>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-6">
+                                    <label class="pull-left" for="ass_stat_sdate">
+                                        <small>Start Date:</small>
+                                    </label>
+                                    <label class="pull-left label label-primary" id="ass_stat_sdate">3/20/2014</label>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-6 pull-right">
+                                    <label class="pull-right label label-primary" id="ass_stat_ddate">3/20/2014</label>
+                                    <label class="pull-right" for="ass_stat_ddate">
+                                        <small>Due Date:</small>
+                                    </label>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-6">
+                                    <label class="pull-left" for="ass_stat_mod">
+                                        <small>Module:</small>
+                                    </label>
+                                    <label class="pull-left label label-primary" id="ass_stat_mod">CRM</label>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-6 pull-right">
+                                    <label class="pull-right label label-primary" id="ass_stat_fom">Message</label>
+                                    <label class="pull-right" for="ass_stat_fom">
+                                        <small>Form:</small>
+                                    </label>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </br>
+                    <div class="row">
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-12">
+                                    <textarea class="form-control" rows="3" id="ass_stat_idesc"
+                                              placeholder="Issue description here..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </br>
+                    <div class="row">
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-12">
+                                    <textarea class="form-control" rows="3" id="ass_stat_rdesc"
+                                              placeholder="Re-Conformance here..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row master_ul" style="border-bottom: 1px solid #269ABC; border-top: 1px solid #269ABC">
+                <ul id="status_ul" class="list-group"></ul>
+            </div>
+            <br/>
+
+            <div class="row">
+                <div class="">
+                    <div class="">
+                        <div class="col-xs-6">
+                            <button type="button" class="btn btn-primary btn-sm pull-left">
+                                CANCEL <span class="glyphicon glyphicon-remove-sign"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="">
+                        <div class="col-xs-6">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!----------------------------------------------------->
+    </div>
+
+
+</script>
+<!-------------------------client_admin_view_Page-------------------------->
+
+<script id="cav_tmp" type="x-handlebars-template">
+
+    <div id='content'>
+
+        <br/>
+        <br/>
+        <!----------------------------------------------------->
+        <div id='content' class="container container-fluid" style="text-align: center">
+
+            <div class="row master_ul">
+                <div class="col-xs-12 ul form-group">
+                    <div class="row">
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-6 ">
+                                    <label class="pull-left" for="cav_own">
+                                        <small>Owner:</small>
+                                    </label>
+                                    <label class="pull-left label label-success" id="cav_own">Singh</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-6 pull-right">
+                                    <label class="pull-right label label-primary" id="cav_cli">Vibrant</label>
+                                    <label class="pull-right" for="cav_cli">
+                                        <small>Client:</small>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-6 ">
+                                    <label class="pull-left" for="cav_sdate">
+                                        <small>Start Date:</small>
+                                    </label>
+                                    <label class="pull-left label label-success" id="cav_sdate">3/20/2014</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-6 pull-right">
+                                    <label class="pull-right label label-primary" id="cav_ddate">4/20/2014</label>
+                                    <label class="pull-right" for="cav_ddate">
+                                        <small>Due Date:</small>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-6 ">
+                                    <label class="pull-left" for="cav_mod">
+                                        <small>Module:</small>
+                                    </label>
+                                    <label class="pull-left label label-success" id="cav_mod">Tracker</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-6 pull-right">
+                                    <label class="pull-right label label-primary" id="cav_fom">All</label>
+                                    <label class="pull-right" for="cav_fom">
+                                        <small>Form:</small>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-6 ">
+                                    <label class="pull-left" for="cav_stat">
+                                        <small>Status:</small>
+                                    </label>
+                                    <label class="pull-left label label-success" id="cav_stat">closed</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-6 pull-right">
+                                    <label class="pull-right label label-primary" id="cav_cdate">4/20/2014</label>
+                                    <label class="pull-right" for="cav_cdate">
+                                        <small>Closed Date:</small>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    </br>
+                    <div class="row">
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-12">
+                                    <textarea class="form-control" rows="3" id="cav_idesc"
+                                              placeholder="issue description here..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    </br>
+
+                </div>
+            </div>
+
+            <div class="row master_ul" style="border-bottom: 1px solid #269ABC">
+                <ul id="admin_ul" class="list-group"></ul>
+            </div>
+            <br/>
+
+            <div class="row">
+                <div class="">
+                    <div class="">
+                        <div class="col-xs-6">
+                            <button type="button" class="btn btn-primary btn-sm pull-left">
+                                CANCEL <span class="glyphicon glyphicon-remove-sign"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="">
+                        <div class="col-xs-6">
+                            <button type="button" class="btn btn-primary btn-sm pull-right">
+                                Complete<span class="glyphicon glyphicon-ok-sign"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!----------------------------------------------------->
+    </div>
+
+</script>
+<!---->
+<!---->
+<!------------------Daily_activity_report_page--------------------------------------------------------------------------->
+<script id="dar_tmp" type="x-handlebars-template">
+    <div id='content'>
+
+        <br/>
+        <br/>
+        <!----------------------------------------------------->
+        <div id='content' class="container container-fluid" style="text-align: center">
+
+            <div class="row master_ul" style="border-bottom: 1px solid #269ABC;">
+                <div class="col-xs-12 ul form-group">
+                    <div class="row">
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-6">
+                                    <label for="rep_date">Report Date</label>
+                                    <input type="text" id="r_date" class="in_box form-control" value=""/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-6">
+                                    <label for="rep_to">Report To</label>
+                                    <!--<select onchange="c_issue_entry.getModules();" id="sel_clients" class="in_box form-control"></select>-->
+                                    <select id="rep_to" class="in_box form-control">
+                                        <option>Rajaram</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+
+                    <div class="row">
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-4">
+                                    <label for="is_no">Issue No.</label>
+                                    <select onchange="" id="is_no" class="in_box form-control">
+                                        <option>1213-ISS</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-4">
+                                    <label for="f_t">From Time</label>
+                                    <input type="text" id="f_t" class="in_box form-control" value=""/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-4">
+                                    <label for="t_t">To Time</label>
+                                    <input type="text" id="t_t" class="in_box form-control" value=""/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+
+                    <div class="row">
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-12">
+                                    <textarea class="form-control" rows="3" id="desc"
+                                              placeholder="Your description here..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+
+
+                    <div class="row">
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-6">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="">
+                                <div class="col-xs-6">
+                                    <button id="add_dar" type="button" class="btn btn-primary btn-sm pull-right"
+                                            onclick="sam();">
+                                        ADD <span class="glyphicon glyphicon-plus-sign"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--<ul id="issues_ul" class="list-group">-->
+
+            <!--</ul>-->
+
+            <ul id="issues_ul" class="list-group">
+                <li class="list-group-item">
+                    <small class="pull-left label label-info">Rajaram</small>
+                    <label class="pull-left label label-success">ISS156-23</label>
+                    <small class="pull-right label label-primary">6:00 PM</small>
+                    <aside class="pull-right label label-primary">9:00 AM</aside>
+                    <span class="pull-right label label-warning">19/3/2014</span>
+                    <br/>
+
+                    <p>Report description text goes here</p>
+                </li>
+                <li class="list-group-item">
+                    <small class="pull-left label label-info">Rajaram</small>
+                    <label class="pull-left label label-success">ISS156-23</label>
+                    <small class="pull-right label label-primary">6:00 PM</small>
+                    <aside class="pull-right label label-primary">9:00 AM</aside>
+                    <span class="pull-right label label-warning">19/3/2014</span>
+                    <br/>
+
+                    <p>Report description text goes here</p>
+                </li>
+            </ul>
+
+        </div>
+        <!----------------------------------------------------->
+    </div>
+</script>
+<!-------------------client_issue_list_listItems----------------------------------------------------------------------->
+<script id="cil_li_tmp" type="x-handlebars-template">
+    {{#each items}}
+    <li class="list-group-item">
+        <h1 hidden="hidden">{{}}</h1>
+
+        <h2 hidden="hidden">{{}}</h2>
+
+        <h3 hidden="hidden">{{}}</h3>
+        <h4 hidden="hidden">{{}}</h4>
+        <small class="pull-left label label-info">{{date}}</small>
+
+        <label class="pull-left label label-success">{{issue_id}}</label>
+
+        <span class="pull-right label label-warning">{{client_name}}</span>
+        <br/>
+
+        <aside class="pull-right label label-primary">{{module}}</aside>
+
+        <p class="pull-right label label-primary">{{form}}</p>
+        <br/>
+        {{description}}
+    </li>
+    {{/each}}
+
+</script>
+<!-------------------issue_entry_listItems----------------------------------------------------------------------->
+<script id="sample_tmp" type="x-handlebars-template">
+    <br/>
+    <br/>
+    <ul class="list-group">
+        <!--{{#each people}}-->
+        <!--<li>{{name}} <small>{{age}}</small> </li>-->
+        <!--{{/each}}-->
+        {{#each d}}
+        <li class="list-group-item">
+            <h1 hidden="hidden">{{CIssueID}}</h1>
+
+            <h2 hidden="hidden">{{ClientID}}</h2>
+
+            <h3 hidden="hidden">{{ModuleID}}</h3>
+            <h4 hidden="hidden">{{FormID}}</h4>
+
+            <small class="pull-left label label-info">{{CompanyName}}</small>
+
+            <label class="pull-left label label-success">{{CompltIssueNo}}</label>
+
+            <span class="pull-right label label-primary">{{CreatedDate}}</span>
+            <br/>
+
+            <aside class="pull-right label label-primary">{{ModuleName}}</aside>
+
+            <aside class="pull-right label label-primary">{{FormName}}</aside>
+            <br/>
+        </li>
+        {{/each}}
+    </ul>
+</script>
+<!-------------------sample_listItems----------------------------------------------------------------------->
+<script id="cie_add_li_tmp" type="x-handlebars-template">
+    {{#each item}}
+    <li class="list-group-item">
+
+        <small class="pull-left label label-info">{{date}}</small>
+
+        <!--<label class="pull-left label label-success">{{issue_id}}</label>-->
+
+        <span class="pull-right label label-primary">{{client_name}}</span>
+        <br/>
+
+        <aside class="pull-right label label-primary">{{module}}</aside>
+
+        <p class="pull-right label label-primary">{{form}}</p>
+        <br/>
+        {{desc}}
+    </li>
+    {{/each}}
+</script>
+
+
+<!------------------------------------->
+<!----------------JS--------------------->
+<!--------------------------------------------------------------------------------------------------------------------->
+<script src="phonegap.js"></script>
+<script src="libs/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="libs/fastclick.js"></script>
+<script src="libs/handlebars-1.0.rc.1.js"></script>
+<!--<script src="libs/jquery.ui.autocomplete.min.js"></script>-->
+<script src="libs/bootstrap-3.1.1-dist/js/bootstrap.js"></script>
+<!--<script src="libs/bigSlide.min.js"></script>-->
+<!--<script src="libs/pikabu/pikabu.js"></script>-->
+<script src="libs/jquery.blockUI.js"></script>
+<script src="libs/pickadate.js-3.4.0/picker.js"></script>
+<script src="libs/pickadate.js-3.4.0/picker.date.js"></script>
+<script src="libs/pickadate.js-3.4.0/picker.time.js"></script>
+<script src="libs/radial_menu/menu.js"></script>
+<script src="js/index.js"></script>
+
+<script type="application/javascript">
+
+    function onLoad() {
+        document.addEventListener("deviceready", onDeviceReady, false);
+    }
+
+
+    function onDeviceReady() {
+        // Register the event listener
+        checkConnection();
+
+        document.addEventListener("backbutton", onBackKeyDown, false);
+
+    }
+
+
+    function onBackKeyDown() {
+        var r = confirm("Press ok to exit ");
+        if (r == true) {
+            navigator.app.exitApp();
+        } else {
+        }
+    }
+
+
+    function checkConnection() {
+        var networkState = navigator.connection.type;
+
+        var states = {};
+        states[Connection.UNKNOWN] = 'Unknown connection';
+        states[Connection.ETHERNET] = 'Ethernet connection';
+        states[Connection.WIFI] = 'WiFi connection';
+        states[Connection.CELL_2G] = 'Cell 2G connection';
+        states[Connection.CELL_3G] = 'Cell 3G connection';
+        states[Connection.CELL_4G] = 'Cell 4G connection';
+        states[Connection.CELL] = 'Cell generic connection';
+        states[Connection.NONE] = 'No network connection';
+
+        if (states[networkState] == 'No network connection') {
+            alert(states[networkState] + ', you cannot search for doctors and fix any appointments but you can use other functions of the app, any changes will be updated on the server once you are online!');
+            //navigator.app.exitApp();
+            localStorage.online_state = false;
+            //indicates that the app is in offline mode
+        } else {
+            localStorage.online_state = true;
+            //indicates that the app is in online mode
+        }
+
+    }
+</script>
+<!--------------------------------------------------------------------------------------------------------------------->
+</body>
+</html>

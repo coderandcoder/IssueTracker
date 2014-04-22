@@ -1,0 +1,1655 @@
+@font-family-base : @font-size-base;
+@line-height-base;
+
+/*-----------------------------------------------templates-------------------------------------------------*/
+/*
+ * Author: http://stuffandnonsense.co.uk/blog/about/hardboiled_css3_media_queries/
+ */
+/*------------------------------------------------------------------*/
+
+
+
+/*----------------------General----------------------*/
+/*.panel {*/
+    /*position: fixed;*/
+    /*left: -15.625em; *//*left or right and the width of your navigation panel*/
+    /*width: 15.625em; *//*should match the above value*/
+/*}*/
+/*---------------------------------------------------*/
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen
+and (min-device-width: 320px)
+and (max-device-width: 480px) {
+    /* Styles */
+    body {
+        /*width: 99%;
+        height: 100%;*/
+        /*border: 1px solid salmon;*/
+        margin-left: 1px;
+        margin-right: 0px;
+        background-color: #EDEDED; /*#EDEDED #FAFAFA*/
+    }
+
+    header {
+        z-index: 1;
+        background-color: #269abc;
+        width: 100%;
+        /*margin-left: -1px;*/
+        position: fixed;
+        top: 0;
+        left: 0;
+        text-align: center;
+        padding: 5px;
+    }
+
+    .header_icons {
+        z-index: 1;
+        position: fixed;
+        top: 0;
+        left: 0;
+        margin-top: 10px;
+        margin-left: 10px;
+        float: left;
+        width: 28px;
+        height: 28px;
+    }
+
+    .entry_icons {
+        z-index: 1;
+        position: relative;
+        float: right;
+        margin-top: -35px;
+        margin-right: 10px;
+        width: 28px;
+        height: 28px;
+    }
+
+    footer {
+        background-color: #269abc;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        text-align: center;
+        padding: 5px;
+    }
+
+    #app {
+        position: absolute;
+        top: 0;
+    }
+
+    #login_form {
+        width: 75%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 50px;
+    }
+
+    button {
+        margin-right: 1px;
+    }
+
+    .ul {
+        /*background-color: #204d70;*/
+        width: 100%;
+        height: 100%;
+    }
+
+    .li {
+        background-color: #FAFAFA; /*DEDEDE EDEDED #FAFAFA*/
+        height: 20%;
+        margin-top: 8px;
+        margin-right: 2px;
+        margin-bottom: 0px;
+        margin-left: 2px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        background-repeat: no-repeat;
+        background-position: left;
+        background-size: contain;
+    }
+
+    .li_font {
+
+        text-align: right;
+        font-style: italic;
+        font-weight: bolder;
+        color: #269ABC;
+    }
+
+    .drop-shadow {
+        box-shadow: 1px 1px 5px 1px #56A7BF;
+    }
+
+    .mm_icons {
+        float: left;
+    }
+
+    #mm_0 {
+        background-image: url(../images/Note-Memo-128.png);
+    }
+
+    #mm_1 {
+        background-image: url(../images/Document-Check-128.png);
+    }
+
+    #mm_2 {
+        background-image: url(../images/Send%20To-128.png);
+    }
+
+    #mm_3 {
+        background-image: url(../images/Inventory-128.png);
+    }
+
+    #mm_4 {
+        background-image: url(../images/Election-Result-128.png);
+    }
+
+    #mm_5 {
+        background-image: url(../images/To-Do%20Bar-128.png);
+    }
+
+    #mm_6 {
+        background-image: url(../images/Note-Memo-01-128.png);
+    }
+
+    #mm_7 {
+        background-image: url(../images/Meeting-128.png);
+    }
+}
+
+/*----------------------------------------------------------------------------------------------------*/
+/* Smartphones (landscape) ----------- */
+@media only screen
+and (min-width: 321px) and (max-width: 720px) {
+    /* Styles */
+    body {
+        /*width: 99%;
+        height: 100%;*/
+        /*border: 1px solid salmon;*/
+        margin-left: 1px;
+        margin-right: 0px;
+        background-color: #EDEDED; /*#EDEDED #FAFAFA*/
+    }
+
+    header {
+        z-index: 1;
+        background-color: #269abc;
+        width: 100%;
+        /*margin-left: -1px;*/
+        position: fixed;
+        top: 0;
+        left: 0;
+        text-align: center;
+        padding: 5px;
+    }
+
+    .header_icons {
+        z-index: 1;
+        position: fixed;
+        top: 0;
+        left: 0;
+        margin-top: 10px;
+        margin-left: 10px;
+        float: left;
+        width: 28px;
+        height: 28px;
+    }
+
+    .entry_icons {
+        z-index: 1;
+        position: relative;
+        float: right;
+        margin-top: -35px;
+        margin-right: 10px;
+        width: 28px;
+        height: 28px;
+    }
+
+    footer {
+        background-color: #269abc;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        text-align: center;
+        padding: 5px;
+    }
+
+    #app {
+        position: absolute;
+        top: 0;
+    }
+
+    #login_form {
+        width: 75%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 50px;
+    }
+
+    button {
+        margin-right: 1px;
+    }
+
+    .ul {
+        /*background-color: #204d70;*/
+        width: 100%;
+        height: 100%;
+    }
+
+    .li {
+        background-color: #FAFAFA; /*DEDEDE EDEDED #FAFAFA*/
+        height: 20%;
+        margin-top: 8px;
+        margin-right: 2px;
+        margin-bottom: 0px;
+        margin-left: 2px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        background-repeat: no-repeat;
+        background-position: left;
+        background-size: contain;
+    }
+
+    .li_font {
+
+        text-align: right;
+        font-style: italic;
+        font-weight: bolder;
+        color: #269ABC;
+        font-size: 16px;
+    }
+
+    .drop-shadow {
+        box-shadow: 1px 1px 5px 1px #56A7BF;
+    }
+
+    .mm_icons {
+        float: left;
+    }
+
+    #mm_0 {
+        background-image: url(../images/Note-Memo-128.png);
+    }
+
+    #mm_1 {
+        background-image: url(../images/Document-Check-128.png);
+    }
+
+    #mm_2 {
+        background-image: url(../images/Send%20To-128.png);
+    }
+
+    #mm_3 {
+        background-image: url(../images/Inventory-128.png);
+    }
+
+    #mm_4 {
+        background-image: url(../images/Election-Result-128.png);
+    }
+
+    #mm_5 {
+        background-image: url(../images/To-Do%20Bar-128.png);
+    }
+
+    #mm_6 {
+        background-image: url(../images/Note-Memo-01-128.png);
+    }
+
+    #mm_7 {
+        background-image: url(../images/Meeting-128.png);
+    }
+}
+
+
+
+/*----------------------------------------------------------------------------------------------------*/
+/* Smartphones (landscape) ----------- */
+@media only screen
+and (min-width: 721px) and (max-width: 1024px) {
+    /* Styles */
+    body {
+        /*width: 99%;
+        height: 100%;*/
+        /*border: 1px solid salmon;*/
+        margin-left: 1px;
+        margin-right: 0px;
+        background-color: #EDEDED; /*#EDEDED #FAFAFA*/
+    }
+
+    header {
+        z-index: 1;
+        background-color: #269abc;
+        /*background-color: #4564bc;*/
+        width: 100%;
+        /*margin-left: -1px;*/
+        position: fixed;
+        top: 0;
+        left: 0;
+        text-align: center;
+        padding: 5px;
+    }
+
+    .header_icons {
+        z-index: 1;
+        position: fixed;
+        top: 0;
+        left: 0;
+        margin-top: 10px;
+        margin-left: 10px;
+        float: left;
+        width: 28px;
+        height: 28px;
+    }
+
+    .entry_icons {
+        z-index: 1;
+        position: relative;
+        float: right;
+        margin-top: -35px;
+        margin-right: 10px;
+        width: 28px;
+        height: 28px;
+    }
+
+    footer {
+        background-color: #269abc;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        text-align: center;
+        padding: 5px;
+    }
+
+    #app {
+        position: absolute;
+        top: 0;
+    }
+
+    #login_form {
+        width: 75%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 50px;
+    }
+
+    button {
+        margin-right: 1px;
+    }
+
+    .ul {
+        /*background-color: #204d70;*/
+        width: 100%;
+        height: 100%;
+    }
+
+    .li {
+        background-color: #FAFAFA; /*DEDEDE EDEDED #FAFAFA*/
+        height: 20%;
+        margin-top: 8px;
+        margin-right: 2px;
+        margin-bottom: 0px;
+        margin-left: 2px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        background-repeat: no-repeat;
+        background-position: left;
+        background-size: contain;
+    }
+
+    .li_font {
+
+        text-align: right;
+        font-style: italic;
+        font-weight: bolder;
+        color: #269ABC;
+        font-size: 16px;
+
+    }
+
+    .drop-shadow {
+        box-shadow: 1px 1px 5px 1px #56A7BF;
+    }
+
+    .mm_icons {
+        float: left;
+    }
+
+    #mm_0 {
+        background-image: url(../images/Note-Memo-128.png);
+    }
+
+    #mm_1 {
+        background-image: url(../images/Document-Check-128.png);
+    }
+
+    #mm_2 {
+        background-image: url(../images/Send%20To-128.png);
+    }
+
+    #mm_3 {
+        background-image: url(../images/Inventory-128.png);
+    }
+
+    #mm_4 {
+        background-image: url(../images/Election-Result-128.png);
+    }
+
+    #mm_5 {
+        background-image: url(../images/To-Do%20Bar-128.png);
+    }
+
+    #mm_6 {
+        background-image: url(../images/Note-Memo-01-128.png);
+    }
+
+    #mm_7 {
+        background-image: url(../images/Meeting-128.png);
+    }
+}
+
+
+/*----------------------------------------------------------------------------------------------------*/
+/* Smartphones (landscape) ----------- */
+@media only screen
+and (min-width: 1025px) and (max-width: 1280px) {
+    /* Styles */
+    body {
+        /*width: 99%;
+        height: 100%;*/
+        /*border: 1px solid salmon;*/
+        margin-left: 1px;
+        margin-right: 0px;
+        background-color: #EDEDED; /*#EDEDED #FAFAFA*/
+    }
+
+    header {
+        z-index: 1;
+        background-color: #269abc;
+        /*background-color: #bcb430;*/
+        width: 100%;
+        /*margin-left: -1px;*/
+        position: fixed;
+        top: 0;
+        left: 0;
+        text-align: center;
+        padding: 5px;
+    }
+
+    .header_icons {
+        z-index: 1;
+        position: fixed;
+        top: 0;
+        left: 0;
+        margin-top: 10px;
+        margin-left: 10px;
+        float: left;
+        width: 28px;
+        height: 28px;
+    }
+
+    .entry_icons {
+        z-index: 1;
+        position: relative;
+        float: right;
+        margin-top: -35px;
+        margin-right: 10px;
+        width: 28px;
+        height: 28px;
+    }
+
+    footer {
+        background-color: #269abc;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        text-align: center;
+        padding: 5px;
+    }
+
+    #app {
+        position: absolute;
+        top: 0;
+    }
+
+    #login_form {
+        width: 75%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 50px;
+    }
+
+    button {
+        margin-right: 1px;
+    }
+
+    .ul {
+        /*background-color: #204d70;*/
+        width: 100%;
+        height: 100%;
+    }
+
+    .li {
+        background-color: #FAFAFA; /*DEDEDE EDEDED #FAFAFA*/
+        height: 20%;
+        margin-top: 8px;
+        margin-right: 2px;
+        margin-bottom: 0px;
+        margin-left: 2px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        background-repeat: no-repeat;
+        background-position: left;
+        background-size: contain;
+    }
+
+    .li_font {
+
+        text-align: center;
+        font-style: italic;
+        font-weight: bolder;
+        color: #269ABC;
+        font-size: 20px;
+    }
+
+    .drop-shadow {
+        box-shadow: 1px 1px 5px 1px #56A7BF;
+    }
+
+    .mm_icons {
+        float: left;
+    }
+
+    #mm_0 {
+        background-image: url(../images/Note-Memo-128.png);
+    }
+
+    #mm_1 {
+        background-image: url(../images/Document-Check-128.png);
+    }
+
+    #mm_2 {
+        background-image: url(../images/Send%20To-128.png);
+    }
+
+    #mm_3 {
+        background-image: url(../images/Inventory-128.png);
+    }
+
+    #mm_4 {
+        background-image: url(../images/Election-Result-128.png);
+    }
+
+    #mm_5 {
+        background-image: url(../images/To-Do%20Bar-128.png);
+    }
+
+    #mm_6 {
+        background-image: url(../images/Note-Memo-01-128.png);
+    }
+
+    #mm_7 {
+        background-image: url(../images/Meeting-128.png);
+    }
+}
+
+
+/*-----------------------------------------------------------------------------------------------------*/
+/* Smartphones (portrait) ----------- */
+@media only screen
+and (max-width: 320px) {
+    /* Styles */
+    body {
+        /*width: 99%;
+        height: 100%;*/
+        /*border: 1px solid salmon;*/
+        margin-left: 1px;
+        margin-right: 0px;
+        background-color: #EDEDED; /*#EDEDED #FAFAFA*/
+    }
+
+    header {
+        z-index: 1;
+        background-color: #269abc;
+        width: 100%;
+        /*margin-left: -1px;*/
+        position: fixed;
+        top: 0;
+        left: 0;
+        text-align: center;
+        padding: 5px;
+    }
+
+    .header_icons {
+        z-index: 1;
+        position: fixed;
+        top: 0;
+        left: 0;
+        margin-top: 10px;
+        margin-left: 10px;
+        float: left;
+        width: 28px;
+        height: 28px;
+    }
+
+    .entry_icons {
+        z-index: 1;
+        position: relative;
+        float: right;
+        margin-top: -35px;
+        margin-right: 10px;
+        width: 28px;
+        height: 28px;
+    }
+
+    footer {
+        background-color: #269abc;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        text-align: center;
+        padding: 5px;
+    }
+
+    #app {
+        position: absolute;
+        top: 0;
+    }
+
+    #login_form {
+        width: 75%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 50px;
+    }
+
+    button {
+        margin-right: 1px;
+    }
+
+    .ul {
+        /*background-color: #204d70;*/
+        width: 100%;
+        height: 100%;
+    }
+
+    .li {
+        background-color: #FAFAFA; /*DEDEDE EDEDED #FAFAFA*/
+        height: 20%;
+        margin-top: 8px;
+        margin-right: 2px;
+        margin-bottom: 0px;
+        margin-left: 2px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        background-repeat: no-repeat;
+        background-position: left;
+        background-size: contain;
+    }
+
+    .li_font {
+
+        text-align: right;
+        font-style: italic;
+        font-weight: bolder;
+        color: #269ABC;
+    }
+
+    .drop-shadow {
+        box-shadow: 1px 1px 5px 1px #56A7BF;
+    }
+
+    .mm_icons {
+        float: left;
+    }
+
+    #mm_0 {
+        background-image: url(../images/Note-Memo-128.png);
+    }
+
+    #mm_1 {
+        background-image: url(../images/Document-Check-128.png);
+    }
+
+    #mm_2 {
+        background-image: url(../images/Send%20To-128.png);
+    }
+
+    #mm_3 {
+        background-image: url(../images/Inventory-128.png);
+    }
+
+    #mm_4 {
+        background-image: url(../images/Election-Result-128.png);
+    }
+
+    #mm_5 {
+        background-image: url(../images/To-Do%20Bar-128.png);
+    }
+
+    #mm_6 {
+        background-image: url(../images/Note-Memo-01-128.png);
+    }
+
+    #mm_7 {
+        background-image: url(../images/Meeting-128.png);
+    }
+}
+
+/*-----------------------------------------------------------------------------------------------------*/
+/* iPads (portrait and landscape) ----------- */
+@media only screen
+and (min-device-width: 768px)
+and (max-device-width: 1024px) {
+    /* Styles */
+    body {
+        /*width: 99%;
+        height: 100%;*/
+        /*border: 1px solid salmon;*/
+        margin-left: 1px;
+        margin-right: 0px;
+        background-color: #EDEDED; /*#EDEDED #FAFAFA*/
+    }
+
+    header {
+        z-index: 1;
+        background-color: #269abc;
+        width: 100%;
+        /*margin-left: -1px;*/
+        position: fixed;
+        top: 0;
+        left: 0;
+        text-align: center;
+        padding: 5px;
+    }
+
+    .header_icons {
+        z-index: 1;
+        position: fixed;
+        top: 0;
+        left: 0;
+        margin-top: 10px;
+        margin-left: 10px;
+        float: left;
+        width: 28px;
+        height: 28px;
+    }
+
+    .entry_icons {
+        z-index: 1;
+        position: relative;
+        float: right;
+        margin-top: -35px;
+        margin-right: 10px;
+        width: 28px;
+        height: 28px;
+    }
+
+    footer {
+        background-color: #269abc;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        text-align: center;
+        padding: 5px;
+    }
+
+    #app {
+        position: absolute;
+        top: 0;
+    }
+
+    #login_form {
+        width: 75%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 50px;
+    }
+
+    button {
+        margin-right: 1px;
+    }
+
+    .ul {
+        /*background-color: #204d70;*/
+        width: 100%;
+        height: 100%;
+    }
+
+    .li {
+        background-color: #FAFAFA; /*DEDEDE EDEDED #FAFAFA*/
+        height: 20%;
+        margin-top: 8px;
+        margin-right: 2px;
+        margin-bottom: 0px;
+        margin-left: 2px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        background-repeat: no-repeat;
+        background-position: left;
+        background-size: contain;
+    }
+
+    .li_font {
+
+        text-align: right;
+        font-style: italic;
+        font-weight: bolder;
+        font-size: 18px;
+        color: #269ABC;
+    }
+
+    .label {
+        font-size: 15px;
+    }
+
+    .form-control{
+
+        font-size: 15px;
+    }
+
+    .drop-shadow {
+        box-shadow: 1px 1px 5px 1px #56A7BF;
+    }
+
+    .mm_icons {
+        float: left;
+    }
+
+    #mm_0 {
+        background-image: url(../images/Note-Memo-128.png);
+    }
+
+    #mm_1 {
+        background-image: url(../images/Document-Check-128.png);
+    }
+
+    #mm_2 {
+        background-image: url(../images/Send%20To-128.png);
+    }
+
+    #mm_3 {
+        background-image: url(../images/Inventory-128.png);
+    }
+
+    #mm_4 {
+        background-image: url(../images/Election-Result-128.png);
+    }
+
+    #mm_5 {
+        background-image: url(../images/To-Do%20Bar-128.png);
+    }
+
+    #mm_6 {
+        background-image: url(../images/Note-Memo-01-128.png);
+    }
+
+    #mm_7 {
+        background-image: url(../images/Meeting-128.png);
+    }
+}
+
+/*-----------------------------------------------------------------------------------------------------*/
+/* iPads (landscape) ----------- */
+@media only screen
+and (min-device-width: 768px)
+and (max-device-width: 1024px)
+and (orientation: landscape) {
+    /* Styles */
+    body {
+        /*width: 99%;
+        height: 100%;*/
+        /*border: 1px solid salmon;*/
+        margin-left: 1px;
+        margin-right: 0px;
+        background-color: #EDEDED; /*#EDEDED #FAFAFA*/
+    }
+
+    header {
+        z-index: 1;
+        background-color: #269abc;
+        width: 100%;
+        /*margin-left: -1px;*/
+        position: fixed;
+        top: 0;
+        left: 0;
+        text-align: center;
+        padding: 5px;
+    }
+
+    .header_icons {
+        z-index: 1;
+        position: fixed;
+        top: 0;
+        left: 0;
+        margin-top: 10px;
+        margin-left: 10px;
+        float: left;
+        width: 28px;
+        height: 28px;
+    }
+
+    .entry_icons {
+        z-index: 1;
+        position: relative;
+        float: right;
+        margin-top: -35px;
+        margin-right: 10px;
+        width: 28px;
+        height: 28px;
+    }
+
+    footer {
+        background-color: #269abc;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        text-align: center;
+        padding: 5px;
+    }
+
+    .main_list_items{
+        font-size: 17px;
+
+    }
+    .main_list_items>button, .main_list_items>button>label{
+        font-size: 17px;
+    }
+
+    .title_bg {
+        font-weight: bold;
+        font-style: italic;
+        text-align: center;
+        border-radius: 6px;
+    }
+
+    .text_bg {
+
+        font-style: italic;
+        text-align: center;
+
+    }
+
+    #app {
+        position: absolute;
+        top: 0;
+    }
+
+    #login_form {
+        width: 75%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 50px;
+    }
+
+    button {
+        margin-right: 1px;
+    }
+
+    .ul {
+        /*background-color: #204d70;*/
+        width: 100%;
+        height: 100%;
+    }
+
+    .li {
+        background-color: #FAFAFA; /*DEDEDE EDEDED #FAFAFA*/
+        height: 20%;
+        margin-top: 8px;
+        margin-right: 2px;
+        margin-bottom: 0px;
+        margin-left: 2px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        background-repeat: no-repeat;
+        background-position: left;
+        background-size: contain;
+    }
+
+    .li_font {
+
+        text-align: right;
+        font-style: italic;
+        font-weight: bolder;
+        color: #269ABC;
+    }
+
+    .drop-shadow {
+        box-shadow: 1px 1px 5px 1px #56A7BF;
+    }
+
+    .mm_icons {
+        float: left;
+    }
+
+    #mm_0 {
+        background-image: url(../images/Note-Memo-128.png);
+    }
+
+    #mm_1 {
+        background-image: url(../images/Document-Check-128.png);
+    }
+
+    #mm_2 {
+        background-image: url(../images/Send%20To-128.png);
+    }
+
+    #mm_3 {
+        background-image: url(../images/Inventory-128.png);
+    }
+
+    #mm_4 {
+        background-image: url(../images/Election-Result-128.png);
+    }
+
+    #mm_5 {
+        background-image: url(../images/To-Do%20Bar-128.png);
+    }
+
+    #mm_6 {
+        background-image: url(../images/Note-Memo-01-128.png);
+    }
+
+    #mm_7 {
+        background-image: url(../images/Meeting-128.png);
+    }
+}
+
+/*-----------------------------------------------------------------------------------------------------*/
+/* iPads (portrait) ----------- */
+@media only screen
+and (min-device-width: 768px)
+and (max-device-width: 1024px)
+and (orientation: portrait) {
+    /* Styles */
+    body {
+        /*width: 99%;
+        height: 100%;*/
+        /*border: 1px solid salmon;*/
+        margin-left: 1px;
+        margin-right: 0px;
+        background-color: #EDEDED; /*#EDEDED #FAFAFA*/
+    }
+
+    header {
+        z-index: 1;
+        background-color: #269abc;
+        width: 100%;
+        /*margin-left: -1px;*/
+        position: fixed;
+        top: 0;
+        left: 0;
+        text-align: center;
+        padding: 5px;
+    }
+
+    .header_icons {
+        z-index: 1;
+        position: fixed;
+        top: 0;
+        left: 0;
+        margin-top: 10px;
+        margin-left: 10px;
+        float: left;
+        width: 28px;
+        height: 28px;
+    }
+
+    .entry_icons {
+        z-index: 1;
+        position: relative;
+        float: right;
+        margin-top: -35px;
+        margin-right: 10px;
+        width: 28px;
+        height: 28px;
+    }
+
+    footer {
+        background-color: #269abc;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        text-align: center;
+        padding: 5px;
+    }
+
+    #app {
+        position: absolute;
+        top: 0;
+    }
+
+    #login_form {
+        width: 75%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 50px;
+    }
+
+    button {
+        margin-right: 1px;
+    }
+
+    .ul {
+        /*background-color: #204d70;*/
+        width: 100%;
+        height: 100%;
+    }
+
+    .li {
+        background-color: #FAFAFA; /*DEDEDE EDEDED #FAFAFA*/
+        height: 20%;
+        margin-top: 8px;
+        margin-right: 2px;
+        margin-bottom: 0px;
+        margin-left: 2px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        background-repeat: no-repeat;
+        background-position: left;
+        background-size: contain;
+    }
+
+    .li_font {
+
+        text-align: right;
+        font-style: italic;
+        font-weight: bolder;
+        font-size: 20px;
+        color: #269ABC;
+    }
+
+    .drop-shadow {
+        box-shadow: 1px 1px 5px 1px #56A7BF;
+    }
+
+    .mm_icons {
+        float: left;
+    }
+
+    #mm_0 {
+        background-image: url(../images/Note-Memo-128.png);
+    }
+
+    #mm_1 {
+        background-image: url(../images/Document-Check-128.png);
+    }
+
+    #mm_2 {
+        background-image: url(../images/Send%20To-128.png);
+    }
+
+    #mm_3 {
+        background-image: url(../images/Inventory-128.png);
+    }
+
+    #mm_4 {
+        background-image: url(../images/Election-Result-128.png);
+    }
+
+    #mm_5 {
+        background-image: url(../images/To-Do%20Bar-128.png);
+    }
+
+    #mm_6 {
+        background-image: url(../images/Note-Memo-01-128.png);
+    }
+
+    #mm_7 {
+        background-image: url(../images/Meeting-128.png);
+    }
+}
+
+/*-----------------------------------------------------------------------------------------------------*/
+/* Desktops and laptops ----------- */
+@media only screen
+and (min-width: 1224px) {
+    /* Styles */
+    body {
+        /*width: 99%;
+        height: 100%;*/
+        /*border: 1px solid salmon;*/
+        margin-left: 1px;
+        margin-right: 0px;
+        background-color: #EDEDED; /*#EDEDED #FAFAFA*/
+    }
+
+    header {
+        z-index: 1;
+        background-color: #269abc;
+        width: 100%;
+        /*margin-left: -1px;*/
+        position: fixed;
+        top: 0;
+        left: 0;
+        text-align: center;
+        padding: 5px;
+    }
+
+    .header_icons {
+        z-index: 1;
+        position: fixed;
+        top: 0;
+        left: 0;
+        margin-top: 10px;
+        margin-left: 10px;
+        float: left;
+        width: 28px;
+        height: 28px;
+    }
+
+    .entry_icons {
+        z-index: 1;
+        position: relative;
+        float: right;
+        margin-top: -35px;
+        margin-right: 10px;
+        width: 28px;
+        height: 28px;
+    }
+
+    footer {
+        background-color: #269abc;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        text-align: center;
+        padding: 5px;
+    }
+
+    #app {
+        position: absolute;
+        top: 0;
+    }
+
+    #login_form {
+        width: 75%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 50px;
+    }
+
+    button {
+        margin-right: 1px;
+    }
+
+    .ul {
+        /*background-color: #204d70;*/
+        width: 100%;
+        height: 100%;
+    }
+
+    .li {
+        background-color: #FAFAFA; /*DEDEDE EDEDED #FAFAFA*/
+        height: 20%;
+        margin-top: 8px;
+        margin-right: 2px;
+        margin-bottom: 0px;
+        margin-left: 2px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        background-repeat: no-repeat;
+        background-position: left;
+        background-size: contain;
+    }
+
+    .li_font {
+
+        text-align: right;
+        font-style: italic;
+        font-weight: bolder;
+        color: #269ABC;
+    }
+
+    .drop-shadow {
+        box-shadow: 1px 1px 5px 1px #56A7BF;
+    }
+
+    .mm_icons {
+        float: left;
+    }
+
+    #mm_0 {
+        background-image: url(../images/Note-Memo-128.png);
+    }
+
+    #mm_1 {
+        background-image: url(../images/Document-Check-128.png);
+    }
+
+    #mm_2 {
+        background-image: url(../images/Send%20To-128.png);
+    }
+
+    #mm_3 {
+        background-image: url(../images/Inventory-128.png);
+    }
+
+    #mm_4 {
+        background-image: url(../images/Election-Result-128.png);
+    }
+
+    #mm_5 {
+        background-image: url(../images/To-Do%20Bar-128.png);
+    }
+
+    #mm_6 {
+        background-image: url(../images/Note-Memo-01-128.png);
+    }
+
+    #mm_7 {
+        background-image: url(../images/Meeting-128.png);
+    }
+}
+
+/*-----------------------------------------------------------------------------------------------------*/
+/* Large screens ----------- */
+@media only screen
+and (min-width: 1824px) {
+    /* Styles */
+    body {
+        /*width: 99%;
+        height: 100%;*/
+        /*border: 1px solid salmon;*/
+        margin-left: 1px;
+        margin-right: 0px;
+        background-color: #EDEDED; /*#EDEDED #FAFAFA*/
+    }
+
+    header {
+        z-index: 1;
+        background-color: #269abc;
+        width: 100%;
+        /*margin-left: -1px;*/
+        position: fixed;
+        top: 0;
+        left: 0;
+        text-align: center;
+        padding: 5px;
+    }
+
+    .header_icons {
+        z-index: 1;
+        position: fixed;
+        top: 0;
+        left: 0;
+        margin-top: 10px;
+        margin-left: 10px;
+        float: left;
+        width: 28px;
+        height: 28px;
+    }
+
+    .entry_icons {
+        z-index: 1;
+        position: relative;
+        float: right;
+        margin-top: -35px;
+        margin-right: 10px;
+        width: 28px;
+        height: 28px;
+    }
+
+    footer {
+        background-color: #269abc;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        text-align: center;
+        padding: 5px;
+    }
+
+    #app {
+        position: absolute;
+        top: 0;
+    }
+
+    #login_form {
+        width: 75%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 50px;
+    }
+
+    button {
+        margin-right: 1px;
+    }
+
+    .ul {
+        /*background-color: #204d70;*/
+        width: 100%;
+        height: 100%;
+    }
+
+    .li {
+        background-color: #FAFAFA; /*DEDEDE EDEDED #FAFAFA*/
+        height: 20%;
+        margin-top: 8px;
+        margin-right: 2px;
+        margin-bottom: 0px;
+        margin-left: 2px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        background-repeat: no-repeat;
+        background-position: left;
+        background-size: contain;
+    }
+
+    .li_font {
+
+        text-align: right;
+        font-style: italic;
+        font-weight: bolder;
+        color: #269ABC;
+    }
+
+    .drop-shadow {
+        box-shadow: 1px 1px 5px 1px #56A7BF;
+    }
+
+    .mm_icons {
+        float: left;
+    }
+
+    #mm_0 {
+        background-image: url(../images/Note-Memo-128.png);
+    }
+
+    #mm_1 {
+        background-image: url(../images/Document-Check-128.png);
+    }
+
+    #mm_2 {
+        background-image: url(../images/Send%20To-128.png);
+    }
+
+    #mm_3 {
+        background-image: url(../images/Inventory-128.png);
+    }
+
+    #mm_4 {
+        background-image: url(../images/Election-Result-128.png);
+    }
+
+    #mm_5 {
+        background-image: url(../images/To-Do%20Bar-128.png);
+    }
+
+    #mm_6 {
+        background-image: url(../images/Note-Memo-01-128.png);
+    }
+
+    #mm_7 {
+        background-image: url(../images/Meeting-128.png);
+    }
+}
+
+/*-----------------------------------------------------------------------------------------------------*/
+/* iPhone 4 ----------- */
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5) {
+    /* Styles */
+    body {
+        /*width: 99%;
+        height: 100%;*/
+        /*border: 1px solid salmon;*/
+        margin-left: 1px;
+        margin-right: 0px;
+        background-color: #EDEDED; /*#EDEDED #FAFAFA*/
+    }
+
+    header {
+        z-index: 1;
+        background-color: #269abc;
+        width: 100%;
+        /*margin-left: -1px;*/
+        position: fixed;
+        top: 0;
+        left: 0;
+        text-align: center;
+        padding: 5px;
+    }
+
+    .header_icons {
+        z-index: 1;
+        position: fixed;
+        top: 0;
+        left: 0;
+        margin-top: 10px;
+        margin-left: 10px;
+        float: left;
+        width: 28px;
+        height: 28px;
+    }
+
+    .entry_icons {
+        z-index: 1;
+        position: relative;
+        float: right;
+        margin-top: -35px;
+        margin-right: 10px;
+        width: 28px;
+        height: 28px;
+    }
+
+    footer {
+        background-color: #269abc;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        text-align: center;
+        padding: 5px;
+    }
+    .title_bg {
+        font-weight: bold;
+        font-style: italic;
+        text-align: center;
+        border-radius: 6px;
+    }
+
+    .text_bg {
+
+        font-style: italic;
+
+    }
+
+    #app {
+        position: absolute;
+        top: 0;
+    }
+
+    #login_form {
+        width: 75%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 50px;
+    }
+
+    button {
+        margin-right: 1px;
+    }
+
+    .ul {
+        /*background-color: #204d70;*/
+        width: 100%;
+        height: 100%;
+    }
+
+    .li {
+        background-color: #FAFAFA; /*DEDEDE EDEDED #FAFAFA*/
+        height: 20%;
+        margin-top: 8px;
+        margin-right: 2px;
+        margin-bottom: 0px;
+        margin-left: 2px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        background-repeat: no-repeat;
+        background-position: left;
+        background-size: contain;
+    }
+
+    .li_font {
+
+        text-align: right;
+        font-style: italic;
+        font-weight: bolder;
+        color: #269ABC;
+    }
+
+    .drop-shadow {
+        box-shadow: 1px 1px 5px 1px #56A7BF;
+    }
+
+    .mm_icons {
+        float: left;
+    }
+
+    #mm_0 {
+        background-image: url(../images/Note-Memo-128.png);
+    }
+
+    #mm_1 {
+        background-image: url(../images/Document-Check-128.png);
+    }
+
+    #mm_2 {
+        background-image: url(../images/Send%20To-128.png);
+    }
+
+    #mm_3 {
+        background-image: url(../images/Inventory-128.png);
+    }
+
+    #mm_4 {
+        background-image: url(../images/Election-Result-128.png);
+    }
+
+    #mm_5 {
+        background-image: url(../images/To-Do%20Bar-128.png);
+    }
+
+    #mm_6 {
+        background-image: url(../images/Note-Memo-01-128.png);
+    }
+
+    #mm_7 {
+        background-image: url(../images/Meeting-128.png);
+    }
+}
+
+/*---------------------------------------------------------------------------------------------------------*/
+
+
+
