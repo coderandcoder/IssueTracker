@@ -57,6 +57,15 @@ function unblock() {
     });
 }
 
+function search_array(valuename, key_name ,myArray){
+    for (var i=0; i < myArray.length; i++) {
+        var x = key_name;
+        if (myArray[i].x === valuename) {
+            return myArray[i];
+        }
+    }
+}
+
 
 //------------------custom functions-------------
 
@@ -139,6 +148,7 @@ mm = {
             c_approve_list.load();
         });
         $("#mm_2").click(function () {
+            block();
             cmp_assign_list.load();
 
 
@@ -873,6 +883,8 @@ unblock();
 var cmp_assign_list;
 cmp_assign_list={
 
+    array_main_list : new Array(),
+    obj_assign_item : new Object(),
     load: function () {
 //        localStorage.setItem("page_no", 1);
         this.get_data();
@@ -891,6 +903,9 @@ cmp_assign_list={
         var context = data;
         var htmls = page(context);
         this.set_contents(htmls);
+        this.array_main_list = [];
+        this.array_main_list = data.d;
+
     },
     set_events: function () {
         $("#back_img").click(function () {
@@ -898,14 +913,14 @@ cmp_assign_list={
         });
         $("#entry_img").click(function () {
             block();
-            c_issue_entry.load();
+            cmp_assign_list.load();
         });
 
-        $("#li_pre").click(function () {
+        $("#cas_li_pre").click(function () {
             cmp_assign_list.list_prev();
         });
 
-        $("#li_nex").click(function () {
+        $("#cas_li_nex").click(function () {
             cmp_assign_list.list_next();
         });
 
@@ -924,13 +939,20 @@ cmp_assign_list={
         this.set_events();
 
     },
-    get_sub_list: function (i, j, k, l, m, n) {
+    get_sub_list: function (a) {
+        var x;
+        for (var i=0; i < this.array_main_list.length; i++) {
+            if (this.array_main_list[i].IssueID === a) {
+                x = this.array_main_list[i];
+            }
+        }
+        this.sub_list(x);
+        this.obj_assign_item = {};
+        this.obj_assign_item = x;
 
-//        alert(i+"-"+j+"-"+k+"-"+l+"-"+m+"-"+n);
-        alert(i);
-        /*$.getJSON('http://182.73.141.106/Mobile/Tracker/Service1.svc/ListByDetailID?IssueID=' + j, function (data) {
-            cmp_assign_list.sub_list(data);
-        });*/
+        this.get_developer(x.CilentID);
+
+        alert(JSON.stringify(this.obj_assign_item));
     },
     sub_list: function (data) {
         var template = $("#sub_cmp_ass_tmp").html();
@@ -943,12 +965,106 @@ cmp_assign_list={
         $("#sub_list_modal").html(y);
 
         $('#sub_li_mod').modal('show');
-
+        $('#sub_li_mod').width('100%');
+        /*$("#due_date").click(function(){
+         $('body').pickadate();
+         });*/
+        $("#due_date").pickadate({
+            min: new Date(),
+            format: 'dd/mm/yyyy',
+//            formatSubmit: 'dd/mm/yyyy',
+            container: 'body'
+        });
         unblock();
+    },
+    get_developer:function(c){
+//        var a=c;
+        $.getJSON('http://182.73.141.106/Mobile/mockup/IssueTrackerMobile/ComplaintAssignmentService.svc/ListDeveloperName?ClientID='+c,function (data){
 
+            cmp_assign_list.appendDeveloper(data);
+
+        });
+    },
+
+    appendDeveloper: function (data) {
+
+        var x = data.d;
+
+        x.unshift({"__type":"ComplaintAssignmentService.ComplaintAssignmentDeveloper:#","ClientID":1,"DeveloperID":"","DeveloperName":"--SELECT DEVELOPER--"});
+
+        if (x[0].DeveloperName) {
+            var li = "";
+            for (var i = 0; i < x.length; i++) {
+                if (x != '' || x != null) {
+                    li += '<option value="' + x[i].DeveloperID + '" >' + x[i].DeveloperName + '</option>';
+                } else {
+                    li += '<option value="" >No items</option>';
+                }
+            }
+            $('#sel_dev').append(li).promise().done(function () {
+                // $(this).selectmenu('refresh', true);
+                unblock();
+            });
+        } else {
+            alert('Error connecting to server');
+        }
+    },
+    search: function () {
+        var s = $('#cass_search_box').val();
+        $.getJSON('http://182.73.141.106/Mobile/mockup/IssueTrackerMobile/ComplaintAssignmentService.svc/ListMainPagebyUserID?PageNO=' + localStorage.page_no + '&RowperPage=10&searchText=' + s + '&ClientID=' + localStorage.user_c_id + '&UserID=' + localStorage.user_id, function (data) {
+            cmp_assign_list.sear_data(data);
+        });
+    },
+    sear_data: function (data) {
+        var s = data.d.length;
+        if (s > 0) {
+            cmp_assign_list.content(data);
+//-------------removes bootstrap modal backdrop not disappearing bug----------------
+            $('#sear_mod').modal('hide');
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+//^^^^^^^^^^^^^---removes bootstrap modal backdrop not disappearing bug----^^^^^^^^^----
+        }
+        else {
+            alert("No items to display!");
+
+        }
+    },
+    list_prev: function () {
+        if (localStorage.page_no <= 1) {
+        } else {
+            localStorage.page_no--;
+            cmp_assign_list.load();
+        }
+    },
+
+    list_next: function () {
+//        alert($('#m_ul table').length);
+        if ($('#m_ul table').length != 0) {
+            if (localStorage.page_no >= 1) {
+                localStorage.page_no++;
+                cmp_assign_list.load();
+            } else {
+            }
+        } else {
+            alert("End of List, Press Previous");
+        }
+    },
+    assign:function(){
+
+        var a=$('#sel_dev').val();
+        var b=$('#due_date').val();
+var z = this.obj_assign_item;
+
+        /*alert(a);
+        alert(b);*/
+
+        var obj = { "IssueDetailID": z.IssueDetailID, "IssueID": z.IssueID, "ClientID": z.CilentID, "IssueClientID": 0, "Priority": "", "Approvalflag": 1, "IssueDescription": z.IssueDescription, "CreatedBy": z.CreatedBy, "DueDate": b, "AssignedTo": a };
+
+        alert(JSON.stringify(obj));
+        console.log(JSON.stringify(obj));
 
     }
-
 };
 
 
