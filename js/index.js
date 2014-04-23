@@ -57,13 +57,21 @@ function unblock() {
     });
 }
 
-function search_array(valuename, key_name ,myArray){
-    for (var i=0; i < myArray.length; i++) {
+function search_array(valuename, key_name, myArray) {
+    for (var i = 0; i < myArray.length; i++) {
         var x = key_name;
         if (myArray[i].x === valuename) {
             return myArray[i];
         }
     }
+}
+
+function backdrop_dismiss(){
+    //-------------removes bootstrap modal backdrop not disappearing bug----------------
+//    $('#'+a).modal('hide');
+    $('body').removeClass('modal-open');
+    $('.modal-backdrop').remove();
+//^^^^^^^^^^^^^---removes bootstrap modal backdrop not disappearing bug----^^^^^^^^^----
 }
 
 
@@ -141,14 +149,17 @@ mm = {
 
         $("#mm_0").click(function () {
             block();
+            localStorage.page_no = 1;
             cil_li.load();
         });
         $("#mm_1").click(function () {
             block();
+            localStorage.page_no = 1;
             c_approve_list.load();
         });
         $("#mm_2").click(function () {
             block();
+            localStorage.page_no = 1;
             cmp_assign_list.load();
 
 
@@ -207,7 +218,12 @@ cil_li = {
     header: "<img id='back_img' class='header_icons' src='images/Arrowhead-Left-01-128.png'><h4>Client Issues List</h4><img id='entry_img' class='entry_icons' src='images/edit.png'>",
     get_data: function () {
         $.getJSON('http://182.73.141.106/Mobile/Tracker/Service1.svc/ListMainPage?PageNO=' + localStorage.page_no + '&RowperPage=10&searchText=""&ClientID=' + localStorage.user_c_id + '&UserID=' + localStorage.user_id, function (data) {
-            cil_li.content(data);
+            if (data.d.length > 0) {
+                cil_li.content(data);
+            }
+            else {
+                alert("End of List, Press Previous");
+            }
         });
     },
     content: function (data) {
@@ -698,7 +714,13 @@ c_approve_list = {
         fdate = b + "/" + c + "/" + g;
 
         $.getJSON('http://182.73.141.106/Mobile/IssueTrackerMobile/ComplaintApprovalService.svc/SearchList?PageNo=' + localStorage.page_no + '&RowsPerPage=10&SearchText=""&ToDate=' + tdate + '&FromDate=' + fdate, function (data) {
-            c_approve_list.content(data);
+            // c_approve_list.content(data);
+            if (data.d.length > 0) {
+                c_approve_list.content(data);
+            }
+            else {
+                alert("End of List, Press Previous");
+            }
         });
     },
     content: function (data) {
@@ -735,8 +757,20 @@ c_approve_list = {
             $('#sub_li_mod').modal('hide');
             this.sub_list_array = [];
         });
+        $("#li_search").click(function () {
+            $("#sear_mod").modal('show');
+            $('#sear_mod').on('shown.bs.modal', function (e) {
+                $("#search_box").focus();
+            })
+        });
 
-unblock();
+        //-------------removes bootstrap modal backdrop not disappearing bug----------------
+        // $('#mm_modal').modal('hide');
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+//^^^^^^^^^^^^^---removes bootstrap modal backdrop not disappearing bug----^^^^^^^^^----
+
+        unblock();
 
     },
     get_sub_list: function (j) {
@@ -773,20 +807,20 @@ unblock();
             if (x == this.sub_list_array[i].IssueDetailID) {
 //                    var obj = {"IssueDetailID": x, "ClientIssueNo": y, "ApproveFlag": 0, "OverAllPriority": "high"};
 
-                    if (this.sub_list_array[i].ApproveFlag == 1) {
+                if (this.sub_list_array[i].ApproveFlag == 1) {
 //                        alert("Test flag"+ this.sub_list_array[i].ApproveFlag);
-                        this.sub_list_array[i].ApproveFlag = 0;
+                    this.sub_list_array[i].ApproveFlag = 0;
 
 //                        alert(this.sub_list_array[i].ApproveFlag);
 //                        alert(this.sub_list_array[i].ClientIssueNo);
-                    } else {
-                        this.sub_list_array[i].ApproveFlag = 1;
+                } else {
+                    this.sub_list_array[i].ApproveFlag = 1;
 
-                        this.sub_list_array[i].ClientIssueNo = y;
+                    this.sub_list_array[i].ClientIssueNo = y;
 //                        alert("inside else"+this.sub_list_array[i].ApproveFlag);
 //                        alert(this.sub_list_array[i].ApproveFlag);
 //                        alert(this.sub_list_array[i].ClientIssueNo);
-                    }
+                }
 
 //                    this.sub_list_array.push(obj);
             } else {
@@ -796,11 +830,11 @@ unblock();
 
 
     },
-    approve: function(){
+    approve: function () {
         /*alert("Inside");
-        alert(JSON.stringify(this.sub_list_array));*/
+         alert(JSON.stringify(this.sub_list_array));*/
 
-        for(var i=0; i<this.sub_list_array.length; i++){
+        for (var i = 0; i < this.sub_list_array.length; i++) {
             var y = this.sub_list_array[i];
             var x = {"IssueDetailID": y.IssueDetailID, "ClientIssueNo": y.IssueID, "ApproveFlag": y.ApproveFlag};
 //            alert(JSON.stringify(x));
@@ -811,20 +845,70 @@ unblock();
         var j = JSON.stringify(this.sub_new_array);
 //        alert(j);
 //        console.log(j);
-        $.getJSON('http://182.73.141.106/Mobile/IssueTrackerMobile/ComplaintApprovalService.svc/UpdateCompliantApproval?objCompliantNo='+ j, function (data) {
-            if(data.d == true){
+        $.getJSON('http://182.73.141.106/Mobile/IssueTrackerMobile/ComplaintApprovalService.svc/UpdateCompliantApproval?objCompliantNo=' + j, function (data) {
+            if (data.d == true) {
                 alert("Approved Successfully");
                 c_approve_list.load();
-            }else{
+            } else {
                 alert("An error occurred! try again.");
                 unblock();
             }
         });
+    },
+    list_prev: function () {
+        if (localStorage.page_no <= 1) {
+        } else {
+            localStorage.page_no--;
+            c_approve_list.load();
+        }
+    },
+
+    list_next: function () {
+    //        alert($('#m_ul table').length);
+        if ($('#m_ul table').length != 0) {
+            if (localStorage.page_no >= 1) {
+                localStorage.page_no++;
+                c_approve_list.load();
+            } else {
+            }
+        } else {
+            alert("End of List, Press Previous");
+        }
+    },
+    search: function () {
+
+        var a, b, c, d, g, tdate, fdate;
+        a = new Date();
+        b = a.getDate();
+        c = a.getMonth() + 1;
+        d = a.getFullYear();
+        g = d - 1;
+        tdate = b + "/" + c + "/" + d;
+        fdate = b + "/" + c + "/" + g;
+
+        var s = $('#search_box').val();
+
+        $.getJSON('http://182.73.141.106/Mobile/IssueTrackerMobile/ComplaintApprovalService.svc/SearchList?PageNo=' + localStorage.page_no + '&RowsPerPage=10&SearchText=' + s + '&ToDate=' + tdate + '&FromDate=' + fdate, function (data) {
+            c_approve_list.content(data);
+        });
+    },
+    sear_data: function (data) {
+        var s = data.d.length;
+        if (s > 0) {
+            cmp_assign_list.content(data);
+//-------------removes bootstrap modal backdrop not disappearing bug----------------
+            $('#sear_mod').modal('hide');
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+//^^^^^^^^^^^^^---removes bootstrap modal backdrop not disappearing bug----^^^^^^^^^----
+        }
+        else {
+            alert("No items to display!");
+
+        }
     }
 
-
-
-}
+};
 
 
 /*
@@ -881,19 +965,25 @@ unblock();
 
 //---------------------------------------------complaint_assignment_list----------------------
 var cmp_assign_list;
-cmp_assign_list={
+cmp_assign_list = {
 
-    array_main_list : new Array(),
-    obj_assign_item : new Object(),
+    array_main_list: new Array(),
+    obj_assign_item: new Object(),
     load: function () {
 //        localStorage.setItem("page_no", 1);
         this.get_data();
     },
-    header: "<img id='back_img' class='header_icons' src='images/Arrowhead-Left-01-128.png'><h4>Complaint Assignment</h4><img id='entry_img' class='entry_icons' src='images/edit.png'>",
+    header: "<img id='back_img' class='header_icons' src='images/Arrowhead-Left-01-128.png'><h4>Complaint Assignment</h4>",
     get_data: function () {
 
         $.getJSON('http://182.73.141.106/Mobile/mockup/IssueTrackerMobile/ComplaintAssignmentService.svc/ListMainPagebyUserID?PageNO=' + localStorage.page_no + '&RowperPage=10&searchText=""&ClientID=' + localStorage.user_c_id + '&UserID=' + localStorage.user_id, function (data) {
-            cmp_assign_list.content(data);
+            //cmp_assign_list.content(data);
+            if (data.d.length > 0) {
+                cmp_assign_list.content(data);
+            }
+            else {
+                alert("End of List, Press Previous");
+            }
         });
     },
     content: function (data) {
@@ -916,11 +1006,11 @@ cmp_assign_list={
             cmp_assign_list.load();
         });
 
-        $("#cas_li_pre").click(function () {
+        $("#li_pre").click(function () {
             cmp_assign_list.list_prev();
         });
 
-        $("#cas_li_nex").click(function () {
+        $("#li_nex").click(function () {
             cmp_assign_list.list_next();
         });
 
@@ -931,6 +1021,7 @@ cmp_assign_list={
             })
         });
 
+        backdrop_dismiss();
         unblock();
     },
     set_contents: function (x) {
@@ -941,7 +1032,7 @@ cmp_assign_list={
     },
     get_sub_list: function (a) {
         var x;
-        for (var i=0; i < this.array_main_list.length; i++) {
+        for (var i = 0; i < this.array_main_list.length; i++) {
             if (this.array_main_list[i].IssueID === a) {
                 x = this.array_main_list[i];
             }
@@ -952,7 +1043,7 @@ cmp_assign_list={
 
         this.get_developer(x.CilentID);
 
-        alert(JSON.stringify(this.obj_assign_item));
+//        alert(JSON.stringify(this.obj_assign_item));
     },
     sub_list: function (data) {
         var template = $("#sub_cmp_ass_tmp").html();
@@ -971,15 +1062,15 @@ cmp_assign_list={
          });*/
         $("#due_date").pickadate({
             min: new Date(),
-            format: 'dd/mm/yyyy',
+//            format: 'dd/mm/yyyy',
 //            formatSubmit: 'dd/mm/yyyy',
             container: 'body'
         });
         unblock();
     },
-    get_developer:function(c){
+    get_developer: function (c) {
 //        var a=c;
-        $.getJSON('http://182.73.141.106/Mobile/mockup/IssueTrackerMobile/ComplaintAssignmentService.svc/ListDeveloperName?ClientID='+c,function (data){
+        $.getJSON('http://182.73.141.106/Mobile/mockup/IssueTrackerMobile/ComplaintAssignmentService.svc/ListDeveloperName?ClientID=' + c, function (data) {
 
             cmp_assign_list.appendDeveloper(data);
 
@@ -990,7 +1081,7 @@ cmp_assign_list={
 
         var x = data.d;
 
-        x.unshift({"__type":"ComplaintAssignmentService.ComplaintAssignmentDeveloper:#","ClientID":1,"DeveloperID":"","DeveloperName":"--SELECT DEVELOPER--"});
+        x.unshift({"__type": "ComplaintAssignmentService.ComplaintAssignmentDeveloper:#", "ClientID": 1, "DeveloperID": "", "DeveloperName": "--SELECT DEVELOPER--"});
 
         if (x[0].DeveloperName) {
             var li = "";
@@ -1005,12 +1096,20 @@ cmp_assign_list={
                 // $(this).selectmenu('refresh', true);
                 unblock();
             });
+
+            $('#sel_dev').change(function () {
+                $('#sel_dev').blur();
+            });
+
         } else {
             alert('Error connecting to server');
         }
     },
+
     search: function () {
-        var s = $('#cass_search_box').val();
+
+        var s = $('#search_box').val();
+//        alert(s);
         $.getJSON('http://182.73.141.106/Mobile/mockup/IssueTrackerMobile/ComplaintAssignmentService.svc/ListMainPagebyUserID?PageNO=' + localStorage.page_no + '&RowperPage=10&searchText=' + s + '&ClientID=' + localStorage.user_c_id + '&UserID=' + localStorage.user_id, function (data) {
             cmp_assign_list.sear_data(data);
         });
@@ -1049,24 +1148,47 @@ cmp_assign_list={
         } else {
             alert("End of List, Press Previous");
         }
+
     },
-    assign:function(){
+    assign: function () {
+        var a = $('#sel_dev').val();
+        var b = $('#due_date').val();
 
-        var a=$('#sel_dev').val();
-        var b=$('#due_date').val();
-var z = this.obj_assign_item;
+        if (a == "" || b == "") {
+            alert("Please fill in all the fields");
+        }
+        else {
+            block();
 
-        /*alert(a);
-        alert(b);*/
 
-        var obj = { "IssueDetailID": z.IssueDetailID, "IssueID": z.IssueID, "ClientID": z.CilentID, "IssueClientID": 0, "Priority": "", "Approvalflag": 1, "IssueDescription": z.IssueDescription, "CreatedBy": z.CreatedBy, "DueDate": b, "AssignedTo": a };
+            var z = this.obj_assign_item;
+            var d = new Date(b);
+            var d1 = d.getDate();
+            var d2 = d.getMonth() + 1;
+            var d3 = d.getFullYear();
+            var e = d3 + "/" + d2 + "/" + d1;
+            //  alert(e);
 
-        alert(JSON.stringify(obj));
-        console.log(JSON.stringify(obj));
+            var obj = { "IssueDetailID": z.IssueDetailID, "IssueID": z.IssueID, "ClientID": z.CilentID, "IssueClientID": 0, "Priority": "medium", "Approvalflag": 1, "IssueDescription": z.IssueDescription, "CreatedBy": z.CreatedBy, "DueDate": e, "AssignedTo": a};
 
+//     alert(JSON.stringify(obj));
+
+            var data = JSON.stringify(obj);
+//		alert(data);
+            $.getJSON('http://182.73.141.106/Mobile/mockup/IssueTrackerMobile/ComplaintAssignmentService.svc/Create?ObjAssign=' + data, function (data) {
+                if(data.d != ""){
+                    alert("Assigned successfully");
+                    cmp_assign_list.load(data);
+                }else{
+                    alert("Assignment failed");
+                }
+
+
+//                alert(data.d);
+            });
+        }
     }
 };
-
 
 
 //---------------------------------------------daily_activity_report_object----------------------------

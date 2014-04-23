@@ -12,7 +12,7 @@ version   = "0.0.1">
 	<author href="https://build.phonegap.com" email="support@phonegap.com">AnandRaj Elangovan</author>
 	<icon src="icon.png" />
 	<gap:splash src="splash.png" gap:platform="android" gap:density="ldpi"/>
-	<preference name="phonegap-version" value="3.1.0" />
+	<preference name="phonegap-version" value="3.3.0" />
 	<preference name="android-installLocation" value="auto" />
 	<!--<preference name="orientation" value="portrait" />-->
 	<preference name="fullscreen" value="false" />
