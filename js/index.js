@@ -251,6 +251,19 @@ cil_li = {
             cil_li.list_next();
         });
 
+       /* $("#entry_img").onmouseover(function () {
+            $("#entry_img").attr('src','images/pencil_red.png');
+        });
+        $("#entry_img").onmouseout(function () {
+            $("#entry_img").attr('src','images/pencil_red.png');
+        });*/
+
+        /*$('#entry_img').hover(function () {
+            this.src = 'images/edit.png';
+        }, function () {
+            this.src = 'images/Row-128.png';
+        });*/
+
         $("#li_search").click(function () {
             $("#sear_mod").modal('show');
             $('#sear_mod').on('shown.bs.modal', function (e) {
