@@ -165,7 +165,7 @@ mm = {
 
         });
         $("#mm_3").click(function () {
-            iss_clr.load();
+            iss_clr_list.load();
 
         });
         $("#mm_4").click(function () {
@@ -1204,6 +1204,220 @@ cmp_assign_list = {
 };
 
 
+
+//---------------------------------------------issue_clearance----------------------------
+var iss_clr_list;
+iss_clr_list = {
+    array_main: new Array(),
+    array_main_list: new Array(),
+    array_sub_list : new Array(),
+
+    load: function () {
+//        localStorage.setItem("page_no", 1);
+
+        this.get_data();
+    },
+    header: "<img id='back_img' class='header_icons' src='images/Arrowhead-Left-01-128.png'><h4>Issue Clearance</h4>",
+    get_data: function () {
+        //alert(localStorage.user_id);
+        this.array_main_list = [];
+        this.array_main=[];
+        $.getJSON('http://182.73.141.106/Mobile/mockup/IssueTrackerMobile/IssueClearanceService.svc/ListIssueClearancePage?PageNo=' + localStorage.page_no + '&RowsPerPage=10&SearchText=""&ClientId=' + localStorage.user_c_id + '&UserId=' + localStorage.user_id, function (data) {
+            //cmp_assign_list.content(data);
+
+            if(data.d.length>0)
+            {
+
+                iss_clr_list.content(data);
+            }
+            else{
+                alert("End of List, Press Previous");
+            }
+        });
+    },
+    content: function (data) {
+        //alert(date);
+        this.array_main=data.d;
+        //alert(this.array_main.length);
+        this.array_main_list = data.d;
+        var len=this.array_main_list.length;
+
+        for(var i=0;i<len;i++){
+
+            var sd= this.array_main_list[i].StartDate;
+            var ed=this.array_main_list[i].EndDate;
+            var s = sd.split(" ");
+            var e = ed.split(" ");
+            var ss=s[0];
+            var ee=e[0];
+            this.array_main_list[i].StartDate=ss;
+            this.array_main_list[i].EndDate=ee;
+
+        }
+        //alert(JSON.stringify(this.array_main_list));
+        var template = $("#iss_clr_list_temp").html();
+        var page = Handlebars.compile(template);
+
+        var context = data;
+        var htmls = page(context);
+        this.set_contents(htmls);
+        //this.array_main_list = [];
+        //this.array_main_list = data.d;
+
+    },
+    set_events: function () {
+        $("#back_img").click(function () {
+            mm.load();
+        });
+
+        $("#li_pre").click(function () {
+            iss_clr_list.list_prev();
+        });
+
+        $("#li_nex").click(function () {
+            iss_clr_list.list_next();
+        });
+
+        $("#ca_approve_but").click(function () {
+            block();
+            iss_clr_list.approve();
+        });
+        $("#ca_cancel_but").click(function () {
+
+            $('#sub_li_mod').modal('hide');
+            this.array_sub_list = [];
+        });
+        $("#li_search").click(function () {
+            $("#sear_mod").modal('show');
+            $('#sear_mod').on('shown.bs.modal', function (e) {
+                $("#search_box").focus();
+            })
+        });
+
+        //-------------removes bootstrap modal backdrop not disappearing bug----------------
+        // $('#mm_modal').modal('hide');
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+//^^^^^^^^^^^^^---removes bootstrap modal backdrop not disappearing bug----^^^^^^^^^----
+
+        unblock();
+
+    },
+    set_contents: function (x) {
+        $("#container").html(x);
+        $("header").html(this.header);
+        this.set_events();
+
+    },
+
+    get_sub_list:function(a){
+
+        // alert(a);
+        var len= this.array_main_list.length;
+//alert(len);
+        //alert(this.array_main.length);
+        //alert(JSON.stringify(array_main_list));
+        for (var i = 0; i < len; i++)
+        {
+
+            if(this.array_main_list[i].AssignedID==a && this.array_main[i].AssignedID==a)
+            {
+                var y = this.array_main_list[i];
+                var z=this.array_main[i];
+                this.array_main=[];
+                this.array_main.push(z);
+                iss_clr_list.sub_list(y);
+            }
+        }
+    },
+    sub_list: function (data) {
+        // alert(JSON.stringify(data));
+        var template = $("#sub_issclr_list_tmp").html();
+        var page = Handlebars.compile(template);
+        var context = data;
+        var htmls = page(context);
+        this.set_sub(htmls);
+//        var z = data.d;
+//        this.sub_list_array = z;
+    },
+    set_sub: function (y) {
+        $("#sub_list_modal").html(y);
+        $('#sub_li_mod').modal('show');
+//        $('.true').css('background-color','red');
+//        $('.true').css('background','#269abc');
+//        var tag = '';
+//        $('.true').append();
+
+        iss_clr_list.set_datetime();
+
+        unblock();
+    },
+
+
+    set_datetime: function () {
+
+        var a, b, c, d, e;
+        a = new Date();
+        b = a.getDate();
+        c = a.getMonth() + 1;
+        d = a.getFullYear();
+        e = b + "-" + c + "-" + d;
+        $("#date").val(e);
+        $("#frm_time").pickatime();
+        $("#to_time").pickatime();
+        //container: 'body'
+    },
+    create:function(){
+
+        // alert("hi");
+        var a=$("#iss_clr_stat :selected").text();
+        var b=$("#frm_time").val();
+        var c=$("#to_time").val();
+        var d=$("#dail_desc").val();
+
+        var aa, bb, cc, dd, e;
+        aa = new Date();
+        bb = aa.getDate();
+        cc = aa.getMonth() + 1;
+        dd = aa.getFullYear();
+        e = dd + "-" + cc + "-" + bb;
+
+
+        var y=this.array_main;
+
+//        var z={"ClosedDate":e,"DailyUpdate":d,"Status":a,"Fromtime":b, "ToTime": c,"EndDate": y.EndDate,"StartDate": y.StartDate,"AssignedBy": y.AssignedBy,"ModuleID": y.ModuleID,"CompliantDescription": y.CompliantDescription,"AssignedID": y.AssignedID,"ModuleID": y.ModuleID,"FormID":y.FormID,"SNO": y.SNO,"IssueID": y.IssueID,"CreatedBy": y.CreatedBy,"OurDescription": y.OurDescription,"Reason":d};
+        var z={"ClosedDate":e,"DailyUpdate":d,"Status":a,"Fromtime":b, "ToTime": c,"EndDate": y[0].EndDate,"StartDate": y[0].StartDate,"AssignedBy": y[0].AssignedBy,"ModuleID": y[0].ModuleID,"CompliantDescription": y[0].CompliantDescription,"AssignedID": y[0].AssignedID,"FormID":y[0].FormID,"SNO": y[0].SNO,"IssueID": y[0].IssueID,"CreatedBy": y[0].CreatedBy,"OurDescription": y[0].OurDescription,"Reason":d};
+        var arr_obj=JSON.stringify(z);
+        alert(arr_obj);
+
+        $.getJSON('http://182.73.141.106/Mobile/mockup/IssueTrackerMobile/IssueClearanceService.svc/Create?objIssueClearance=' +arr_obj, function (data) {
+            if(data.d>0){
+                alert("success");
+                iss_clr_list.load(data);
+            }else
+            {
+                alert("fail");
+            }
+        });
+    },
+    list:function(id){
+        alert(id);
+        $.getJSON('http://localhost:51936/IssueTrackerMobile/IssueClearanceService.svc/ListByDetailID?AssignedID=' + id, function (data) {
+            if(data.d>0){
+
+                iss_clr_list.load(data);
+            }else
+            {
+            }
+        });
+
+    }
+
+
+};
+
+
+
 //---------------------------------------------daily_activity_report_object----------------------------
 var d_act_report;
 d_act_report = {
@@ -1331,7 +1545,7 @@ cmp_assign = {
     }
 };
 //---------------------------------------------issue_clearance----------------------------
-var iss_clr;
+/*var iss_clr;
 iss_clr = {
     load: function () {
         $("#container").html(this.content);
@@ -1390,7 +1604,7 @@ iss_clr = {
 
         return render.tmpl_cache[tmpl_name](tmpl_data);
     }
-};
+};*/
 //-----------------------------------------assignment_status----------------------------
 var ass_stat;
 ass_stat = {

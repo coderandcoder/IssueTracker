@@ -882,221 +882,189 @@
 </script>
 
 
-<!-------------------------issue_clearance_Page-------------------------->
 
-<script id="iss_clr_tmp" type="x-handlebars-template">
 
-<div id='content'>
+<!-------------------------issue_clearance_list-------------------------->
 
-<br/>
-<br/>
-<!----------------------------------------------------->
-<div id='content' class="container container-fluid" style="text-align: center">
+<script id="iss_clr_list_temp" type="x-handlebars-template">
+    <div id='content'>
 
-    <div class="row master_ul">
-        <div class="col-xs-12 ul form-group">
-            <div class="row">
-                <div class="">
-                    <div class="">
-                        <div class="col-xs-6 ">
-                            <label class="pull-left" for="iss_clr_no">
-                                <small>Issue No:</small>
-                            </label>
-                            <label class="pull-left label label-success" id="iss_clr_no">12345</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="">
-                    <div class="">
-                        <div class="col-xs-6 pull-right">
-                            <label class="pull-right label label-primary" id="iss_clr_ass">Rajaram</label>
-                            <label class="pull-right" for="iss_clr_ass">
-                                <small>Assignee:</small>
-                            </label>
-                        </div>
-                    </div>
-                </div>
+
+        <br/>
+        <br/>
+
+        <br/>
+
+        <div class="list-group" id="m_ul">
+            {{#each d}}
+            <div class="drop-shadow main_list_items" style="padding: 0px;">
+                <table class="table table-condensed main_list" style="margin-bottom: 10px;">
+                    <tr>
+                        <td class="title_bg" style="width:20%;"><span class="pull-left">Assignee</span></td>
+                        <td class="text_bg"><span class="pull-left">{{AssignedBy}}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="title_bg"><span class="pull-left">Module</span></td>
+                        <td class="text_bg"><span class="pull-left">{{ModuleName}}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="title_bg"><label class="pull-left">Form</label></td>
+                        <td class="text_bg"><span class="pull-left">{{FormName}}</span></td>
+                    </tr>
+                    <tr>
+                        <button onclick="iss_clr_list.get_sub_list({{AssignedID}})"
+                                class="btn btn-xs btn-info pull-right"
+                                style="width: 100%; font-weight: bold;padding-top: 2px;padding-bottom: 0px;"><label class="badge pull-left" style="margin-top: 3px;">{{StartDate}}</label>{{CompltIssueNo}}
+
+                        </button>
+                    </tr>
+                </table>
             </div>
-            <div class="row">
-                <div class="">
-                    <div class="">
-                        <div class="col-xs-6 ">
-                            <label class="pull-left" for="iss_clr_sdate">
-                                <small>Start Date:</small>
-                            </label>
-                            <label class="pull-left label label-success" id="iss_clr_sdate">3/20/2014</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="">
-                    <div class="">
-                        <div class="col-xs-6 pull-right">
-                            <label class="pull-right label label-primary" id="iss_clr_edate">4/20/2014</label>
-                            <label class="pull-right" for="iss_clr_edate">
-                                <small>End Date:</small>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="">
-                    <div class="">
-                        <div class="col-xs-6 ">
-                            <label class="pull-left" for="iss_clr_mod">
-                                <small>Module:</small>
-                            </label>
-                            <label class="pull-left label label-success" id="iss_clr_mod">Tracker</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="">
-                    <div class="">
-                        <div class="col-xs-6 pull-right">
-                            <label class="pull-right label label-primary" id="iss_clr_date">3/20/2014</label>
-                            <label class="pull-right" for="iss_clr_date">
-                                <small>Date:</small>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="">
-                    <div class="">
-                        <div class="col-xs-6 ">
-                            <label class="pull-left" for="iss_clr_fom">
-                                <small>Form:</small>
-                            </label>
-                            <label class="pull-left label label-success" id="iss_clr_fom">All</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="">
-                    <div class="">
-                        <div class="col-xs-6 pull-right">
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="">
-                    <div class="">
-                        <div class="col-xs-4 ">
-                            <label for="iss_clr_stat">Status</label>
-
-                            <select id="iss_clr_stat" class="in_box form-control">
-                                <option>Opened</option>
-                                <option>Closed</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="">
-                    <div class="">
-                        <div class="col-xs-4 ">
-                            <label for="iss_clr_ftime">From Time</label>
-                            <input type="text" id="iss_clr_ftime" class="in_box form-control"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="">
-                    <div class="">
-                        <div class="col-xs-4">
-                            <label for="iss_clr_ttime">To Time</label>
-                            <input type="text" id="iss_clr_ttime" class="in_box form-control"/>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            </br>
-
-            <div class="row">
-                <div class="">
-                    <div class="">
-                        <div class="col-xs-12">
-                            <textarea class="form-control" rows="3" id="iss_clr_cdesc"
-                                      placeholder="Complaint description here..."></textarea>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            </br>
-            <div class="row">
-                <div class="">
-                    <div class="">
-                        <div class="col-xs-12">
-                            <textarea class="form-control" rows="3" id="iss_clr_rdesc"
-                                      placeholder="Reason for delay here..."></textarea>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            </br>
-            <div class="row">
-                <div class="">
-                    <div class="">
-                        <div class="col-xs-6">
-
-                        </div>
-                    </div>
-                </div>
-                <div class="">
-                    <div class="">
-                        <div class="col-xs-6">
-                            <button type="button" class="btn btn-primary btn-sm pull-right">
-                                Add<span class="glyphicon glyphicon-plus-sign"></span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-
+            {{/each}}
         </div>
-    </div>
+        <div id="" class="row" style="margin-left: 0px;margin-right: 0px;">
+            <div class="col-xs-4">
+                <button id="li_pre" class="pull-left btn btn-sm btn-primary le"><span
+                        class="glyphicon glyphicon-circle-arrow-left"></span> Prev
+                </button>
+            </div>
+            <div class="col-xs-4">
+                <button id="li_search" class="pull-left btn btn-sm btn-primary" style="width: 100%"><span
+                        class="glyphicon glyphicon-search"></span> Search
+                </button>
+            </div>
+            <div class="col-xs-4">
+                <button id="li_nex" class="pull-right btn btn-sm btn-primary"> Next <span
+                        class="glyphicon glyphicon-circle-arrow-right"></span></button>
+            </div>
+        </div>
+        <br/>
 
-    <div class="row master_ul" style="border-bottom: 1px solid #269ABC; border-top: 1px solid #269ABC">
-        <ul id="clear_ul" class="list-group"></ul>
-    </div>
-    <br/>
+        <div id="sub_li_mod" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+             aria-labelledby="myLargeModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Issue Clearance</h4>
+                    </div>
+                    <div id="sub_list_modal" class="modal-body">
 
-    <div class="row">
-        <div class="">
-            <div class="">
-                <div class="col-xs-6">
-                    <button type="button" class="btn btn-primary btn-sm pull-left">
-                        CANCEL <span class="glyphicon glyphicon-remove-sign"></span>
-                    </button>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="ca_approve_but" type="button" class="btn btn-sm btn-primary pull-left" data-dismiss="modal" onclick="iss_clr_list.create()">Save <label class="glyphicon glyphicon-ok-sign"></label> </button>
+                        <button id="ca_cancel_but" type="button" class="btn btn-sm btn-primary pull-right" data-dismiss="modal">Cancel <label class="glyphicon glyphicon-remove-sign"></label> </button>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="">
-            <div class="">
-                <div class="col-xs-6">
-                    <button type="button" class="btn btn-primary btn-sm pull-right">
-                        SAVE<span class="glyphicon glyphicon-ok-sign"></span>
-                    </button>
+
+
+        <div id="sear_mod" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+             aria-labelledby="myLargeModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <!--<div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Search</h4>
+                    </div>-->
+                    <div id="sear_modal" class="modal-body">
+                        <div class="">
+                            <div class="input-group">
+                                <input id="search_box" type="text" class="form-control" placeholder="Search">
+                                <span class="input-group-btn"><button class="btn btn-default" onclick="cmp_assign_list.search()">
+                                    <span class="glyphicon glyphicon-search "></span></button></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
-
-</div>
-<!----------------------------------------------------->
-</div>
-
-
 </script>
+
+<!------------------issue_clearance_sub_list-------------------------------------------------------------------------------->
+
+<script id="sub_issclr_list_tmp" type="x-handlebars-template">
+    <div id='content'>
+        <div class="drop-shadow main_list_items" style="padding: 0px;">
+            <table class="table table-condensed main_list" style="margin-bottom: 10px;">
+                <tr>
+                    <button
+                            class="btn btn-xs btn-info pull-right"
+                            style="width: 100%; font-weight: bold;padding-top: 2px;padding-bottom: 0px;">
+                        {{CompltIssueNo}}
+                    </button>
+                </tr>
+
+
+
+                <div  class="row">
+                    <div  class="col-xs-4"style="padding-right:1px ">
+                        <label for="iss_clr_stat">Status</label>
+                        <select id="iss_clr_stat" class="form-control">
+                            <option>Opened</option>
+                            <option>Closed</option>
+                        </select>
+                    </div>
+
+                    <div  class="col-xs-4"style="padding-right: 1px ;padding-left: 1px">
+                        <label for="frm_time">From Time</label>
+                        <input class="form-control" type="text" id="frm_time"/>
+                    </div>
+
+                    <div  class="col-xs-4" style="padding-left: 1px ">
+                        <label for="to_time">To Time</label>
+                        <input class="form-control" type="text" id="to_time"/>
+                    </div>
+
+                </div>
+
+                <br/>
+                <tr>
+                    <textarea class="form-control" rows="2" id="dail_desc" placeholder="Daily update here..."></textarea>
+
+                </tr>
+                <br/>
+                <tr>
+
+                    <td class="text_bg"><span class="pull-left"><label class="pull-left">Start:</label>{{StartDate}}</span></td>
+                    <td class="text_bg"><span class="pull-left"><label class="pull-left">End:</label>{{EndDate}}</span></td>
+                </tr>
+
+                <tr>
+                    <td class="title_bg"><label class="pull-left">Assignee</label></td>
+                    <td class="text_bg"><span class="pull-left">{{AssignedBy}}</span></td>
+                </tr>
+                <tr>
+                    <td class="title_bg"><label class="pull-left">Module</label></td>
+                    <td class="text_bg"><span class="pull-left">{{ModuleName}}</span></td>
+                </tr>
+                <tr>
+                    <td class="title_bg"><label class="pull-left">Form</label></td>
+                    <td class="text_bg"><span class="pull-left">{{FormName}}</span></td>
+                </tr>
+                <tr>
+                    <td class="title_bg"><label class="pull-left">Description</label></td>
+                    <td class="text_bg"><span class="pull-left">{{CompliantDescription}}</span></td>
+
+                </tr>
+
+
+            </table>
+
+        </div>
+        <button class="btn btn-xs btn-info pull-right" onclick="iss_clr_list.list({{AssignedID}});">View Details</button>
+
+    </div>
+</script>
+
+
+
+
 <!-------------------------assignment_status_Page-------------------------->
 
 <script id="ass_stat_tmp" type="x-handlebars-template">
