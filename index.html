@@ -888,12 +888,10 @@
 
 <script id="iss_clr_list_temp" type="x-handlebars-template">
     <div id='content'>
-
-
         <br/>
         <br/>
-
-        <br/>
+        <select id="status_select" style="text-align: center; " class="form-control input-sm"></select>
+<br/>
 
         <div class="list-group" id="m_ul">
             {{#each d}}
@@ -961,6 +959,21 @@
         </div>
 
 
+        <div id="sub_li_mod_two" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+             aria-labelledby="myLargeModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Updates</h4>
+                    </div>
+                    <div id="sub_list_modal_two" class="modal-body"></div>
+                </div>
+            </div>
+        </div>
+
+
         <div id="sear_mod" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
              aria-labelledby="myLargeModalLabel"
              aria-hidden="true">
@@ -993,7 +1006,7 @@
         <div class="drop-shadow main_list_items" style="padding: 0px;">
             <table class="table table-condensed main_list" style="margin-bottom: 10px;">
                 <tr>
-                    <button
+                    <button onclick="iss_clr_list.list({{AssignedID}});"
                             class="btn btn-xs btn-info pull-right"
                             style="width: 100%; font-weight: bold;padding-top: 2px;padding-bottom: 0px;">
                         {{CompltIssueNo}}
@@ -1006,18 +1019,19 @@
                     <div  class="col-xs-4"style="padding-right:1px ">
                         <label for="iss_clr_stat">Status</label>
                         <select id="iss_clr_stat" class="form-control">
+                            <option>{{Status}}</option>
                             <option>Opened</option>
                             <option>Closed</option>
                         </select>
                     </div>
 
                     <div  class="col-xs-4"style="padding-right: 1px ;padding-left: 1px">
-                        <label for="frm_time">From Time</label>
+                        <label class="frm_to" for="frm_time">From Time</label>
                         <input class="form-control" type="text" id="frm_time"/>
                     </div>
 
                     <div  class="col-xs-4" style="padding-left: 1px ">
-                        <label for="to_time">To Time</label>
+                        <label class="frm_to" for="to_time">To Time</label>
                         <input class="form-control" type="text" id="to_time"/>
                     </div>
 
@@ -1028,7 +1042,7 @@
                     <textarea class="form-control" rows="2" id="dail_desc" placeholder="Daily update here..."></textarea>
 
                 </tr>
-                <br/>
+
                 <tr>
 
                     <td class="text_bg"><span class="pull-left"><label class="pull-left">Start:</label>{{StartDate}}</span></td>
@@ -1057,8 +1071,35 @@
             </table>
 
         </div>
-        <button class="btn btn-xs btn-info pull-right" onclick="iss_clr_list.list({{AssignedID}});">View Details</button>
+        <!--<button class="btn btn-xs btn-info pull-right" onclick="iss_clr_list.list({{AssignedID}});">View Details</button>-->
 
+    </div>
+</script>
+
+<!------------------Issue_clearance_sub_list-------------------------------------------------------------------------------->
+<script id="iss_clr_desc_subli_tmp" type="x-handlebars-template">
+    <div id='content'>
+        <ul class="list-group">
+            {{#each d}}
+            <li class="list-group-item drop-shadow text_bg">
+                <!-- <div class="">
+                     <label class="label label-success">{{CompltIssueNo}}</label>
+                     <span class="label label-warning">{{CreatedDate}}</span>
+                     <br/>
+                 </div>
+                 <div class="">
+                     <span class="label label-primary">{{ModuleName}}</span>
+                     <span class="label label-primary">{{FormName}}</span>
+                     <br/>
+                 </div>-->
+                {{DailyUpdate}}
+            </li>
+
+            {{/each}}
+
+        </ul>
+        <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Close<label
+                class="glyphicon glyphicon-remove-sign"></label></button>
     </div>
 </script>
 
@@ -1630,7 +1671,7 @@
         states[Connection.NONE] = 'No network connection';
 
         if (states[networkState] == 'No network connection') {
-            alert(states[networkState] + ', you cannot search for doctors and fix any appointments but you can use other functions of the app, any changes will be updated on the server once you are online!');
+            alert(states[networkState] + 'Check network connection!');
             //navigator.app.exitApp();
             localStorage.online_state = false;
             //indicates that the app is in offline mode

@@ -66,7 +66,7 @@ function search_array(valuename, key_name, myArray) {
     }
 }
 
-function backdrop_dismiss(){
+function backdrop_dismiss() {
     //-------------removes bootstrap modal backdrop not disappearing bug----------------
 //    $('#'+a).modal('hide');
     $('body').removeClass('modal-open');
@@ -165,11 +165,15 @@ mm = {
 
         });
         $("#mm_3").click(function () {
+            block();
+            localStorage.page_no = 1;
             iss_clr_list.load();
 
         });
         $("#mm_4").click(function () {
-            ass_stat.load();
+            block();
+            localStorage.page_no = 1;
+            assign_stat_li.load();
 
         });
         $("#mm_5").click(function () {
@@ -251,18 +255,18 @@ cil_li = {
             cil_li.list_next();
         });
 
-       /* $("#entry_img").onmouseover(function () {
-            $("#entry_img").attr('src','images/pencil_red.png');
-        });
-        $("#entry_img").onmouseout(function () {
-            $("#entry_img").attr('src','images/pencil_red.png');
-        });*/
+        /* $("#entry_img").onmouseover(function () {
+         $("#entry_img").attr('src','images/pencil_red.png');
+         });
+         $("#entry_img").onmouseout(function () {
+         $("#entry_img").attr('src','images/pencil_red.png');
+         });*/
 
         /*$('#entry_img').hover(function () {
-            this.src = 'images/edit.png';
-        }, function () {
-            this.src = 'images/Row-128.png';
-        });*/
+         this.src = 'images/edit.png';
+         }, function () {
+         this.src = 'images/Row-128.png';
+         });*/
 
         $("#li_search").click(function () {
             $("#sear_mod").modal('show');
@@ -877,7 +881,7 @@ c_approve_list = {
     },
 
     list_next: function () {
-    //        alert($('#m_ul table').length);
+        //        alert($('#m_ul table').length);
         if ($('#m_ul table').length != 0) {
             if (localStorage.page_no >= 1) {
                 localStorage.page_no++;
@@ -1189,10 +1193,10 @@ cmp_assign_list = {
             var data = JSON.stringify(obj);
 //		alert(data);
             $.getJSON('http://182.73.141.106/Mobile/mockup/IssueTrackerMobile/ComplaintAssignmentService.svc/Create?ObjAssign=' + data, function (data) {
-                if(data.d != ""){
+                if (data.d != "") {
                     alert("Assigned successfully");
                     cmp_assign_list.load(data);
-                }else{
+                } else {
                     alert("Assignment failed");
                 }
 
@@ -1204,13 +1208,14 @@ cmp_assign_list = {
 };
 
 
-
 //---------------------------------------------issue_clearance----------------------------
 var iss_clr_list;
 iss_clr_list = {
     array_main: new Array(),
+    array_main_two: new Array(),
     array_main_list: new Array(),
-    array_sub_list : new Array(),
+    array_sub_list: new Array(),
+    z : '',
 
     load: function () {
 //        localStorage.setItem("page_no", 1);
@@ -1219,39 +1224,44 @@ iss_clr_list = {
     },
     header: "<img id='back_img' class='header_icons' src='images/Arrowhead-Left-01-128.png'><h4>Issue Clearance</h4>",
     get_data: function () {
+        block();
+        var status = $("#status_select :selected").text();
+//        alert(status);
+        this.z = status;
+
         //alert(localStorage.user_id);
         this.array_main_list = [];
-        this.array_main=[];
-        $.getJSON('http://182.73.141.106/Mobile/mockup/IssueTrackerMobile/IssueClearanceService.svc/ListIssueClearancePage?PageNo=' + localStorage.page_no + '&RowsPerPage=10&SearchText=""&ClientId=' + localStorage.user_c_id + '&UserId=' + localStorage.user_id, function (data) {
+        this.array_main = [];
+        this.array_main_two = [];
+        $.getJSON('http://182.73.141.106/Mobile/mockup/IssueTrackerMobile/IssueClearanceService.svc/ListIssueClearancePage?PageNo=' + localStorage.page_no + '&RowsPerPage=10&SearchText=""&ClientId=' + localStorage.user_c_id + '&UserId=' + localStorage.user_id + '&Status=' + status, function (data) {
             //cmp_assign_list.content(data);
 
-            if(data.d.length>0)
-            {
+            if (data.d.length > 0) {
 
                 iss_clr_list.content(data);
             }
-            else{
+            else {
                 alert("End of List, Press Previous");
             }
         });
     },
     content: function (data) {
         //alert(date);
-        this.array_main=data.d;
+        this.array_main = data.d;
         //alert(this.array_main.length);
         this.array_main_list = data.d;
-        var len=this.array_main_list.length;
+        var len = this.array_main_list.length;
 
-        for(var i=0;i<len;i++){
+        for (var i = 0; i < len; i++) {
 
-            var sd= this.array_main_list[i].StartDate;
-            var ed=this.array_main_list[i].EndDate;
+            var sd = this.array_main_list[i].StartDate;
+            var ed = this.array_main_list[i].EndDate;
             var s = sd.split(" ");
             var e = ed.split(" ");
-            var ss=s[0];
-            var ee=e[0];
-            this.array_main_list[i].StartDate=ss;
-            this.array_main_list[i].EndDate=ee;
+            var ss = s[0];
+            var ee = e[0];
+            this.array_main_list[i].StartDate = ss;
+            this.array_main_list[i].EndDate = ee;
 
         }
         //alert(JSON.stringify(this.array_main_list));
@@ -1278,15 +1288,30 @@ iss_clr_list = {
             iss_clr_list.list_next();
         });
 
-        $("#ca_approve_but").click(function () {
-            block();
-            iss_clr_list.approve();
-        });
-        $("#ca_cancel_but").click(function () {
+        var opts = '';
+        if(this.z == 'Opened'){
+            opts = "<option>Opened</option><option>All</option><option>Closed</option>";
+        }else if(this.z == 'Closed'){
+            opts = "<option>Closed</option><option>All</option><option>Opened</option>";
+        }else{
+            opts = "<option>All</option><option>Opened</option><option>Closed</option>";
+        }
 
-            $('#sub_li_mod').modal('hide');
-            this.array_sub_list = [];
+        $("#status_select").append(opts);
+
+        $("#status_select").change(function(){
+            iss_clr_list.get_data();
         });
+
+        /*$("#ca_approve_but").click(function () {
+         block();
+         iss_clr_list.approve();
+         });*/
+        /*$("#ca_cancel_but").click(function () {
+
+         $('#sub_li_mod').modal('hide');
+         this.array_sub_list = [];
+         });*/
         $("#li_search").click(function () {
             $("#sear_mod").modal('show');
             $('#sear_mod').on('shown.bs.modal', function (e) {
@@ -1310,22 +1335,21 @@ iss_clr_list = {
 
     },
 
-    get_sub_list:function(a){
+    get_sub_list: function (a) {
+        block();
 
         // alert(a);
-        var len= this.array_main_list.length;
+        var len = this.array_main_list.length;
 //alert(len);
         //alert(this.array_main.length);
         //alert(JSON.stringify(array_main_list));
-        for (var i = 0; i < len; i++)
-        {
+        for (var i = 0; i < len; i++) {
 
-            if(this.array_main_list[i].AssignedID==a && this.array_main[i].AssignedID==a)
-            {
+            if (this.array_main_list[i].AssignedID == a && this.array_main[i].AssignedID == a) {
                 var y = this.array_main_list[i];
-                var z=this.array_main[i];
-                this.array_main=[];
-                this.array_main.push(z);
+                var z = this.array_main[i];
+                this.array_main_two = [];
+                this.array_main_two.push(z);
                 iss_clr_list.sub_list(y);
             }
         }
@@ -1337,6 +1361,16 @@ iss_clr_list = {
         var context = data;
         var htmls = page(context);
         this.set_sub(htmls);
+//        var z = data.d;
+//        this.sub_list_array = z;
+    },
+    sub_list_two: function (data) {
+        // alert(JSON.stringify(data));
+        var template = $("#iss_clr_desc_subli_tmp").html();
+        var page = Handlebars.compile(template);
+        var context = data;
+        var htmls = page(context);
+        this.set_sub_two(htmls);
 //        var z = data.d;
 //        this.sub_list_array = z;
     },
@@ -1352,28 +1386,66 @@ iss_clr_list = {
 
         unblock();
     },
+    set_sub_two: function (y) {
+        $("#sub_list_modal_two").html(y);
+        $('#sub_li_mod').modal('hide');
+        $('#sub_li_mod_two').modal('show');
+//        $('.true').css('background-color','red');
+//        $('.true').css('background','#269abc');
+//        var tag = '';
+//        $('.true').append();
+
+        iss_clr_list.set_datetime();
+
+        unblock();
+    },
 
 
     set_datetime: function () {
 
-        var a, b, c, d, e;
-        a = new Date();
-        b = a.getDate();
-        c = a.getMonth() + 1;
-        d = a.getFullYear();
-        e = b + "-" + c + "-" + d;
-        $("#date").val(e);
-        $("#frm_time").pickatime();
-        $("#to_time").pickatime();
+        $("#ca_approve_but").show();
+        /*var a, b, c, d, e;
+         a = new Date();
+         b = a.getDate();
+         c = a.getMonth() + 1;
+         d = a.getFullYear();
+         e = b + "-" + c + "-" + d;
+         $("#date").val(e);*/
+var a = $("#iss_clr_stat :selected").text();
+
+        if (a == "Closed" || a == "Completed") {
+            $("#iss_clr_stat").attr("disabled", "true");
+            $("#frm_time").attr("disabled", "true");
+            $("#to_time").attr("disabled", "true");
+//            $("#iss_clr_stat").hide();
+            $("#frm_time").hide();
+            $("#to_time").hide();
+            $(".frm_to").hide();
+            $("#dail_desc").hide();
+            $("#ca_approve_but").hide();
+            $("#iss_clr_stat").css("width", "200px");
+
+
+        } else {
+
+        }
+        $("#frm_time").pickatime({
+            container: 'body'
+        });
+        $("#to_time").pickatime({
+            container: 'body'
+        });
+
+        unblock();
         //container: 'body'
     },
-    create:function(){
+    create: function () {
 
         // alert("hi");
-        var a=$("#iss_clr_stat :selected").text();
-        var b=$("#frm_time").val();
-        var c=$("#to_time").val();
-        var d=$("#dail_desc").val();
+        var a = $("#iss_clr_stat :selected").text();
+        var b = $("#frm_time").val();
+        var c = $("#to_time").val();
+        var d = $("#dail_desc").val();
 
         var aa, bb, cc, dd, e;
         aa = new Date();
@@ -1383,31 +1455,31 @@ iss_clr_list = {
         e = dd + "-" + cc + "-" + bb;
 
 
-        var y=this.array_main;
+        var y = this.array_main_two;
 
 //        var z={"ClosedDate":e,"DailyUpdate":d,"Status":a,"Fromtime":b, "ToTime": c,"EndDate": y.EndDate,"StartDate": y.StartDate,"AssignedBy": y.AssignedBy,"ModuleID": y.ModuleID,"CompliantDescription": y.CompliantDescription,"AssignedID": y.AssignedID,"ModuleID": y.ModuleID,"FormID":y.FormID,"SNO": y.SNO,"IssueID": y.IssueID,"CreatedBy": y.CreatedBy,"OurDescription": y.OurDescription,"Reason":d};
-        var z={"ClosedDate":e,"DailyUpdate":d,"Status":a,"Fromtime":b, "ToTime": c,"EndDate": y[0].EndDate,"StartDate": y[0].StartDate,"AssignedBy": y[0].AssignedBy,"ModuleID": y[0].ModuleID,"CompliantDescription": y[0].CompliantDescription,"AssignedID": y[0].AssignedID,"FormID":y[0].FormID,"SNO": y[0].SNO,"IssueID": y[0].IssueID,"CreatedBy": y[0].CreatedBy,"OurDescription": y[0].OurDescription,"Reason":d};
-        var arr_obj=JSON.stringify(z);
-        alert(arr_obj);
+        var z = {"ClosedDate": e, "DailyUpdate": d, "Status": a, "Fromtime": b, "ToTime": c, "EndDate": y[0].EndDate, "StartDate": y[0].StartDate, "AssignedBy": y[0].AssignedBy, "ModuleID": y[0].ModuleID, "CompliantDescription": y[0].CompliantDescription, "AssignedID": y[0].AssignedID, "FormID": y[0].FormID, "SNO": y[0].SNO, "IssueID": y[0].IssueID, "CreatedBy": y[0].CreatedBy, "OurDescription": y[0].OurDescription, "Reason": d};
+        var arr_obj = JSON.stringify(z);
+//        alert(arr_obj);
 
-        $.getJSON('http://182.73.141.106/Mobile/mockup/IssueTrackerMobile/IssueClearanceService.svc/Create?objIssueClearance=' +arr_obj, function (data) {
-            if(data.d>0){
+        $.getJSON('http://182.73.141.106/Mobile/mockup/IssueTrackerMobile/IssueClearanceService.svc/Create?objIssueClearance=' + arr_obj, function (data) {
+            if (data.d.length > 0) {
                 alert("success");
                 iss_clr_list.load(data);
-            }else
-            {
+            } else {
                 alert("fail");
             }
         });
     },
-    list:function(id){
-        alert(id);
-        $.getJSON('http://localhost:51936/IssueTrackerMobile/IssueClearanceService.svc/ListByDetailID?AssignedID=' + id, function (data) {
-            if(data.d>0){
+    list: function (id) {
 
-                iss_clr_list.load(data);
+        $.getJSON('http://182.73.141.106/Mobile/mockup/IssueTrackerMobile/IssueClearanceService.svc/ListByDetailID?objAssignedID=' + id, function (data) {
+            if(data.d.length > 0){
+
+                iss_clr_list.sub_list_two(data);
             }else
             {
+                alert("no list!");
             }
         });
 
@@ -1415,6 +1487,136 @@ iss_clr_list = {
 
 
 };
+
+
+
+
+//-----------------------------------------Assignment_status_list_object---------------------------------------
+var assign_stat_li;
+assign_stat_li = {
+
+    load: function () {
+//        localStorage.setItem("page_no", 1);
+        this.get_data();
+    },
+    header: "<img id='back_img' class='header_icons' src='images/Arrowhead-Left-01-128.png'><h4>Assignment Status</h4><img id='entry_img' class='entry_icons' src='images/edit.png'>",
+    get_data: function () {
+        $.getJSON('http://182.73.141.106/mobile/mockup/IssueTrackerMobile/AssignmentStatusService.svc/ListworkassignmentStausfromtodad?PageNo='+ localStorage.page_no +'&RowperPage=10&SearchText=""&status='+ +'&UserID='+ localStorage.user_id, function (data) {
+            if (data.d.length > 0) {
+                assign_stat_li.content(data);
+            }
+            else {
+                alert("End of List, Press Previous");
+            }
+        });
+    },
+    content: function (data) {
+        var template = $("#cil_tmp").html();
+        var page = Handlebars.compile(template);
+
+        var context = data;
+        var htmls = page(context);
+        this.set_contents(htmls);
+    },
+    set_events: function () {
+        $("#back_img").click(function () {
+            mm.load();
+        });
+
+        $("#li_pre").click(function () {
+            assign_stat_li.list_prev();
+        });
+
+        $("#li_nex").click(function () {
+            assign_stat_li.list_next();
+        });
+
+        $("#li_search").click(function () {
+            $("#sear_mod").modal('show');
+            $('#sear_mod').on('shown.bs.modal', function (e) {
+                $("#search_box").focus();
+            })
+        });
+
+
+        c_issue_entry.cie_obj = [];
+        c_issue_entry.cie_list_obj = [];
+        c_issue_entry.cie_rend_obj = [];
+
+        unblock();
+    },
+    set_contents: function (x) {
+        $("#container").html(x);
+        $("header").html(this.header);
+        this.set_events();
+
+    },
+    get_sub_list: function (j) {
+        block();
+        $.getJSON('http://182.73.141.106/Mobile/Tracker/Service1.svc/ListByDetailID?IssueID=' + j, function (data) {
+            cil_li.sub_list(data);
+        });
+    },
+    sub_list: function (data) {
+        var template = $("#sub_cil_tmp").html();
+        var page = Handlebars.compile(template);
+        var context = data;
+        var htmls = page(context);
+        this.set_sub(htmls);
+    },
+    set_sub: function (y) {
+        $("#sub_list_modal").html(y);
+
+        $('#sub_li_mod').modal('show');
+
+        unblock();
+
+
+    },
+    list_prev: function () {
+        if (localStorage.page_no <= 1) {
+        } else {
+            localStorage.page_no--;
+            cil_li.load();
+        }
+    },
+
+    list_next: function () {
+//        alert($('#m_ul table').length);
+        if ($('#m_ul table').length != 0) {
+            if (localStorage.page_no >= 1) {
+                localStorage.page_no++;
+                assign_stat_li.load();
+            } else {
+            }
+        } else {
+            alert("End of List, Press Previous");
+        }
+    },
+    sear_data: function (data) {
+        var s = data.d.length;
+
+        if (s > 0) {
+            assign_stat_li.content(data);
+//-------------removes bootstrap modal backdrop not disappearing bug----------------
+            $('#sear_mod').modal('hide');
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+//^^^^^^^^^^^^^---removes bootstrap modal backdrop not disappearing bug----^^^^^^^^^----
+        }
+        else {
+            alert("No items to display!");
+
+        }
+    },
+
+    search: function () {
+        var s = $('#search_box').val();
+        $.getJSON('http://182.73.141.106/mobile/mockup/IssueTrackerMobile/AssignmentStatusService.svc/ListworkassignmentStausfromtodad?PageNo='+ localStorage.page_no +'&RowperPage=10&SearchText='+ s +'&status='+ +'&UserID='+ localStorage.user_id, function (data) {
+            assign_stat_li.sear_data(data);
+        });
+    }
+}
 
 
 
@@ -1482,129 +1684,67 @@ d_act_report = {
     }
 };
 
-
-//---------------------------------------------complaint_assignment----------------------------
-var cmp_assign;
-cmp_assign = {
-    load: function () {
-        $("#container").html(this.content);
-        $("header").html(this.header);
-        this.set_events();
-        this.set_datetime();
-
-    },
-//   script_pack: "<script src='dar_events.js'></script>",
-    header: "<img id='back_img' class='header_icons' src='images/Arrowhead-Left-01-128.png'><h4>Complaint Assignment</h4>",
-//    footer: "<small>Copyright @ Vibrant</small>",
-    content: function () {
-        var template = $("#cmp_tmp").html();
-        var page = Handlebars.compile(template);
-        return page;
-    },
-    set_datetime: function () {
-
-        var a, b, c, d, e;
-        a = new Date();
-        b = a.getDate();
-        c = a.getMonth() + 1;
-        d = a.getFullYear();
-        e = b + "/" + c + "/" + d;
-        $("#cmp_ass_ddate").val(e);
-        $("#cmp_ass_ddate").pickadate();
-
-    },
-    set_events: function () {
-        $("#back_img").click(function () {
-            mm.load();
-        });
-    },
-
-    render: function (tmpl_name, tmpl_data) { //----script to load from external html template files(Not yet used in project)
-        if (!render.tmpl_cache) {
-            render.tmpl_cache = {};
-        }
-
-        if (!render.tmpl_cache[tmpl_name]) {
-            var tmpl_dir = '/static/templates';
-            var tmpl_url = tmpl_dir + '/' + tmpl_name + '.html';
-
-            var tmpl_string;
-            $.ajax({
-                url: tmpl_url,
-                method: 'GET',
-                async: false,
-                success: function (data) {
-                    tmpl_string = data;
-                }
-            });
-
-            render.tmpl_cache[tmpl_name] = _.template(tmpl_string);
-        }
-
-        return render.tmpl_cache[tmpl_name](tmpl_data);
-    }
-};
 //---------------------------------------------issue_clearance----------------------------
 /*var iss_clr;
-iss_clr = {
-    load: function () {
-        $("#container").html(this.content);
-        $("header").html(this.header);
-        this.set_events();
-        this.set_datetime();
+ iss_clr = {
+ load: function () {
+ $("#container").html(this.content);
+ $("header").html(this.header);
+ this.set_events();
+ this.set_datetime();
 
-    },
-//   script_pack: "<script src='dar_events.js'></script>",
-    header: "<img id='back_img' class='header_icons' src='images/Arrowhead-Left-01-128.png'><h4>Issue Clearance</h4>",
-//    footer: "<small>Copyright @ Vibrant</small>",
-    content: function () {
-        var template = $("#iss_clr_tmp").html();
-        var page = Handlebars.compile(template);
-        return page;
-    },
-    set_datetime: function () {
+ },
+ //   script_pack: "<script src='dar_events.js'></script>",
+ header: "<img id='back_img' class='header_icons' src='images/Arrowhead-Left-01-128.png'><h4>Issue Clearance</h4>",
+ //    footer: "<small>Copyright @ Vibrant</small>",
+ content: function () {
+ var template = $("#iss_clr_tmp").html();
+ var page = Handlebars.compile(template);
+ return page;
+ },
+ set_datetime: function () {
 
-        var a, b, c, d, e;
-        a = new Date();
-        b = a.getDate();
-        c = a.getMonth() + 1;
-        d = a.getFullYear();
-        e = b + "/" + c + "/" + d;
-        $("#iss_clr_ftime").pickatime();
-        $("#iss_clr_ttime").pickatime();
+ var a, b, c, d, e;
+ a = new Date();
+ b = a.getDate();
+ c = a.getMonth() + 1;
+ d = a.getFullYear();
+ e = b + "/" + c + "/" + d;
+ $("#iss_clr_ftime").pickatime();
+ $("#iss_clr_ttime").pickatime();
 
-    },
-    set_events: function () {
-        $("#back_img").click(function () {
-            mm.load();
-        });
-    },
+ },
+ set_events: function () {
+ $("#back_img").click(function () {
+ mm.load();
+ });
+ },
 
-    render: function (tmpl_name, tmpl_data) { //----script to load from external html template files(Not yet used in project)
-        if (!render.tmpl_cache) {
-            render.tmpl_cache = {};
-        }
+ render: function (tmpl_name, tmpl_data) { //----script to load from external html template files(Not yet used in project)
+ if (!render.tmpl_cache) {
+ render.tmpl_cache = {};
+ }
 
-        if (!render.tmpl_cache[tmpl_name]) {
-            var tmpl_dir = '/static/templates';
-            var tmpl_url = tmpl_dir + '/' + tmpl_name + '.html';
+ if (!render.tmpl_cache[tmpl_name]) {
+ var tmpl_dir = '/static/templates';
+ var tmpl_url = tmpl_dir + '/' + tmpl_name + '.html';
 
-            var tmpl_string;
-            $.ajax({
-                url: tmpl_url,
-                method: 'GET',
-                async: false,
-                success: function (data) {
-                    tmpl_string = data;
-                }
-            });
+ var tmpl_string;
+ $.ajax({
+ url: tmpl_url,
+ method: 'GET',
+ async: false,
+ success: function (data) {
+ tmpl_string = data;
+ }
+ });
 
-            render.tmpl_cache[tmpl_name] = _.template(tmpl_string);
-        }
+ render.tmpl_cache[tmpl_name] = _.template(tmpl_string);
+ }
 
-        return render.tmpl_cache[tmpl_name](tmpl_data);
-    }
-};*/
+ return render.tmpl_cache[tmpl_name](tmpl_data);
+ }
+ };*/
 //-----------------------------------------assignment_status----------------------------
 var ass_stat;
 ass_stat = {
