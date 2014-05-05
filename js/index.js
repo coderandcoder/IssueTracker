@@ -177,12 +177,16 @@ mm = {
 
         });
         $("#mm_5").click(function () {
-            cli_adm.load();
+            block();
+            localStorage.page_no = 1;
+            cli_admin_list.load();
 
         });
 
         $("#mm_6").click(function () {
-            d_act_report.load();
+            block();
+            localStorage.page_no = 1;
+            daily_act_list.load();
         });
 
         $("#mm_options_icon").click(function () {
@@ -1644,9 +1648,316 @@ assign_stat_li = {
 
 
     }
-}
+};
+//---------------------------------------------client_admin_view_list----------------------------------------
+
+var cli_admin_list;
+cli_admin_list = {
+
+    sub_list_array: new Array(),
+    sub_obj_array: new Array(),
+
+    check_opt:'',
+    // sub_obj:new object(),
+    //sub_list_array: new Array(),
+    load: function () {
+
+        this.get_data();
+    },
+    header: "<img id='back_img' class='header_icons' src='images/Arrowhead-Left-01-128.png'><h4>Client Admin View</h4>",
+    get_data: function () {
+        block();
+        var status = $("#status_select :selected").text();
+//        alert(status);
+        this.check_opt = status;
+
+        $.getJSON('http://182.73.141.106/Mobile/mockup/IssueTrackerMobile/ClientAdminViewService.svc/StatusMainList?PageNo=' + localStorage.page_no + '&RowsPerPage=10&SearchText=""&ClientID=' + localStorage.user_c_id + '&Status=""&roleid='+ 1 +'&UserID='+ localStorage.user_id, function (data) {
+            // c_approve_list.content(data);
+            if(data.d.length>0)
+            {
+                cli_admin_list.content(data);
+            }
+            else{
+                alert("End of List, Press Previous");
+            }
+        });
+    },
+    content: function (data) {
+        this.sub_list_array=data.d;
+        var template = $("#cli_admin_list_tmp").html();
+        var page = Handlebars.compile(template);
+        var context = data;
+        var htmls = page(context);
+        this.set_contents(htmls);
+    },
+    set_contents: function (x) {
+        $("#container").html(x);
+        $("header").html(this.header);
+        this.set_events();
+    },
+    set_events: function () {
+        $("#back_img").click(function () {
+            mm.load();
+        });
+
+        $("#li_pre").click(function () {
+            cli_admin_list.list_prev();
+        });
+
+        $("#li_nex").click(function () {
+            cli_admin_list.list_next();
+        });
+
+        $("#complete_btn").click(function () {
+            block();
+            cli_admin_list.complete();
+        });
+        $("#ca_cancel_but").click(function () {
+
+            $('#sub_li_mod').modal('hide');
+            this.sub_list_array = [];
+        });
+        var opts = '';
+        if (this.check_opt == 'Opened') {
+            opts = "<option>Opened</option><option>All</option><option>Closed</option><option>Completed</option>";
+        } else if (this.check_opt == 'Closed') {
+            opts = "<option>Closed</option><option>All</option><option>Opened</option><option>Completed</option>";
+        } else if (this.check_opt == 'Completed') {
+            opts = "<option>Completed</option><option>All</option><option>Opened</option><option>Closed</option>";
+        }else{
+            opts = "<option>All</option><option>Opened</option><option>Closed</option><option>Completed</option>";
+        }
+        $("#status_select").append(opts);
+
+        $("#status_select").change(function () {
+            cli_admin_list.get_data();
+        });
+
+        $("#li_search").click(function () {
+            $("#sear_mod_cli_adm").modal('show');
+            $('#sear_mod_cli_adm').on('shown.bs.modal', function (e) {
+                $("#search_box").focus();
+            })
+        });
+
+        //-------------removes bootstrap modal backdrop not disappearing bug----------------
+        // $('#mm_modal').modal('hide');
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+//^^^^^^^^^^^^^---removes bootstrap modal backdrop not disappearing bug----^^^^^^^^^----
+
+        unblock();
+
+    },
+
+    list_prev: function () {
+        if (localStorage.page_no <= 1) {
+        } else {
+            localStorage.page_no--;
+            cli_admin_list.load();
+        }
+    },
+
+    list_next: function () {
+//        alert($('#m_ul table').length);
+
+        if (localStorage.page_no >= 1) {
+            localStorage.page_no++;
+            cli_admin_list.load();
+        } else {
+        }
+
+    },
+    sear_data: function (data) {
+        var s = data.d.length;
+
+        if (s > 0) {
+            cli_admin_list.content(data);
+            //-------------removes bootstrap modal backdrop not disappearing bug----------------
+            $('#sear_mod').modal('hide');
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+//^^^^^^^^^^^^^---removes bootstrap modal backdrop not disappearing bug----^^^^^^^^^----
+
+        }
+        else {
+            alert("No items to display!");
+
+        }
+    },
+
+    search: function () {
+        localStorage.page_no=1;
+
+        var s = $('#search_box').val();
+        //alert(s);
+        $.getJSON('http://182.73.141.106/Mobile/mockup/IssueTrackerMobile/ClientAdminViewService.svc/StatusMainList?PageNo=' + localStorage.page_no + '&RowsPerPage=10&SearchText='+ s +'&ClientID=' + localStorage.user_c_id + '&Status=""&roleid='+ 1 +'&UserID='+ localStorage.user_id, function (data) {
+            cli_admin_list.sear_data(data);
 
 
+        });
+    },
+    get_sub_list:function(c){
+        //alert(c);
+        var arr=this.sub_list_array;
+        var len=this.sub_list_array.length;
+        var x;
+
+        for(var i=0;i<len;i++){
+            //this.sub_list_array[i].CompliantNo;
+            if(this.sub_list_array[i].CompliantNo == c){
+
+                x=this.sub_list_array[i];
+                // alert(JSON.stringify(x));
+            }else{
+
+            }
+
+        }
+
+        this.sub_obj_array=[];
+        this.sub_obj_array.push(x);
+        this.sub_list(x);
+
+    },
+
+    sub_list: function (data) {
+
+        var template = $("#sub_cli_adm_tmp").html();
+        var page = Handlebars.compile(template);
+        var context = data;
+        var htmls = page(context);
+        this.set_sub(htmls);
+    },
+    set_sub: function (y) {
+        $("#sub_list_modal").html(y);
+        $('#sub_li_mod').modal('show');
+        $('#sub_li_mod').width('100%');
+
+        unblock();
+    },
+    complete:function(){
+
+        var aa=this.sub_obj_array;
+        // alert(JSON.stringify(aa));
+        var dd={"CompliantNo":aa[0].CompliantNo,"Sno":aa[0].Sno,"ClientIssueNo":aa[0].CompliantNo,"FinalStatus":"Complete"}
+        var cc={"CompliantDetailId":aa[0].CompliantDetailId,"Status":"complete"}
+        var data1=JSON.stringify(cc);
+        var data=JSON.stringify(dd);
+        //alert(data1);
+        //alert(data);
+
+        $.getJSON('http://182.73.141.106/Mobile/mockup/IssueTrackerMobile/ClientAdminViewService.svc/UpdateReassign?objCompliantNo='+ data, function (data) {
+
+            if(data.d="false")
+            {
+                $.getJSON('http://182.73.141.106/Mobile/mockup/IssueTrackerMobile/ClientAdminViewService.svc/UpdateRequest?ObjclientadminRequest='+ data1, function (data) {
+                    if(data.d="true")
+                    {
+                        alert("success");
+                        cli_admin_list.load(data);
+                    }
+                    else{
+                        alert("fail");
+                    }
+                });
+            }
+            else{
+                alert("fail");
+            }
+
+        });
+
+    }
+//    return:function(){
+//        var cc={"CompliantDetailId":aa[0].CompliantDetailId,"Status":"complete"}
+//        var data1=JSON.stringify(cc);
+//        alert(data1);
+//        $.getJSON('http://182.73.141.106/Mobile/mockup/IssueTrackerMobile/ClientAdminViewService.svc/UpdateRequest?ObjclientadminRequest='+ data1, function (data) {
+//            alert("success");
+//            cli_admin_list.load(data);
+//        });
+//    }
+};
+//---------------------------------------------daily_activity_report_List----------------------------------------
+
+var daily_act_list;
+daily_act_list = {
+
+    sub_list_array: new Array(),
+    sub_obj_array: new Array(),
+    // sub_obj:new object(),
+    //sub_list_array: new Array(),
+    load: function () {
+
+        this.get_data();
+    },
+    header: "<img id='back_img' class='header_icons' src='images/Arrowhead-Left-01-128.png'><h4>Daily Activity Report</h4>",
+    get_data: function () {
+        block();
+            $.getJSON('http://182.73.141.106/Mobile/mockup/IssueTrackerMobile/DailyActivityReportService.svc/ListMainPage?PageNO=' + localStorage.page_no + '&RowperPage=10&searchText=""&userid='+ localStorage.user_id, function (data) {
+            // c_approve_list.content(data);
+            if(data.d.length>0)
+            {
+                daily_act_list.content(data);
+            }
+            else{
+                alert("End of List, Press Previous");
+            }
+        });
+    },
+    content: function (data) {
+        this.sub_list_array=data.d;
+        var template = $("#daily_act_list_tmp").html();
+        var page = Handlebars.compile(template);
+        var context = data;
+        var htmls = page(context);
+        this.set_contents(htmls);
+    },
+    set_contents: function (x) {
+        $("#container").html(x);
+        $("header").html(this.header);
+        this.set_events();
+    },
+    set_events: function () {
+        $("#back_img").click(function () {
+            mm.load();
+        });
+
+        $("#li_pre").click(function () {
+            daily_act_list.list_prev();
+        });
+
+        $("#li_nex").click(function () {
+            daily_act_list.list_next();
+        });
+
+        $("#complete_btn").click(function () {
+            block();
+            daily_act_list.complete();
+        });
+        $("#ca_cancel_but").click(function () {
+
+            $('#sub_li_mod').modal('hide');
+            this.sub_list_array = [];
+        });
+        $("#li_search").click(function () {
+            $("#sear_mod_cli_adm").modal('show');
+            $('#sear_mod_cli_adm').on('shown.bs.modal', function (e) {
+                $("#search_box").focus();
+            })
+        });
+
+        //-------------removes bootstrap modal backdrop not disappearing bug----------------
+        // $('#mm_modal').modal('hide');
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+//^^^^^^^^^^^^^---removes bootstrap modal backdrop not disappearing bug----^^^^^^^^^----
+
+        unblock();
+
+    }
+};
 //---------------------------------------------daily_activity_report_object----------------------------
 var d_act_report;
 d_act_report = {
