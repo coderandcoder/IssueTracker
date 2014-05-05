@@ -1215,7 +1215,7 @@ iss_clr_list = {
     array_main_two: new Array(),
     array_main_list: new Array(),
     array_sub_list: new Array(),
-    z : '',
+    z: '',
 
     load: function () {
 //        localStorage.setItem("page_no", 1);
@@ -1289,17 +1289,19 @@ iss_clr_list = {
         });
 
         var opts = '';
-        if(this.z == 'Opened'){
-            opts = "<option>Opened</option><option>All</option><option>Closed</option>";
-        }else if(this.z == 'Closed'){
-            opts = "<option>Closed</option><option>All</option><option>Opened</option>";
+        if (this.z == 'Opened') {
+            opts = "<option>Opened</option><option>All</option><option>Closed</option><option>Completed</option>";
+        } else if (this.z == 'Closed') {
+            opts = "<option>Closed</option><option>All</option><option>Opened</option><option>Completed</option>";
+        } else if (this.z == 'Completed') {
+            opts = "<option>Completed</option><option>All</option><option>Opened</option><option>Closed</option>";
         }else{
-            opts = "<option>All</option><option>Opened</option><option>Closed</option>";
+            opts = "<option>All</option><option>Opened</option><option>Closed</option><option>Completed</option>";
         }
 
         $("#status_select").append(opts);
 
-        $("#status_select").change(function(){
+        $("#status_select").change(function () {
             iss_clr_list.get_data();
         });
 
@@ -1411,7 +1413,7 @@ iss_clr_list = {
          d = a.getFullYear();
          e = b + "-" + c + "-" + d;
          $("#date").val(e);*/
-var a = $("#iss_clr_stat :selected").text();
+        var a = $("#iss_clr_stat :selected").text();
 
         if (a == "Closed" || a == "Completed") {
             $("#iss_clr_stat").attr("disabled", "true");
@@ -1474,11 +1476,10 @@ var a = $("#iss_clr_stat :selected").text();
     list: function (id) {
 
         $.getJSON('http://182.73.141.106/Mobile/mockup/IssueTrackerMobile/IssueClearanceService.svc/ListByDetailID?objAssignedID=' + id, function (data) {
-            if(data.d.length > 0){
+            if (data.d.length > 0) {
 
                 iss_clr_list.sub_list_two(data);
-            }else
-            {
+            } else {
                 alert("no list!");
             }
         });
@@ -1489,20 +1490,25 @@ var a = $("#iss_clr_stat :selected").text();
 };
 
 
-
-
 //-----------------------------------------Assignment_status_list_object---------------------------------------
 var assign_stat_li;
 assign_stat_li = {
-
+    sub_list_array: new Array(),
+    obj_sub : new Object(),
+    z: '',
     load: function () {
 //        localStorage.setItem("page_no", 1);
         this.get_data();
     },
     header: "<img id='back_img' class='header_icons' src='images/Arrowhead-Left-01-128.png'><h4>Assignment Status</h4><img id='entry_img' class='entry_icons' src='images/edit.png'>",
     get_data: function () {
-        $.getJSON('http://182.73.141.106/mobile/mockup/IssueTrackerMobile/AssignmentStatusService.svc/ListworkassignmentStausfromtodad?PageNo='+ localStorage.page_no +'&RowperPage=10&SearchText=""&status='+ +'&UserID='+ localStorage.user_id, function (data) {
+        block();
+        var status = $("#status_select :selected").text();
+//        alert(status);
+        this.z = status;
+        $.getJSON('http://182.73.141.106/mobile/mockup/IssueTrackerMobile/AssignmentStatusService.svc/ListworkassignmentStausfromtodad?PageNo=' + localStorage.page_no + '&RowperPage=10&SearchText=""&status='+ status +'&UserID=' + localStorage.user_id, function (data) {
             if (data.d.length > 0) {
+
                 assign_stat_li.content(data);
             }
             else {
@@ -1511,7 +1517,9 @@ assign_stat_li = {
         });
     },
     content: function (data) {
-        var template = $("#cil_tmp").html();
+        this.sub_list_array = data.d;
+
+        var template = $("#ass_stat_list_tmp").html();
         var page = Handlebars.compile(template);
 
         var context = data;
@@ -1531,17 +1539,30 @@ assign_stat_li = {
             assign_stat_li.list_next();
         });
 
+        var opts = '';
+        if (this.z == 'Opened') {
+            opts = "<option>Opened</option><option>All</option><option>Closed</option><option>Completed</option>";
+        } else if (this.z == 'Closed') {
+            opts = "<option>Closed</option><option>All</option><option>Opened</option><option>Completed</option>";
+        } else if (this.z == 'Completed') {
+            opts = "<option>Completed</option><option>All</option><option>Opened</option><option>Closed</option>";
+        }else{
+            opts = "<option>All</option><option>Opened</option><option>Closed</option><option>Completed</option>";
+        }
+
+        $("#status_select").append(opts);
+
+        $("#status_select").change(function () {
+            assign_stat_li.get_data();
+        });
+
+
         $("#li_search").click(function () {
             $("#sear_mod").modal('show');
             $('#sear_mod').on('shown.bs.modal', function (e) {
                 $("#search_box").focus();
             })
         });
-
-
-        c_issue_entry.cie_obj = [];
-        c_issue_entry.cie_list_obj = [];
-        c_issue_entry.cie_rend_obj = [];
 
         unblock();
     },
@@ -1551,16 +1572,11 @@ assign_stat_li = {
         this.set_events();
 
     },
-    get_sub_list: function (j) {
-        block();
-        $.getJSON('http://182.73.141.106/Mobile/Tracker/Service1.svc/ListByDetailID?IssueID=' + j, function (data) {
-            cil_li.sub_list(data);
-        });
-    },
-    sub_list: function (data) {
-        var template = $("#sub_cil_tmp").html();
+
+    sub_list: function () {
+        var template = $("#assign_stat_sub_tmp").html();
         var page = Handlebars.compile(template);
-        var context = data;
+        var context = this.obj_sub;
         var htmls = page(context);
         this.set_sub(htmls);
     },
@@ -1598,26 +1614,37 @@ assign_stat_li = {
 
         if (s > 0) {
             assign_stat_li.content(data);
-//-------------removes bootstrap modal backdrop not disappearing bug----------------
+//-------------removes bootstrap modal backdrop (not disappearing) bug----------------
             $('#sear_mod').modal('hide');
             $('body').removeClass('modal-open');
             $('.modal-backdrop').remove();
-//^^^^^^^^^^^^^---removes bootstrap modal backdrop not disappearing bug----^^^^^^^^^----
+//^^^^^^^^^^^^^---removes bootstrap modal backdrop (not disappearing) bug----^^^^^^^^^----
         }
         else {
             alert("No items to display!");
-
         }
     },
 
     search: function () {
         var s = $('#search_box').val();
-        $.getJSON('http://182.73.141.106/mobile/mockup/IssueTrackerMobile/AssignmentStatusService.svc/ListworkassignmentStausfromtodad?PageNo='+ localStorage.page_no +'&RowperPage=10&SearchText='+ s +'&status='+ +'&UserID='+ localStorage.user_id, function (data) {
+        $.getJSON('http://182.73.141.106/mobile/mockup/IssueTrackerMobile/AssignmentStatusService.svc/ListworkassignmentStausfromtodad?PageNo=' + localStorage.page_no + '&RowperPage=10&SearchText=' + s + '&status=' + +'&UserID=' + localStorage.user_id, function (data) {
             assign_stat_li.sear_data(data);
         });
+    },
+
+    sub_get: function (x) {
+        for (var i = 0; i < this.sub_list_array.length; i++) {
+            if (x == this.sub_list_array[i].AssignID) {
+                this.obj_sub = this.sub_list_array[i];
+                this.sub_list();
+            } else {
+
+            }
+        }
+
+
     }
 }
-
 
 
 //---------------------------------------------daily_activity_report_object----------------------------

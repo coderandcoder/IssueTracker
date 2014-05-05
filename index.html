@@ -1103,7 +1103,155 @@
     </div>
 </script>
 
+<!-------------------------Assignment_status_list-------------------------->
 
+<script id="ass_stat_list_tmp" type="x-handlebars-template">
+
+    <div id='content'>
+
+
+        <br/>
+        <br/>
+        <select id="status_select" style="text-align: center; " class="form-control input-sm"></select>
+        <br/>
+
+        <div class="list-group" id="m_ul">
+            {{#each d}}
+            <div class="drop-shadow main_list_items" style="padding: 0px;">
+                <table class="table table-condensed main_list" style="margin-bottom: 10px;">
+                    <tr>
+                        <button onclick="assign_stat_li.sub_get({{AssignID}});"
+                                class="btn btn-xs btn-info pull-right"
+                                style="width: 100%; font-weight: bold;padding-top: 2px;padding-bottom: 0px;"><label
+                                class="badge pull-left" style="margin-top: 3px;">{{CreatedDate}}</label>{{CompltIssueNo}}
+                        </button>
+                    </tr>
+                    <br/>
+                    <!--<tr>
+                        <td class="title_bg" style="width:20%;"><label class="pull-left">IssueDescription</label></td>
+                        <td class="text_bg"><span class="pull-left">{{IssueDescription}}</span></td>
+                    </tr>-->
+                    <tr>
+                        <td class="title_bg"><label class="pull-left">Assignee</label></td>
+                        <td class="text_bg"><span class="pull-left">{{Assignee}}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="title_bg"><label class="pull-left">Module</label></td>
+                        <td class="text_bg"><span class="pull-left">{{Modulename}}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="title_bg"><label class="pull-left">Form</label></td>
+                        <td class="text_bg"><span class="pull-left">{{Formname}}</span></td>
+                    </tr>
+
+                </table>
+            </div>
+            {{/each}}
+        </div>
+        <div id="" class="row" style="margin-left: 0px;margin-right: 0px;">
+            <div class="col-xs-4">
+                <button id="li_pre" class="pull-left btn btn-sm btn-primary le"><span
+                        class="glyphicon glyphicon-circle-arrow-left"></span> Prev
+                </button>
+            </div>
+            <div class="col-xs-4">
+                <button id="li_search" class="pull-left btn btn-sm btn-primary" style="width: 100%"><span
+                        class="glyphicon glyphicon-search"></span> Search
+                </button>
+            </div>
+            <div class="col-xs-4">
+                <button id="li_nex" class="pull-right btn btn-sm btn-primary"> Next <span
+                        class="glyphicon glyphicon-circle-arrow-right"></span></button>
+            </div>
+        </div>
+        <br/>
+
+        <div id="sub_li_mod" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+             aria-labelledby="myLargeModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Assignment Status</h4>
+                    </div>
+                    <div id="sub_list_modal" class="modal-body"></div>
+                    <div class="modal-footer">
+                        <button  type="button" class="btn btn-sm btn-primary pull-right" data-dismiss="modal">Close <label class="glyphicon glyphicon-remove-sign"></label> </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="sear_mod" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+             aria-labelledby="myLargeModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <!--<div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Search</h4>
+                    </div>-->
+                    <div id="sear_modal" class="modal-body">
+                        <div class="">
+                            <div class="input-group">
+                                <input id="search_box" type="text" class="form-control" placeholder="Search">
+                                <span class="input-group-btn"><button class="btn btn-default" onclick="cil_li.search()">
+                                    <span class="glyphicon glyphicon-search "></span></button></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</script>
+
+
+<!------------------Assignment_status_sub_list-------------------------------------------------------------------------------->
+<script id="assign_stat_sub_tmp" type="x-handlebars-template">
+    <div id='content'>
+        <div class="drop-shadow main_list_items" style="padding: 0px;">
+            <table class="table table-condensed main_list" style="margin-bottom: 10px;">
+                <tr>
+                    <button
+                            class="btn btn-xs btn-info pull-right"
+                            style="width: 100%; font-weight: bold;padding-top: 2px;padding-bottom: 0px;">{{CompltIssueNo}}
+                    </button>
+                </tr>
+                <tr>
+                    <td class="title_bg" style="width:20%;"><label class="pull-left">IssueDescription</label></td>
+                    <td class="text_bg"><span class="pull-left">{{IssueDescription}}</span></td>
+                </tr>
+                <tr>
+                    <td class="title_bg"><label class="pull-left">Created Date</label></td>
+                    <td class="text_bg"><span class="pull-left">{{CreatedDate}}</span></td>
+                </tr>
+                <tr>
+                    <td class="title_bg"><label class="pull-left">Approval Date</label></td>
+                    <td class="text_bg"><span class="pull-left">{{ApprovalDate}}</span></td>
+                </tr>
+                <tr>
+                    <td class="title_bg"><label class="pull-left">Due Date</label></td>
+                    <td class="text_bg"><span class="pull-left">{{DueDate}}</span></td>
+                </tr>
+                <br/>
+                <tr>
+                    <td class="title_bg"><label class="pull-left">Owner</label></td>
+                    <td class="text_bg"><span class="pull-left">{{Assignee}}</span></td>
+                </tr>
+                <tr>
+                    <td class="title_bg"><label class="pull-left">Status</label></td>
+                    <td class="text_bg"><span class="pull-left">{{Status}}</span></td>
+                </tr>
+                <br/>
+            </table>
+        </div>
+    </div>
+</script>
 
 
 <!-------------------------assignment_status_Page-------------------------->
@@ -1529,6 +1677,10 @@
                     <p>Report description text goes here</p>
                 </li>
             </ul>
+
+            <svg width="100" height="100">
+                <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
+            </svg>
 
         </div>
         <!----------------------------------------------------->
