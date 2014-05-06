@@ -223,7 +223,7 @@ cil_li = {
 //        localStorage.setItem("page_no", 1);
         this.get_data();
     },
-    header: "<img id='back_img' class='header_icons' src='images/Arrowhead-Left-01-128.png'><h4>Client Issues List</h4><img id='entry_img' class='entry_icons' src='images/edit.png'>",
+    header: "<img id='back_img' class='header_icons' src='images/Arrowhead-Left-01-128.png'><h4>Client Issues List</h4><img id='entry_img' class='entry_icons' src='images/new2_128.png'>",
     get_data: function () {
         $.getJSON('http://182.73.141.106/Mobile/Tracker/Service1.svc/ListMainPage?PageNO=' + localStorage.page_no + '&RowperPage=10&searchText=""&ClientID=' + localStorage.user_c_id + '&UserID=' + localStorage.user_id, function (data) {
             if (data.d.length > 0) {
