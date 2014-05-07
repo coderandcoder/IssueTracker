@@ -1,6 +1,7 @@
 /**
  * Created by anandraj on 3/7/14.
  */
+'use strict';
 
 
 $(document).ready(function () {
@@ -150,7 +151,8 @@ mm = {
         $("#mm_0").click(function () {
             block();
             localStorage.page_no = 1;
-            cil_li.load();
+//            cil_li.load();
+            c_issue_entry.load();
         });
         $("#mm_1").click(function () {
             block();
@@ -185,8 +187,9 @@ mm = {
 
         $("#mm_6").click(function () {
             block();
-            localStorage.page_no = 1;
-            daily_act_list.load();
+//            localStorage.page_no = 1;
+//            daily_act_list.load();
+            d_act_report.load();
         });
 
         $("#mm_options_icon").click(function () {
@@ -223,7 +226,7 @@ cil_li = {
 //        localStorage.setItem("page_no", 1);
         this.get_data();
     },
-    header: "<img id='back_img' class='header_icons' src='images/Arrowhead-Left-01-128.png'><h4>Client Issues List</h4><img id='entry_img' class='entry_icons' src='images/new2_128.png'>",
+    header: "<img id='back_img' class='header_icons' src='images/Arrowhead-Left-01-128.png'><h4>Client Issues List</h4><img id='entry_img' class='entry_icons' src='images/newAdd_128.png'>",
     get_data: function () {
         $.getJSON('http://182.73.141.106/Mobile/Tracker/Service1.svc/ListMainPage?PageNO=' + localStorage.page_no + '&RowperPage=10&searchText=""&ClientID=' + localStorage.user_c_id + '&UserID=' + localStorage.user_id, function (data) {
             if (data.d.length > 0) {
@@ -380,7 +383,7 @@ c_issue_entry = {
         this.cie_list_obj = [];
 
     },
-    header: "<img id='back_img' class='header_icons' src='images/Arrowhead-Left-01-128.png'><h4>Client Issue Entry</h4>",
+    header: "<img id='back_img' class='header_icons' src='images/Arrowhead-Left-01-128.png'><h4>Client Issue Entry</h4><img id='list_img' class='entry_icons' src='images/listFlatWhite_128.png'>",
 //    footer: "<small>Copyright @ Vibrant</small>",
     content: function () {
         var cie_template = $("#cie_tmp").html();
@@ -586,6 +589,14 @@ c_issue_entry = {
             c_issue_entry.add_list();
             //c_issue_entry.submit();
         });
+
+        $("#list_img").click(function () {
+            block();
+            localStorage.page_no = 1;
+            cil_li.load();
+        });
+
+        unblock();
     },
     appendClients: function (data) {
 
@@ -1879,6 +1890,9 @@ cli_admin_list = {
 //        });
 //    }
 };
+
+
+
 //---------------------------------------------daily_activity_report_List----------------------------------------
 
 var daily_act_list;
@@ -1892,10 +1906,10 @@ daily_act_list = {
 
         this.get_data();
     },
-    header: "<img id='back_img' class='header_icons' src='images/Arrowhead-Left-01-128.png'><h4>Daily Activity Report</h4>",
+    header: "<img id='back_img' class='header_icons' src='images/Arrowhead-Left-01-128.png'><h4>Daily Activity Report</h4><img id='entry_img' class='entry_icons' src='images/newAdd_128.png'>",
     get_data: function () {
         block();
-            $.getJSON('http://182.73.141.106/Mobile/mockup/IssueTrackerMobile/DailyActivityReportService.svc/ListMainPage?PageNO=' + localStorage.page_no + '&RowperPage=10&searchText=""&userid='+ localStorage.user_id, function (data) {
+        $.getJSON('http://182.73.141.106/Mobile/mockup/IssueTrackerMobile/DailyActivityReportService.svc/ListMainPage?PageNO=' + localStorage.page_no + '&RowperPage=10&searchText=""&userid='+ localStorage.user_id, function (data) {
             // c_approve_list.content(data);
             if(data.d.length>0)
             {
@@ -1924,6 +1938,10 @@ daily_act_list = {
             mm.load();
         });
 
+        $("#entry_img").click(function () {
+            d_act_report.load();
+        });
+
         $("#li_pre").click(function () {
             daily_act_list.list_prev();
         });
@@ -1942,8 +1960,8 @@ daily_act_list = {
             this.sub_list_array = [];
         });
         $("#li_search").click(function () {
-            $("#sear_mod_cli_adm").modal('show');
-            $('#sear_mod_cli_adm').on('shown.bs.modal', function (e) {
+            $("#sear_mod_daily_act").modal('show');
+            $('#sear_mod_daily_act').on('shown.bs.modal', function (e) {
                 $("#search_box").focus();
             })
         });
@@ -1956,22 +1974,112 @@ daily_act_list = {
 
         unblock();
 
+    },
+    list_prev: function () {
+        if (localStorage.page_no <= 1) {
+        } else {
+            localStorage.page_no--;
+            daily_act_list.load();
+        }
+    },
+
+    list_next: function () {
+//        alert($('#m_ul table').length);
+
+        if (localStorage.page_no >= 1) {
+            localStorage.page_no++;
+            daily_act_list.load();
+        } else {
+        }
+
+    },
+    sear_data: function (data) {
+        var s = data.d.length;
+
+        if (s > 0) {
+            daily_act_list.content(data);
+            //-------------removes bootstrap modal backdrop not disappearing bug----------------
+            $('#sear_mod').modal('hide');
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+//^^^^^^^^^^^^^---removes bootstrap modal backdrop not disappearing bug----^^^^^^^^^----
+
+        }
+        else {
+            alert("No items to display!");
+
+        }
+    },
+
+    search: function () {
+
+        localStorage.page_no=1;
+
+        var s = $('#search_box').val();
+        // alert(s);
+        $.getJSON('http://182.73.141.106/Mobile/mockup/IssueTrackerMobile/DailyActivityReportService.svc/ListMainPage?PageNO=' + localStorage.page_no + '&RowperPage=10&searchText='+ s +'&userid='+ localStorage.user_id, function (data) {
+            daily_act_list.sear_data(data);
+
+
+        });
+    },
+    get_sub_list:function(id){
+
+        $.getJSON('http://182.73.141.106/Mobile/mockup/IssueTrackerMobile/DailyActivityReportService.svc/ListByUDRID?UDRID=' + id, function (data) {
+            // c_approve_list.content(data);
+            if(data.d.length>0)
+            {
+                daily_act_list.sub_list(data);
+            }
+            else{
+                alert("End of List, Press Previous");
+            }
+        });
+
+
+    },
+    sub_list: function (data) {
+
+        var template = $("#sub_daily_act_rpt_tmp").html();
+        var page = Handlebars.compile(template);
+        var context = data;
+        var htmls = page(context);
+        this.set_sub(htmls);
+    },
+    set_sub: function (y) {
+        $("#sub_list_modal").html(y);
+        $('#sub_li_mod').modal('show');
+        $('#sub_li_mod').width('100%');
+
+        unblock();
     }
+
+
 };
 //---------------------------------------------daily_activity_report_object----------------------------
 var d_act_report;
 d_act_report = {
+    dar_obj: new Array(),
+    dar_list_obj: new Array(),
+    daily_rend_obj:new Array(),
+
     load: function () {
+           this.dar_obj=[];
+            this.dar_list_obj=[];
+            this.daily_rend_obj=[];
+
         // $('head').html(this.script_pac);
         $("#container").html(this.content);
 //        $("#container").append(this.script_pack);
         $("header").html(this.header);
 //        $("footer").html(this.footer);
-        this.set_datetime();
+//        this.set_datetime();
+        this.get_report_to();
+        this.get_issue_no();
         this.set_events();
     },
 //   script_pack: "<script src='dar_events.js'></script>",
-    header: "<img id='back_img' class='header_icons' src='images/Arrowhead-Left-01-128.png'><h4>Daily Activity Report</h4>",
+    header: "<img id='back_img' class='header_icons' src='images/Arrowhead-Left-01-128.png'><h4>Daily Activity Report</h4><img id='list_img' class='entry_icons' src='images/listFlatWhite_128.png'>",
 //    footer: "<small>Copyright @ Vibrant</small>",
     content: function () {
         var template = $("#dar_tmp").html();
@@ -1986,39 +2094,243 @@ d_act_report = {
         c = a.getMonth() + 1;
         d = a.getFullYear();
         e = b + "/" + c + "/" + d;
-        $("#r_date").val(e);
+//        $("#r_date").val(e);
         $("#r_date").pickadate();
+
         $("#f_t").pickatime();
         $("#t_t").pickatime();
     },
     set_events: function () {
+        this.set_datetime();
         $("#back_img").click(function () {
             mm.load();
         });
+        $("#list_img").click(function () {
+            block();
+            localStorage.page_no = 1;
+            daily_act_list.load();
+        });
+        $("#add_dar").click(function () {
+
+            d_act_report.add_list();
+        });
+
+        unblock();
     },
-    render: function (tmpl_name, tmpl_data) { //----script to load from external html template files(Not yet used in project)
-        if (!render.tmpl_cache) {
-            render.tmpl_cache = {};
-        }
+    render_add_list: function () {
+        // alert("render");
+        var template = $("#daily_act_add_tmp").html();
+        var page = Handlebars.compile(template);
 
-        if (!render.tmpl_cache[tmpl_name]) {
-            var tmpl_dir = '/static/templates';
-            var tmpl_url = tmpl_dir + '/' + tmpl_name + '.html';
+//        var context = this.cie_obj;
 
-            var tmpl_string;
-            $.ajax({
-                url: tmpl_url,
-                method: 'GET',
-                async: false,
-                success: function (data) {
-                    tmpl_string = data;
+        var data = {"d": ""};
+        data.d = this.daily_rend_obj;
+        var context = data;
+
+        var htmls = page(context);
+
+        $("#daily_ul").html(htmls);
+
+        $("#sub_dar").click(function () {
+            d_act_report.submit();
+        });
+        $("#can_dar").click(function () {
+            d_act_report.load();
+        });
+    },
+    get_report_to: function () {
+        block();
+        // alert("report to");
+        $.getJSON('http://182.73.141.106/Mobile/mockup/IssueTrackerMobile/DailyActivityReportService.svc/ListUserwise?UserID=' + localStorage.user_id, function (data) {
+
+            d_act_report.appendReportTo(data);
+        });
+    },
+    appendReportTo: function (data) {
+        // alert("report to");
+        var x = data.d;
+        //alert(JSON.stringify(x));
+        x.unshift({"__type":"DailyActivityReportService.ReportUser:#", "UserId": "", "ReportTo": "--SELECT--"});
+
+        if (x[0].ReportTo) {
+            var li = "";
+            for (var i = 0; i < x.length; i++) {
+                if (x != '' || x != null) {
+                    li += '<option value="' + x[i].UserId + '" >' + x[i].ReportTo + '</option>';
+                } else {
+                    li += '<option value="" >No items</option>';
                 }
+            }
+            $('#rep_to').append(li).promise().done(function () {
+                // $(this).selectmenu('refresh', true);
+                unblock();
             });
-
-            render.tmpl_cache[tmpl_name] = _.template(tmpl_string);
+        } else {
+            alert('Error connecting to server');
         }
 
-        return render.tmpl_cache[tmpl_name](tmpl_data);
+    },
+    get_issue_no: function () {
+        block();
+        // alert("report to");
+        $.getJSON('http://182.73.141.106/Mobile/mockup/IssueTrackerMobile/DailyActivityReportService.svc/IssueRefNo?PageNO='+ localStorage.page_no +'&RowsPerPage=10&Status=""&SearchText=""&UserId='+localStorage.user_id+'&ClientId='+localStorage.user_c_id , function (data) {
+
+            d_act_report.appendIssueNo(data);
+        });
+    },
+    appendIssueNo: function (data) {
+        // alert("report to");
+        var x = data.d;
+        //alert(JSON.stringify(x));
+        x.unshift({"__type":"DailyActivityReportService.RefIssueNo:#", "CompltIssueNo": "--SELECT--"});
+
+        if (x[0].CompltIssueNo) {
+            var li = "";
+            for (var i = 0; i < x.length; i++) {
+                if (x != '' || x != null) {
+                    li += '<option value="' + x[i].CompltIssueNo + '" >' + x[i].CompltIssueNo + '</option>';
+                } else {
+                    li += '<option value="" >No items</option>';
+                }
+            }
+            $('#is_no').append(li).promise().done(function () {
+                // $(this).selectmenu('refresh', true);
+                unblock();
+            });
+        } else {
+            alert('Error connecting to server');
+        }
+
+    },
+    add_list: function () {
+        var a = $('#rep_to :selected').text();
+
+        var b = $('#is_no :selected').text();
+
+        var c = $('#f_t').val();
+
+        var d = $('#t_t').val();
+
+        var e = $('#desc').val();
+
+        var f=$('#r_date').val();
+
+//        var dd = new Date(f);
+//        var d1 = dd.getDate();
+//        var d2 = dd.getMonth();
+//        var d3 = dd.getFullYear();
+//        var ee = d3 + "/" + d2 + "/" + d1;
+//     alert(ee);
+        $('#desc').val("");
+
+
+
+        if (a == null || b == null || c == null || d == null || e == null || a == '--SELECT--' || b == '--SELECT--' || c == '' || d == '' || e == '') {
+            alert("Please fill in all the fields");
+        } else {
+            var rend_list_obj = {"FromTime": c, "Description": e, "ToTime": d, "ReportTo": a,"IssueRef":b};
+//
+//            var objj = {"CIssueID": 0, "IssuedBy": localStorage.user_id, "DepartmentID": 0, "IssueSubject": "NULL", "ContactNo": localStorage.user_cont_no, "EmailId": localStorage.user_email, "ClientAddressID": a, "CreatedBy": localStorage.user_id, "IssueDescription": e,"ClientName": a , "CilentID": localStorage.user_c_id, "Approvalflag": 0, "SNO": 1, "ModuleID": b, "FormID": c, "CompltIssueNo": 0, "SelfAssign": f, "AssignedTo": localStorage.user_id};
+
+//            var obj = {"CreatedDate": d,"ClientName": i,"ModuleName": g,"FormName": h,"CIssueID": 0, "IssuedBy": localStorage.user_id, "DepartmentID": 0, "IssueSubject": "NULL", "ContactNo": localStorage.user_cont_no, "EmailID": localStorage.user_email, "ClientAddressID": localStorage.user_c_id, "ClientID": localStorage.user_c_id, "CreatedBy": localStorage.user_id, "IssueDescription": e, "ClientID": a, "Approvalflag": 0, "SNO": 1, "CreatedBy": localStorage.user_id, "ModuleID": b, "FormID": c, "CompltIssueNo": 0, "SelfAssign": f, "AssignedTo": localStorage.user_id};
+
+//            var data = {"IssueID": localStorage.isid, "IssueDescription": e1, "ClientID": a1, "Approvalflag": 0, "SNO": 1, "CreatedBy": localStorage.UserID, "ModuleID": b1, "FormID": c1, "CompltIssueNo": 0, "SelfAssign": x, "AssignedTo": localStorage.UserID};
+
+//            var single_obj ={"CIssueID":0,"IssuedBy":localStorage.user_id,"DepartmentID":0,"IssueSubject":"NULL","ContactNo":localStorage.user_cont_no,"EmailId":localStorage.user_email,"ClientAddressID":a,"ClientID":localStorage.user_c_id,"CreatedBy":localStorage.user_id,"IssueDescription":"NULL"};
+            var single_obj = { "FromTime": c, "ToTime": d, "UserId": localStorage.user_id, "Rptdate":f, "CreatedBy": localStorage.user_id, "ReportTo": a};
+            var list_obj =  { "FromTime": c, "ToTime": d, "UserId": localStorage.user_id, "Rptdate":f, "CreatedBy": localStorage.user_id, "ReportTo": a,"IssueRef":b,"UDRID":"","Description":e,"SNO":1};
+//           {%22UDRID%22:7302,%22UserId%22:25,%22Rptdate%22:%222014-05-06%22,%22FromTime%22:%2208:00%20AM%22,%22Description%22:%22check%22,%22ToTime%22:%2203:00%20PM%22,%22CreatedBy%22:25,%22SNO%22:2,%22ReportTo%22:%22RAJARAM%22,%22IssueRef%22:%221235-3VIB12ISS%22>}
+//            alert(JSON.stringify(rend_list_obj));
+//            alert(JSON.stringify(single_obj));
+//            alert(JSON.stringify(list_obj));
+            this.push_obj(single_obj, list_obj, rend_list_obj);
+        }
+    },
+    del_item: function (x) {
+
+        var y = confirm("Confirm Delete?");
+        if (y) {
+            this.dar_list_obj.splice(x, 1);
+            this.dar_obj.splice(x, 1);
+            this.daily_rend_obj.splice(x, 1);
+
+            if (this.daily_rend_obj.length == 0) {
+                this.clr_sub();
+
+            } else {
+                this.render_add_list();
+            }
+        } else {
+            return false;
+        }
+
+    },
+    clr_sub: function () {
+
+        var template = $("#daily_act_add_tmp").html();
+        var page = Handlebars.compile(template);
+
+//        var context = this.cie_obj;
+
+        var data = {"d": ""};
+        data.d = this.daily_rend_obj;
+        var context = data;
+        var htmls = page(context);
+
+        $("#daily_ul").html(htmls);
+
+        $("#sub_dar").click(function () {
+            // alert("submit");
+            d_act_report.submit();
+        });
+        $("#can_dar").click(function () {
+            alert("cancel");
+            d_act_report.load();
+        });
+
+        $('#button_div').html("");
+
+
+    },
+
+    push_obj: function (single_obj, list_obj, rend_list_obj) {
+
+        this.dar_obj.push(single_obj);
+        this.dar_list_obj.push(list_obj);
+        this.daily_rend_obj.push(rend_list_obj);
+
+        this.render_add_list();
+
+    },
+    submit: function () {
+        //alert("submit");
+        //alert(JSON.stringify(this.dar_obj[0]));
+        var list = JSON.stringify(this.dar_obj[0]);
+
+        $.getJSON('http://182.73.141.106/Mobile/mockup/IssueTrackerMobile/DailyActivityReportService.svc/Create?objUser=' + list, function (data) {
+            d_act_report.submit_return(data);
+        });
+    },
+    submit_return: function (data) {
+        // alert("return");
+        var y = data.d;
+        var x = this.dar_list_obj.length;
+        for (var i = 0; i < x; i++) {
+            this.dar_list_obj[i].UDRID = y;
+        }
+        var list = JSON.stringify(this.dar_list_obj);
+        //alert(JSON.stringify(this.dar_list_obj));
+
+        $.getJSON('http://182.73.141.106/Mobile/mockup/IssueTrackerMobile/DailyActivityReportService.svc/CreateDtl?objCreateDtl=' + list, function (data) {
+            if (data.d!="") {
+                alert("Saved Successfully");
+                localStorage.page_no = 1;
+                daily_act_list.load();
+            } else {
+                alert("Failed to save entries !");
+            }
+        });
     }
 };
 
