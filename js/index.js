@@ -1135,7 +1135,6 @@ cmp_assign_list = {
         $("#container").html(x);
         $("header").html(this.header);
         this.set_events();
-
     },
     get_sub_list: function (a) {
         var x;
@@ -1321,6 +1320,16 @@ iss_clr_list = {
             var ee = e[0];
             this.array_main_list[i].StartDate = ss;
             this.array_main_list[i].EndDate = ee;
+            /*var q = this.array_main_list[i];
+            if(q.Status == 'Completed'){
+                q
+            }else if(){
+
+            }else if(){
+
+            }else{
+
+            }*/
 
         }
 
@@ -1375,6 +1384,21 @@ iss_clr_list = {
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
 //^^^^^^^^^^^^^---removes bootstrap modal backdrop not disappearing bug----^^^^^^^^^----
+
+
+/*-----------color changeing for button----------*/
+
+//        $("{{Status}}").prop("disabled", true);
+        $(".Completed .status_color").removeClass("btn-info");
+        $(".Completed .status_color").addClass("btn-success");
+
+        $(".Closed .status_color").removeClass("btn-info");
+        $(".Closed .status_color").addClass("btn-danger");
+
+        $(".Opened .status_color").removeClass("btn-info");
+        $(".Opened .status_color").addClass("btn-warning");
+/*-----------------------------------------------*/
+
         unblock();
     },
     set_contents: function (x) {
@@ -1600,13 +1624,15 @@ assign_stat_li = {
 
         var opts = '';
         if (this.z == 'Opened') {
-            opts = "<option>Opened</option><option>All</option><option>Closed</option><option>Completed</option>";
+            opts = "<option>Opened</option><option>All</option><option>Closed</option><option>Completed</option><option>UnOpened</option>";
         } else if (this.z == 'Closed') {
-            opts = "<option>Closed</option><option>All</option><option>Opened</option><option>Completed</option>";
+            opts = "<option>Closed</option><option>All</option><option>Opened</option><option>Completed</option><option>UnOpened</option>";
         } else if (this.z == 'Completed') {
-            opts = "<option>Completed</option><option>All</option><option>Opened</option><option>Closed</option>";
+            opts = "<option>Completed</option><option>All</option><option>Opened</option><option>Closed</option><option>UnOpened</option>";
+        }else if (this.z == 'UnOpened'){
+            opts = "<option>UnOpened</option><option>All</option><option>Opened</option><option>Closed</option><option>Completed</option>";
         }else{
-            opts = "<option>All</option><option>Opened</option><option>Closed</option><option>Completed</option>";
+            opts = "<option>All</option><option>Opened</option><option>Closed</option><option>Completed</option><option>UnOpened</option>";
         }
 
         $("#status_select").append(opts);
@@ -1623,6 +1649,23 @@ assign_stat_li = {
                 $("#search_box").focus();
             })
         });
+
+        /*-----------color changeing for button----------*/
+
+//        $("{{Status}}").prop("disabled", true);
+        $(".Completed .status_color").removeClass("btn-info");
+        $(".Completed .status_color").addClass("btn-success");
+
+        $(".Closed .status_color").removeClass("btn-info");
+        $(".Closed .status_color").addClass("btn-danger");
+
+        $(".Opened .status_color").removeClass("btn-info");
+        $(".Opened .status_color").addClass("btn-warning");
+
+        $(".UnOpened .status_color").removeClass("btn-info");
+        $(".UnOpened .status_color").addClass("btn-primary");
+        /*-----------------------------------------------*/
+
 
         unblock();
     },
@@ -1711,7 +1754,7 @@ cli_admin_list = {
     sub_list_array: new Array(),
     sub_obj_array: new Array(),
 
-    check_opt:'',
+    z:'',
     load: function () {
 
         this.get_data();
@@ -1721,9 +1764,9 @@ cli_admin_list = {
         block();
         var status = $("#status_select :selected").text();
 
-        this.check_opt = status;
+        this.z = status;
 
-        $.getJSON('http://182.73.141.106/Mobile/IssueTrackerMobile/ClientAdminViewService.svc/StatusMainList?PageNo=' + localStorage.page_no + '&RowsPerPage=10&SearchText=""&ClientID=' + localStorage.user_c_id + '&Status=""&roleid='+ 1 +'&UserID='+ localStorage.user_id, function (data) {
+        $.getJSON('http://182.73.141.106/Mobile/IssueTrackerMobile/ClientAdminViewService.svc/StatusMainList?PageNo=' + localStorage.page_no + '&RowsPerPage=10&SearchText=""&ClientID=' + localStorage.user_c_id + '&Status='+ status +'&roleid='+ 1 +'&UserID='+ localStorage.user_id, function (data) {
 
             if(data.d.length>0)
             {
@@ -1770,15 +1813,18 @@ cli_admin_list = {
             this.sub_list_array = [];
         });
         var opts = '';
-        if (this.check_opt == 'Opened') {
-            opts = "<option>Opened</option><option>All</option><option>Closed</option><option>Completed</option>";
-        } else if (this.check_opt == 'Closed') {
-            opts = "<option>Closed</option><option>All</option><option>Opened</option><option>Completed</option>";
-        } else if (this.check_opt == 'Completed') {
-            opts = "<option>Completed</option><option>All</option><option>Opened</option><option>Closed</option>";
+        if (this.z == 'Opened') {
+            opts = "<option>Opened</option><option>All</option><option>Closed</option><option>Completed</option><option>UnOpened</option>";
+        } else if (this.z == 'Closed') {
+            opts = "<option>Closed</option><option>All</option><option>Opened</option><option>Completed</option><option>UnOpened</option>";
+        } else if (this.z == 'Completed') {
+            opts = "<option>Completed</option><option>All</option><option>Opened</option><option>Closed</option><option>UnOpened</option>";
+        }else if (this.z == 'UnOpened') {
+            opts = "<option>UnOpened</option><option>Completed</option><option>All</option><option>Opened</option><option>Closed</option>";
         }else{
-            opts = "<option>All</option><option>Opened</option><option>Closed</option><option>Completed</option>";
+            opts = "<option>All</option><option>Opened</option><option>Closed</option><option>Completed</option><option>UnOpened</option>";
         }
+
         $("#status_select").append(opts);
 
         $("#status_select").change(function () {
@@ -1797,6 +1843,23 @@ cli_admin_list = {
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
 //^^^^^^^^^^^^^---removes bootstrap modal backdrop not disappearing bug----^^^^^^^^^----
+
+        /*-----------color changeing for button----------*/
+
+//        $("{{Status}}").prop("disabled", true);
+        $(".Completed .status_color").removeClass("btn-info");
+        $(".Completed .status_color").addClass("btn-success");
+
+        $(".Closed .status_color").removeClass("btn-info");
+        $(".Closed .status_color").addClass("btn-danger");
+
+        $(".Opened .status_color").removeClass("btn-info");
+        $(".Opened .status_color").addClass("btn-warning");
+
+        $(".UnOpened .status_color").removeClass("btn-info");
+        $(".UnOpened .status_color").addClass("btn-primary");
+        /*-----------------------------------------------*/
+
         unblock();
     },
 

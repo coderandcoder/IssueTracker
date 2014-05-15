@@ -152,14 +152,14 @@
                         <div class="col-xs-2"><span class="glyphicon glyphicon-chevron-right"></span></div>
                     </div>
                 </div>
-               <!-- <div class="drop-shadow">
-                    <div class="row li" id="mm_7">
-                        <div class="col-xs-10">
-                            <div class="li_font">Minutes of Meeting</div>
-                        </div>
-                        <div class="col-xs-2"><span class="glyphicon glyphicon-chevron-right"></span></div>
-                    </div>
-                </div>-->
+                <!-- <div class="drop-shadow">
+                     <div class="row li" id="mm_7">
+                         <div class="col-xs-10">
+                             <div class="li_font">Minutes of Meeting</div>
+                         </div>
+                         <div class="col-xs-2"><span class="glyphicon glyphicon-chevron-right"></span></div>
+                     </div>
+                 </div>-->
             </div>
         </div>
 
@@ -465,18 +465,19 @@
         <br/>
         <br/>
         <br/>
+
         <div class="list-group" id="m_ul">
             {{#each d}}
             <div class="drop-shadow main_list_items" style="padding: 0px;">
                 <table class="table table-condensed main_list" style="margin-bottom: 10px;">
-                   <!-- <tr>
-                        <td class="title_bg" style="width:20%;"><span class="pull-left">CompliantNo</span></td>
-                        <td class="text_bg"><span class="pull-left">{{CompliantNo}}</span></td>
-                    </tr>
-                    <tr>
-                        <td class="title_bg"><span class="pull-left">ClientIssueNo</span></td>
-                        <td class="text_bg"><span class="pull-left">{{ClientIssueNo}}</span></td>
-                    </tr>-->
+                    <!-- <tr>
+                         <td class="title_bg" style="width:20%;"><span class="pull-left">CompliantNo</span></td>
+                         <td class="text_bg"><span class="pull-left">{{CompliantNo}}</span></td>
+                     </tr>
+                     <tr>
+                         <td class="title_bg"><span class="pull-left">ClientIssueNo</span></td>
+                         <td class="text_bg"><span class="pull-left">{{ClientIssueNo}}</span></td>
+                     </tr>-->
                     <tr>
                         <td class="title_bg" style="width:20%;"><label class="pull-left">By</label></td>
                         <td class="text_bg"><span class="pull-left">{{CompliantRaisedBy}}</span></td>
@@ -485,18 +486,18 @@
                         <td class="title_bg"><label class="pull-left">Company</label></td>
                         <td class="text_bg"><span class="pull-left">{{CompanyName}}</span></td>
                     </tr>
-                   <!-- <tr>
-                        <td class="title_bg"><label class="pull-left">Smcstatus</label></td>
-                        <td class="text_bg"><span class="pull-left">{{Smcstatus}}</span></td>
-                    </tr>
-                    <tr>
-                        <td class="title_bg"><label class="pull-left">NoOfIssue</label></td>
-                        <td class="text_bg"><span class="pull-left">{{NoOfIssue}}</span></td>
-                    </tr>
-                    <tr>
-                        <td class="title_bg"><label class="pull-left">CreatedDate</label></td>
-                        <td class="text_bg"><span class="pull-left">{{CreatedDate}}</span></td>
-                    </tr>-->
+                    <!-- <tr>
+                         <td class="title_bg"><label class="pull-left">Smcstatus</label></td>
+                         <td class="text_bg"><span class="pull-left">{{Smcstatus}}</span></td>
+                     </tr>
+                     <tr>
+                         <td class="title_bg"><label class="pull-left">NoOfIssue</label></td>
+                         <td class="text_bg"><span class="pull-left">{{NoOfIssue}}</span></td>
+                     </tr>
+                     <tr>
+                         <td class="title_bg"><label class="pull-left">CreatedDate</label></td>
+                         <td class="text_bg"><span class="pull-left">{{CreatedDate}}</span></td>
+                     </tr>-->
                     <tr>
                         <td class="title_bg"><label class="pull-left">Module</label></td>
                         <td class="text_bg"><span class="pull-left">{{ModuleName}}</span></td>
@@ -505,9 +506,13 @@
                         <td class="title_bg"><label class="pull-left">Form</label></td>
                         <td class="text_bg"><span class="pull-left">{{FormName}}</span></td>
                     </tr>
-                    <tr><button onclick="c_approve_list.get_sub_list({{ClientIssueNo}});"
-                                class="btn btn-xs btn-info pull-right" style="width: 100%; font-weight: bold;padding-top: 2px;padding-bottom: 0px;"><label class="badge pull-left" style="margin-top: 3px;">{{CreatedDate}}</label>{{CompliantNo}}
-                    </button></tr>
+                    <tr>
+                        <button onclick="c_approve_list.get_sub_list({{ClientIssueNo}});"
+                                class="btn btn-xs btn-info pull-right"
+                                style="width: 100%; font-weight: bold;padding-top: 2px;padding-bottom: 0px;"><label
+                                class="badge pull-left" style="margin-top: 3px;">{{CreatedDate}}</label>{{CompliantNo}}
+                        </button>
+                    </tr>
                 </table>
             </div>
             {{/each}}
@@ -539,17 +544,26 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4 class="modal-title">Issues</h4>
                         <br/>
+
                         <div style="width: 100%">
-                        <div class="" style="width: 50%;position: relative;float: left;"><label  class="btn btn-sm btn-primary ">
-                        </label> Un-Approved </div>
-                        <div class="" style="width: 50%;position: relative;float: left;"><label  class="btn btn-sm btn-success ">
-                        </label> Approved </div>
+                            <div class="" style="width: 50%;position: relative;float: left;"><label
+                                    class="btn btn-sm btn-primary ">
+                            </label> Un-Approved
+                            </div>
+                            <div class="" style="width: 50%;position: relative;float: left;"><label
+                                    class="btn btn-sm btn-success ">
+                            </label> Approved
+                            </div>
                         </div>
                     </div>
                     <div id="sub_list_modal" class="modal-body"></div>
                     <div class="modal-footer">
-                        <button id="ca_approve_but" type="button" class="btn btn-sm btn-primary pull-left" data-dismiss="modal">Approve <label class="glyphicon glyphicon-ok-sign"></label> </button>
-                        <button id="ca_cancel_but" type="button" class="btn btn-sm btn-primary pull-right" data-dismiss="modal">Cancel <label class="glyphicon glyphicon-remove-sign"></label> </button>
+                        <button id="ca_approve_but" type="button" class="btn btn-sm btn-primary pull-left"
+                                data-dismiss="modal">Approve <label class="glyphicon glyphicon-ok-sign"></label>
+                        </button>
+                        <button id="ca_cancel_but" type="button" class="btn btn-sm btn-primary pull-right"
+                                data-dismiss="modal">Cancel <label class="glyphicon glyphicon-remove-sign"></label>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -569,7 +583,8 @@
                         <div class="">
                             <div class="input-group">
                                 <input id="search_box" type="text" class="form-control" placeholder="Search">
-                                <span class="input-group-btn"><button class="btn btn-default" onclick="c_approve_list.search()">
+                                <span class="input-group-btn"><button class="btn btn-default"
+                                                                      onclick="c_approve_list.search()">
                                     <span class="glyphicon glyphicon-search "></span></button></span>
                             </div>
                         </div>
@@ -593,30 +608,30 @@
 
                 <!--<label class="btn btn-default btn-xs pull-left">-->
                 <div class="row">
-                <div class="col-xs-1" style="padding-left: 0px;margin-right: 5px; margin-left: 5px;">
-                    <label  class="btn btn-sm btn-primary ">
-                        <input class="y" id="" type="checkbox" onclick="c_approve_list.check_box_click({{IssueDetailID}},{{IssueID}});">
-                        <small hidden="">{{IssueDetailID}}</small>
-                    </label>
-                </div>
-                <!--</label>-->
+                    <div class="col-xs-1" style="padding-left: 0px;margin-right: 5px; margin-left: 5px;">
+                        <label class="btn btn-sm btn-primary ">
+                            <input class="y" id="" type="checkbox"
+                                   onclick="c_approve_list.check_box_click({{IssueDetailID}},{{IssueID}});">
+                            <small hidden="">{{IssueDetailID}}</small>
+                        </label>
+                    </div>
+                    <!--</label>-->
 
-                <!-- <div class="">
-                     <label class="label label-success">{{CompltIssueNo}}</label>
-                     <span class="label label-warning">{{CreatedDate}}</span>
-                     <br/>
-                 </div>
-                 <div class="">
-                     <span class="label label-primary">{{ModuleName}}</span>
-                     <span class="label label-primary">{{FormName}}</span>
-                     <br/>
-                 </div>-->
-                <div class="col-xs-9">
-                    {{IssueDescription}}
-                </div>
-
+                    <!-- <div class="">
+                         <label class="label label-success">{{CompltIssueNo}}</label>
+                         <span class="label label-warning">{{CreatedDate}}</span>
+                         <br/>
+                     </div>
+                     <div class="">
+                         <span class="label label-primary">{{ModuleName}}</span>
+                         <span class="label label-primary">{{FormName}}</span>
+                         <br/>
+                     </div>-->
+                    <div class="col-xs-9">
+                        {{IssueDescription}}
                     </div>
 
+                </div>
 
 
             </li>
@@ -735,30 +750,82 @@
         <br/>
         <br/>
 
-        <br/>
-
         <div class="list-group" id="m_ul">
             {{#each d}}
             <div class="drop-shadow main_list_items" style="padding: 0px;">
                 <table class="table table-condensed main_list" style="margin-bottom: 10px;">
-                    <tr>
-                        <td class="title_bg" style="width:20%;"><span class="pull-left">Company</span></td>
-                        <td class="text_bg"><span class="pull-left">{{CompanyName}}</span></td>
-                    </tr>
-                    <tr>
-                        <td class="title_bg"><span class="pull-left">Module</span></td>
-                        <td class="text_bg"><span class="pull-left">{{Modulename}}</span></td>
-                    </tr>
-                    <tr>
-                        <td class="title_bg"><label class="pull-left">Form</label></td>
-                        <td class="text_bg"><span class="pull-left">{{Formname}}</span></td>
-                    </tr>
+
+
                     <tr>
                         <button onclick="cmp_assign_list.get_sub_list({{IssueID}});"
                                 class="btn btn-xs btn-info pull-right"
                                 style="width: 100%; font-weight: bold;padding-top: 2px;padding-bottom: 0px;"><label
                                 class="badge pull-left" style="margin-top: 3px;">{{CreatedDate}}</label>{{CompltIssueNo}}
                         </button>
+                    </tr>
+                    <tr>
+
+                        <div class="panel-group" id="accordion" style="margin-bottom: 0px;">
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading" data-toggle="collapse" data-parent="#accordion"
+                                     href="#{{IssueDetailID}}sub">
+                                    <h5 class="panel-title" align="center"
+                                        style="font-weight: bold; text-align: center">
+                                        Details
+                                    </h5>
+                                </div>
+                                <div id="{{IssueDetailID}}sub" class="panel-collapse collapse ">
+                                    <div class="panel-body" style="padding: 0px;">
+                                        <ul class="list-group" style="margin-bottom: 0px;">
+
+                                            <li class="list-group-item" style="padding-bottom: 25px;">
+                                                <div style="width: 100%">
+                                                    <div class="title_bg" style="width:20%;"><label style=" margin-right: 10px" class="pull-left">Company</label>
+                                                    </div>
+                                                    <div class="text_bg" style="width:80%;"><span class="pull-left">{{CompanyName}}</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item" style="padding-bottom: 25px;">
+                                                <div style="width: 100%">
+                                                    <div class="title_bg" style="width:20%;"><label style=" margin-right: 20px" class="pull-left">Module</label>
+                                                    </div>
+                                                    <div class="text_bg" style="width:80%;"><span class="pull-left">{{Modulename}}</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item" style="padding-bottom: 25px;">
+                                                <div style="width: 100%">
+                                                    <div class="title_bg" style="width:20%;"><label style=" margin-right: 30px" class="pull-left">Form</label>
+                                                    </div>
+                                                    <div class="text_bg" style="width:80%;"><span class="pull-left">{{Formname}}</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!----------------->
+
+                            <div class="panel panel-default" style="margin-top: 0px;">
+                                <div class="panel-heading" data-toggle="collapse" data-parent="#accordion"
+                                     href="#{{IssueDetailID}}">
+                                    <h5 class="panel-title" align="center"
+                                        style="font-weight: bold; text-align: center">
+                                        Description
+                                    </h5>
+                                </div>
+                                <div id="{{IssueDetailID}}" class="panel-collapse collapse ">
+                                    <div class="panel-body">
+                                        {{IssueDescription}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </tr>
                 </table>
             </div>
@@ -795,8 +862,12 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button id="ca_approve_but" type="button" class="btn btn-sm btn-primary pull-left"  onclick="cmp_assign_list.assign()">Assign <label class="glyphicon glyphicon-ok-sign"></label> </button>
-                        <button id="ca_cancel_but" type="button" class="btn btn-sm btn-primary pull-right" data-dismiss="modal">Cancel <label class="glyphicon glyphicon-remove-sign"></label> </button>
+                        <button id="ca_approve_but" type="button" class="btn btn-sm btn-primary pull-left"
+                                onclick="cmp_assign_list.assign()">Assign <label
+                                class="glyphicon glyphicon-ok-sign"></label></button>
+                        <button id="ca_cancel_but" type="button" class="btn btn-sm btn-primary pull-right"
+                                data-dismiss="modal">Cancel <label class="glyphicon glyphicon-remove-sign"></label>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -816,7 +887,8 @@
                         <div class="">
                             <div class="input-group">
                                 <input id="search_box" type="text" class="form-control" placeholder="Search">
-                                <span class="input-group-btn"><button class="btn btn-default" onclick="cmp_assign_list.search()">
+                                <span class="input-group-btn"><button class="btn btn-default"
+                                                                      onclick="cmp_assign_list.search()">
                                     <span class="glyphicon glyphicon-search "></span></button></span>
                             </div>
                         </div>
@@ -829,27 +901,10 @@
 </script>
 
 
-
-
 <!-------------------------Complaint_assignment_sublist-------------------------->
 
 <script id="sub_cmp_ass_tmp" type="x-handlebars-template">
     <div id='content'>
-        <!--<ul class="list-group">
-
-            <li class="list-group-item drop-shadow text_bg">
-                <span>Description :</span>{{IssueDescription}}
-            </li>
-            <li class="list-group-item drop-shadow text_bg">
-                <span>Created On :</span>{{CreatedDate}}
-            </li>
-            <li class="list-group-item drop-shadow text_bg">
-                <span>Owner :</span>{{UserFullName}}
-            </li>
-
-
-
-        </ul>-->
 
         <div class="drop-shadow main_list_items" style="padding: 0px;">
             <table class="table table-condensed main_list" style="margin-bottom: 10px;">
@@ -862,8 +917,8 @@
                 </tr>
                 <br/>
                 <tr>
-                    <td class="title_bg" style="width:20%;"><label class="pull-left">IssueDescription</label></td>
-                    <td class="text_bg"><span class="pull-left">{{IssueDescription}}</span></td>
+                    <!--<td class="title_bg" style="width:20%;"><label class="pull-left">IssueDescription</label></td>-->
+                    <td colspan="2" class="text_bg"><span class="pull-left">{{IssueDescription}}</span></td>
                 </tr>
                 <tr>
                     <td class="title_bg"><label class="pull-left">Created On</label></td>
@@ -879,7 +934,7 @@
                 </tr>
                 <br/>
                 <tr>
-                    <input class="form-control" type="text" id="due_date" placeholder="Due Date" />
+                    <input class="form-control" type="text" id="due_date" placeholder="Due Date"/>
                 </tr>
                 <br/>
 
@@ -891,8 +946,6 @@
 </script>
 
 
-
-
 <!-------------------------issue_clearance_list-------------------------->
 
 <script id="iss_clr_list_temp" type="x-handlebars-template">
@@ -900,18 +953,112 @@
         <br/>
         <br/>
         <select id="status_select" style="text-align: center; " class="form-control input-sm"></select>
-<br/>
+        <br/>
+        <!------------->
 
         <div class="list-group" id="m_ul">
             {{#each d}}
             <div class="drop-shadow main_list_items" style="padding: 0px;">
                 <table class="table table-condensed main_list" style="margin-bottom: 10px;">
+
+
                     <tr>
-                        <td class="title_bg" style="width:20%;"><span class="pull-left">Assignee</span></td>
+                        <button onclick="iss_clr_list.get_sub_list({{AssignedID}})"
+                                class="btn btn-xs btn-info pull-right {{Status}}"
+                                style="width: 100%; font-weight: bold;padding-top: 2px;padding-bottom: 0px;"><label
+                                class="badge pull-left" style="margin-top: 3px;">{{StartDate}}</label>{{CompltIssueNo}}
+                            <label style="margin-top: 4px;" class="btn btn-sm pull-right status_color"></label>
+                            </label>
+                        </button>
+                    </tr>
+                    <tr>
+
+                        <div class="panel-group" id="accordion" style="margin-bottom: 0px;">
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading" data-toggle="collapse" data-parent="#accordion"
+                                     href="#{{IssueDetailID}}sub">
+                                    <h5 class="panel-title" align="center"
+                                        style="font-weight: bold; text-align: center">
+                                        Details
+                                    </h5>
+                                </div>
+                                <div id="{{IssueDetailID}}sub" class="panel-collapse collapse ">
+                                    <div class="panel-body" style="padding: 0px;">
+                                        <ul class="list-group" style="margin-bottom: 0px;">
+
+                                            <li class="list-group-item" style="padding-bottom: 25px;">
+                                                <div style="width: 100%">
+                                                    <div class="title_bg" style="width:20%;"><label style=" margin-right: 10px" class="pull-left">Assignee</label>
+                                                    </div>
+                                                    <div class="text_bg" style="width:80%;"><span class="pull-left">{{AssignedBy}}</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item" style="padding-bottom: 25px;">
+                                                <div style="width: 100%">
+                                                    <div class="title_bg" style="width:20%;"><label style=" margin-right: 10px" class="pull-left">Company</label>
+                                                    </div>
+                                                    <div class="text_bg" style="width:80%;"><span class="pull-left">{{CompanyName}}</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item" style="padding-bottom: 25px;">
+                                                <div style="width: 100%">
+                                                    <div class="title_bg" style="width:20%;"><label style=" margin-right: 20px" class="pull-left">Module</label>
+                                                    </div>
+                                                    <div class="text_bg" style="width:80%;"><span class="pull-left">{{ModuleName}}</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item" style="padding-bottom: 25px;">
+                                                <div style="width: 100%">
+                                                    <div class="title_bg" style="width:20%;"><label style=" margin-right: 30px" class="pull-left">Form</label>
+                                                    </div>
+                                                    <div class="text_bg" style="width:80%;"><span class="pull-left">{{FormName}}</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!----------------->
+
+                            <div class="panel panel-default" style="margin-top: 0px;">
+                                <div class="panel-heading" data-toggle="collapse" data-parent="#accordion"
+                                     href="#{{IssueDetailID}}">
+                                    <h5 class="panel-title" align="center"
+                                        style="font-weight: bold; text-align: center">
+                                        Description
+                                    </h5>
+                                </div>
+                                <div id="{{IssueDetailID}}" class="panel-collapse collapse ">
+                                    <div class="panel-body">
+                                        {{CompliantDescription}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </tr>
+                </table>
+            </div>
+            {{/each}}
+        </div>
+
+<!-------------------------------->
+        <!--<div class="list-group" id="m_ul">
+            {{#each d}}
+            <div class="drop-shadow main_list_items" style="padding: 0px;">
+                <table class="table table-condensed main_list" style="margin-bottom: 10px;">
+                    <tr>
+                        <td class="title_bg" style="width:20%;"><label class="pull-left">Assignee</label></td>
                         <td class="text_bg"><span class="pull-left">{{AssignedBy}}</span></td>
                     </tr>
                     <tr>
-                        <td class="title_bg"><span class="pull-left">Module</span></td>
+                        <td class="title_bg"><label class="pull-left">Module</label></td>
                         <td class="text_bg"><span class="pull-left">{{ModuleName}}</span></td>
                     </tr>
                     <tr>
@@ -921,14 +1068,15 @@
                     <tr>
                         <button onclick="iss_clr_list.get_sub_list({{AssignedID}})"
                                 class="btn btn-xs btn-info pull-right"
-                                style="width: 100%; font-weight: bold;padding-top: 2px;padding-bottom: 0px;"><label class="badge pull-left" style="margin-top: 3px;">{{StartDate}}</label>{{CompltIssueNo}}
+                                style="width: 100%; font-weight: bold;padding-top: 2px;padding-bottom: 0px;"><label
+                                class="badge pull-left" style="margin-top: 3px;">{{StartDate}}</label>{{CompltIssueNo}}
 
                         </button>
                     </tr>
                 </table>
             </div>
             {{/each}}
-        </div>
+        </div>-->
         <div id="" class="row" style="margin-left: 0px;margin-right: 0px;">
             <div class="col-xs-4">
                 <button id="li_pre" class="pull-left btn btn-sm btn-primary le"><span
@@ -960,8 +1108,12 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button id="ca_approve_but" type="button" class="btn btn-sm btn-primary pull-left" data-dismiss="modal" onclick="iss_clr_list.create()">Save <label class="glyphicon glyphicon-ok-sign"></label> </button>
-                        <button id="ca_cancel_but" type="button" class="btn btn-sm btn-primary pull-right" data-dismiss="modal">Cancel <label class="glyphicon glyphicon-remove-sign"></label> </button>
+                        <button id="ca_approve_but" type="button" class="btn btn-sm btn-primary pull-left"
+                                data-dismiss="modal" onclick="iss_clr_list.create()">Save <label
+                                class="glyphicon glyphicon-ok-sign"></label></button>
+                        <button id="ca_cancel_but" type="button" class="btn btn-sm btn-primary pull-right"
+                                data-dismiss="modal">Cancel <label class="glyphicon glyphicon-remove-sign"></label>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -996,7 +1148,8 @@
                         <div class="">
                             <div class="input-group">
                                 <input id="search_box" type="text" class="form-control" placeholder="Search">
-                                <span class="input-group-btn"><button class="btn btn-default" onclick="iss_clr_list.search()">
+                                <span class="input-group-btn"><button class="btn btn-default"
+                                                                      onclick="iss_clr_list.search()">
                                     <span class="glyphicon glyphicon-search "></span></button></span>
                             </div>
                         </div>
@@ -1023,9 +1176,8 @@
                 </tr>
 
 
-
-                <div  class="row">
-                    <div  class="col-xs-4"style="padding-right:1px ">
+                <div class="row">
+                    <div class="col-xs-4" style="padding-right:1px ">
                         <label for="iss_clr_stat">Status</label>
                         <select id="iss_clr_stat" class="form-control">
                             <option>{{Status}}</option>
@@ -1034,12 +1186,12 @@
                         </select>
                     </div>
 
-                    <div  class="col-xs-4"style="padding-right: 1px ;padding-left: 1px">
+                    <div class="col-xs-4" style="padding-right: 1px ;padding-left: 1px">
                         <label class="frm_to" for="frm_time">From Time</label>
                         <input class="form-control" type="text" id="frm_time"/>
                     </div>
 
-                    <div  class="col-xs-4" style="padding-left: 1px ">
+                    <div class="col-xs-4" style="padding-left: 1px ">
                         <label class="frm_to" for="to_time">To Time</label>
                         <input class="form-control" type="text" id="to_time"/>
                     </div>
@@ -1048,14 +1200,17 @@
 
                 <br/>
                 <tr>
-                    <textarea class="form-control" rows="2" id="dail_desc" placeholder="Daily update here..."></textarea>
+                    <textarea class="form-control" rows="2" id="dail_desc"
+                              placeholder="Daily update here..."></textarea>
 
                 </tr>
 
                 <tr>
 
-                    <td class="text_bg"><span class="pull-left"><label class="pull-left">Start:</label>{{StartDate}}</span></td>
-                    <td class="text_bg"><span class="pull-left"><label class="pull-left">End:</label>{{EndDate}}</span></td>
+                    <td class="text_bg"><span class="pull-left"><label
+                            class="pull-left">Start:</label>{{StartDate}}</span></td>
+                    <td class="text_bg"><span class="pull-left"><label class="pull-left">End:</label>{{EndDate}}</span>
+                    </td>
                 </tr>
 
                 <tr>
@@ -1130,28 +1285,77 @@
                 <table class="table table-condensed main_list" style="margin-bottom: 10px;">
                     <tr>
                         <button onclick="assign_stat_li.sub_get({{AssignID}});"
-                                class="btn btn-xs btn-info pull-right"
+                                class="btn btn-xs btn-info pull-right {{Status}}"
                                 style="width: 100%; font-weight: bold;padding-top: 2px;padding-bottom: 0px;"><label
                                 class="badge pull-left" style="margin-top: 3px;">{{CreatedDate}}</label>{{CompltIssueNo}}
+                            <label style="margin-top: 4px;" class="btn btn-sm pull-right status_color"></label>
                         </button>
                     </tr>
-                    <br/>
-                    <!--<tr>
-                        <td class="title_bg" style="width:20%;"><label class="pull-left">IssueDescription</label></td>
-                        <td class="text_bg"><span class="pull-left">{{IssueDescription}}</span></td>
-                    </tr>-->
                     <tr>
-                        <td class="title_bg" style="width:20%;"><label class="pull-left">Assignee</label></td>
-                        <td class="text_bg"><span class="pull-left">{{Assignee}}</span></td>
+
+                        <div class="panel-group" id="accordion" style="margin-bottom: 0px;">
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading" data-toggle="collapse" data-parent="#accordion"
+                                     href="#{{IssueDetailID}}sub">
+                                    <h5 class="panel-title" align="center"
+                                        style="font-weight: bold; text-align: center">
+                                        Details
+                                    </h5>
+                                </div>
+                                <div id="{{IssueDetailID}}sub" class="panel-collapse collapse ">
+                                    <div class="panel-body" style="padding: 0px;">
+                                        <ul class="list-group" style="margin-bottom: 0px;">
+
+                                            <li class="list-group-item" style="padding-bottom: 25px;">
+                                                <div style="width: 100%">
+                                                    <div class="title_bg" style="width:20%;"><label style=" margin-right: 10px" class="pull-left">Assignee</label>
+                                                    </div>
+                                                    <div class="text_bg" style="width:80%;"><span class="pull-left">{{Assignee}}</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item" style="padding-bottom: 25px;">
+                                                <div style="width: 100%">
+                                                    <div class="title_bg" style="width:20%;"><label style=" margin-right: 20px" class="pull-left">Module</label>
+                                                    </div>
+                                                    <div class="text_bg" style="width:80%;"><span class="pull-left">{{Modulename}}</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item" style="padding-bottom: 25px;">
+                                                <div style="width: 100%">
+                                                    <div class="title_bg" style="width:20%;"><label style=" margin-right: 35px" class="pull-left">Form</label>
+                                                    </div>
+                                                    <div class="text_bg" style="width:80%;"><span class="pull-left">{{Formname}}</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!----------------->
+
+                            <div class="panel panel-default" style="margin-top: 0px;">
+                                <div class="panel-heading" data-toggle="collapse" data-parent="#accordion"
+                                     href="#{{IssueDetailID}}">
+                                    <h5 class="panel-title" align="center"
+                                        style="font-weight: bold; text-align: center">
+                                        Description
+                                    </h5>
+                                </div>
+                                <div id="{{IssueDetailID}}" class="panel-collapse collapse ">
+                                    <div class="panel-body">
+                                        {{IssueDescription}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </tr>
-                    <tr>
-                        <td class="title_bg"><label class="pull-left">Module</label></td>
-                        <td class="text_bg"><span class="pull-left">{{Modulename}}</span></td>
-                    </tr>
-                    <tr>
-                        <td class="title_bg"><label class="pull-left">Form</label></td>
-                        <td class="text_bg"><span class="pull-left">{{Formname}}</span></td>
-                    </tr>
+
 
                 </table>
             </div>
@@ -1186,7 +1390,8 @@
                     </div>
                     <div id="sub_list_modal" class="modal-body"></div>
                     <div class="modal-footer">
-                        <button  type="button" class="btn btn-sm btn-primary pull-right" data-dismiss="modal">Close <label class="glyphicon glyphicon-remove-sign"></label> </button>
+                        <button type="button" class="btn btn-sm btn-primary pull-right" data-dismiss="modal">Close
+                            <label class="glyphicon glyphicon-remove-sign"></label></button>
                     </div>
                 </div>
             </div>
@@ -1206,7 +1411,8 @@
                         <div class="">
                             <div class="input-group">
                                 <input id="search_box" type="text" class="form-control" placeholder="Search">
-                                <span class="input-group-btn"><button class="btn btn-default" onclick="assign_stat_li.search()">
+                                <span class="input-group-btn"><button class="btn btn-default"
+                                                                      onclick="assign_stat_li.search()">
                                     <span class="glyphicon glyphicon-search "></span></button></span>
                             </div>
                         </div>
@@ -1228,7 +1434,8 @@
                 <tr>
                     <button
                             class="btn btn-xs btn-info pull-right"
-                            style="width: 100%; font-weight: bold;padding-top: 2px;padding-bottom: 0px;">{{CompltIssueNo}}
+                            style="width: 100%; font-weight: bold;padding-top: 2px;padding-bottom: 0px;">
+                        {{CompltIssueNo}}
                     </button>
                 </tr>
                 <tr>
@@ -1278,25 +1485,85 @@
                 <table class="table table-condensed main_list" style="margin-bottom: 10px;">
 
                     <tr>
-                        <td class="title_bg" style="width:20%;"><label class="pull-left">By</label></td>
-                        <td class="text_bg"><span class="pull-left">{{IssueRaisedBy}}</span></td>
+                        <button onclick="cli_admin_list.get_sub_list({{CompliantNo}});"
+                                class="btn btn-xs btn-info pull-right {{Status}}"
+                                style="width: 100%; font-weight: bold;padding-top: 2px;padding-bottom: 0px;"><label
+                                class="badge pull-left" style="margin-top: 3px;">{{CreatedDate}}</label>{{ComplaintIssueNo}}
+                            <label style="margin-top: 4px;" class="btn btn-sm pull-right status_color"></label>
+                        </button>
                     </tr>
                     <tr>
-                        <td class="title_bg"><label class="pull-left">Client</label></td>
-                        <td class="text_bg"><span class="pull-left">{{ClientName}}</span></td>
-                    </tr>
 
-                    <tr>
-                        <td class="title_bg"><label class="pull-left">Module</label></td>
-                        <td class="text_bg"><span class="pull-left">{{ModuleName}}</span></td>
+                        <div class="panel-group" id="accordion" style="margin-bottom: 0px;">
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading" data-toggle="collapse" data-parent="#accordion"
+                                     href="#{{CompliantDetailId}}sub">
+                                    <h5 class="panel-title" align="center"
+                                        style="font-weight: bold; text-align: center">
+                                        Details
+                                    </h5>
+                                </div>
+                                <div id="{{CompliantDetailId}}sub" class="panel-collapse collapse ">
+                                    <div class="panel-body" style="padding: 0px;">
+                                        <ul class="list-group" style="margin-bottom: 0px;">
+
+                                            <li class="list-group-item" style="padding-bottom: 25px;">
+                                                <div style="width: 100%">
+                                                    <div class="title_bg" style="width:20%;"><label style=" margin-right: 10px" class="pull-left">RaisedBy</label>
+                                                    </div>
+                                                    <div class="text_bg" style="width:80%;"><span class="pull-left">{{IssueRaisedBy}}</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item" style="padding-bottom: 25px;">
+                                                <div style="width: 100%">
+                                                    <div class="title_bg" style="width:20%;"><label style=" margin-right: 32px" class="pull-left">Client</label>
+                                                    </div>
+                                                    <div class="text_bg" style="width:80%;"><span class="pull-left">{{ClientName}}</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item" style="padding-bottom: 25px;">
+                                                <div style="width: 100%">
+                                                    <div class="title_bg" style="width:20%;"><label style=" margin-right: 20px" class="pull-left">Module</label>
+                                                    </div>
+                                                    <div class="text_bg" style="width:80%;"><span class="pull-left">{{ModuleName}}</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item" style="padding-bottom: 25px;">
+                                                <div style="width: 100%">
+                                                    <div class="title_bg" style="width:20%;"><label style=" margin-right: 35px" class="pull-left">Form</label>
+                                                    </div>
+                                                    <div class="text_bg" style="width:80%;"><span class="pull-left">{{FormName}}</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!----------------->
+
+                            <div class="panel panel-default" style="margin-top: 0px;">
+                                <div class="panel-heading" data-toggle="collapse" data-parent="#accordion"
+                                     href="#{{CompliantDetailId}}">
+                                    <h5 class="panel-title" align="center"
+                                        style="font-weight: bold; text-align: center">
+                                        Description
+                                    </h5>
+                                </div>
+                                <div id="{{CompliantDetailId}}" class="panel-collapse collapse ">
+                                    <div class="panel-body">
+                                        {{IssueDescription}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </tr>
-                    <tr>
-                        <td class="title_bg"><label class="pull-left">Form</label></td>
-                        <td class="text_bg"><span class="pull-left">{{FormName}}</span></td>
-                    </tr>
-                    <tr><button onclick="cli_admin_list.get_sub_list({{CompliantNo}});"
-                                class="btn btn-xs btn-info pull-right" style="width: 100%; font-weight: bold;padding-top: 2px;padding-bottom: 0px;"><label class="badge pull-left" style="margin-top: 3px;">{{CreatedDate}}</label>{{ComplaintIssueNo}}
-                    </button></tr>
                 </table>
             </div>
             {{/each}}
@@ -1333,8 +1600,12 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button id="complete_btn" type="button" class="btn btn-sm btn-primary pull-left" data-dismiss="modal">Complete <label class="glyphicon glyphicon-ok-sign"></label> </button>
-                        <button id="cancel_but" type="button" class="btn btn-sm btn-primary pull-right" data-dismiss="modal">Cancel <label class="glyphicon glyphicon-remove-sign"></label> </button>
+                        <button id="complete_btn" type="button" class="btn btn-sm btn-primary pull-left"
+                                data-dismiss="modal">Complete <label class="glyphicon glyphicon-ok-sign"></label>
+                        </button>
+                        <button id="cancel_but" type="button" class="btn btn-sm btn-primary pull-right"
+                                data-dismiss="modal">Cancel <label class="glyphicon glyphicon-remove-sign"></label>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -1353,7 +1624,8 @@
                         <div class="">
                             <div class="input-group">
                                 <input id="search_box" type="text" class="form-control" placeholder="Search">
-                                <span class="input-group-btn"><button class="btn btn-default" onclick="cli_admin_list.search();">
+                                <span class="input-group-btn"><button class="btn btn-default"
+                                                                      onclick="cli_admin_list.search();">
                                     <span class="glyphicon glyphicon-search "></span></button></span>
                             </div>
                         </div>
@@ -1382,8 +1654,10 @@
 
                 <tr>
 
-                    <td class="text_bg"><span class="pull-left"><label class="pull-left">Due:</label>{{DueDate}}</span></td>
-                    <td class="text_bg"><span class="pull-left"><label class="pull-left">Closed:</label>{{ClosedDate}}</span></td>
+                    <td class="text_bg"><span class="pull-left"><label class="pull-left">Due:</label>{{DueDate}}</span>
+                    </td>
+                    <td class="text_bg"><span class="pull-left"><label
+                            class="pull-left">Closed:</label>{{ClosedDate}}</span></td>
                 </tr>
 
                 <tr>
@@ -1435,9 +1709,13 @@
                         <td class="text_bg"><span class="pull-left">{{ToTime}}</span></td>
                     </tr>
 
-                    <tr><button onclick="daily_act_list.get_sub_list({{UDRID}});"
-                                class="btn btn-xs btn-info pull-right" style="width: 100%; font-weight: bold;padding-top: 2px;padding-bottom: 0px;"><label class="badge pull-left" style="margin-top: 3px;">{{ReportDate}}</label>{{UserName}}
-                    </button></tr>
+                    <tr>
+                        <button onclick="daily_act_list.get_sub_list({{UDRID}});"
+                                class="btn btn-xs btn-info pull-right"
+                                style="width: 100%; font-weight: bold;padding-top: 2px;padding-bottom: 0px;"><label
+                                class="badge pull-left" style="margin-top: 3px;">{{ReportDate}}</label>{{UserName}}
+                        </button>
+                    </tr>
                 </table>
             </div>
             {{/each}}
@@ -1488,7 +1766,8 @@
                         <div class="">
                             <div class="input-group">
                                 <input id="search_box" type="text" class="form-control" placeholder="Search">
-                                <span class="input-group-btn"><button class="btn btn-default" onclick="daily_act_list.search();">
+                                <span class="input-group-btn"><button class="btn btn-default"
+                                                                      onclick="daily_act_list.search();">
                                     <span class="glyphicon glyphicon-search "></span></button></span>
                             </div>
                         </div>
@@ -1620,9 +1899,6 @@
                     </div>
                 </div>
             </div>
-
-
-
 
 
             <div id="daily_ul" class="row master_ul">
